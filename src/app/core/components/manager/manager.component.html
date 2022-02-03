@@ -1,0 +1,40 @@
+<div class="bento-uni-filter">
+  <div class="row">
+    <div class="col" *ngFor="let item of items">
+      <div class="bento-uni-filter_item">
+        <div class="form-group">
+          <div class="bento-uni-filter_item-header">
+            <label for="{{ item.id }}">{{ item.label }}</label>
+          </div>
+          <div>
+            <bento-combobox
+              [id]="item.id"
+              [(ngModel)]="item.selectedRow"
+              [itemsObservable]="item.data"
+              [options]="comboboxOptions"
+              [rowTemplate]="myTemplate"
+            ></bento-combobox>
+
+            <div *ngIf="item.selectedRow" class="card-footer demo-controls">
+              <h3>Output</h3>
+              <code>id: {{ item.selectedRow.id }}</code
+              ><br />
+              <code>label: {{ item.selectedRow.label }}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template
+  #myTemplate
+  let-$data="data"
+  let-$options="options"
+  let-$index="index"
+>
+  <div>
+    <div class="safe-id">{{ $data.row.id }} - {{ $data.row.label }}</div>
+  </div>
+</ng-template>
