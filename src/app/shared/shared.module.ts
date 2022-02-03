@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BentoModule } from '@bento/bento-ng';
 import { BentoD3Module } from '@bento/bento-ng-d3';
@@ -15,6 +16,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [],
   imports: [
     CommonModule,
+
+    HttpClientModule,
     BentoModule,
     NgbModule,
     BentoD3Module,

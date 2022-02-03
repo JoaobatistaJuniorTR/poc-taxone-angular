@@ -1,0 +1,15 @@
+<bento-toolbar #globalSubnav aria-label="Menu" class="global-subnav">
+  <ul class="nav navbar-right">
+    <li *ngFor="let rightBarItem of rightBarItems">
+      <a
+        class="navbar-right"
+        title="{{ rightBarItem.title }}"
+        ngbTooltip="{{ rightBarItem.title }}"
+        placement="left"
+        (click)="rightBarItem.callback()"
+      >
+        <i class="{{ rightBarItem.icon }}" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</bento-toolbar>
