@@ -25,6 +25,12 @@
       "rules": {
         "import/prefer-default-export": "off",
         "no-param-reassign": [2, {"props": false}],
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
+        ],
         "@angular-eslint/component-selector": [
           "error",
           {
@@ -62,7 +68,7 @@
       "extends": ["plugin:prettier/recommended"],
       "rules": {
         "prettier/prettier": [
-          "error", { "parser": "angular" }
+          "error", { "parser": "angular", "endOfLine": "auto"}
         ]
       }
     }
