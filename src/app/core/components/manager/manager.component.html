@@ -1,27 +1,75 @@
-<div class="bento-uni-filter">
+<div class="bento-uni-filter" *ngIf="hasModuleSelected === false">
   <div class="container-fluid">
     <div class="row">
-      <div class="col" *ngFor="let item of items">
+      <div class="col">
         <div class="bento-uni-filter_item">
           <div class="form-group">
             <div class="bento-uni-filter_item-header">
-              <label for="{{ item.id }}">{{ item.label }}</label>
+              <label for="combobox-company">Empresa</label>
             </div>
             <div>
               <bento-combobox
-                [id]="item.id"
-                [(ngModel)]="item.selectedRow"
-                [itemsObservable]="item.data"
+                id="combobox-company"
+                [(ngModel)]="model.company"
+                [itemsObservable]="companyData"
                 [options]="comboboxOptions"
-                [rowTemplate]="myTemplate"
+                [rowTemplate]="managerComboTemplate"
               ></bento-combobox>
-
-              <div *ngIf="item.selectedRow" class="card-footer demo-controls">
-                <h3>Output</h3>
-                <code>id: {{ item.selectedRow.id }}</code
-                ><br />
-                <code>label: {{ item.selectedRow.label }}</code>
-              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="bento-uni-filter_item">
+          <div class="form-group">
+            <div class="bento-uni-filter_item-header">
+              <label for="combobox-branch">Estabelecimento</label>
+            </div>
+            <div>
+              <bento-combobox
+                id="combobox-branch"
+                [(ngModel)]="model.branch"
+                [itemsObservable]="branchData"
+                [options]="comboboxOptions"
+                [rowTemplate]="managerComboTemplate"
+              ></bento-combobox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="bento-uni-filter_item">
+          <div class="form-group">
+            <div class="bento-uni-filter_item-header">
+              <label for="combobox-group">Grupo</label>
+            </div>
+            <div>
+              <bento-combobox
+                id="combobox-group"
+                [(ngModel)]="model.group"
+                [itemsObservable]="groupData"
+                [options]="comboboxOptions"
+                [rowTemplate]="managerComboTemplate"
+              ></bento-combobox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="bento-uni-filter_item">
+          <div class="form-group">
+            <div class="bento-uni-filter_item-header">
+              <label for="combobox-module">Módulo</label>
+            </div>
+            <div>
+              <bento-combobox
+                id="combobox-module"
+                [(ngModel)]="model.module"
+                [itemsObservable]="moduleData"
+                [options]="comboboxOptions"
+                [rowTemplate]="managerComboTemplate"
+                (ngModelChange)="openModule()"
+              ></bento-combobox>
             </div>
           </div>
         </div>
@@ -29,14 +77,19 @@
     </div>
   </div>
 </div>
-
 <ng-template
-  #myTemplate
+  #managerComboTemplate
   let-$data="data"
   let-$options="options"
   let-$index="index"
 >
-  <div>
-    <div class="safe-id">{{ $data.row.id }} - {{ $data.row.label }}</div>
-  </div>
+  <span>{{ $data.row.id }} - {{ $data.row.description }}</span>
 </ng-template>
+
+<bento-contextual-header
+  [items]="managerBarInfo"
+  [backButtonHidden]="true"
+  [customButton]="this.closeModule()"
+  *ngIf="hasModuleSelected"
+>
+</bento-contextual-header>
