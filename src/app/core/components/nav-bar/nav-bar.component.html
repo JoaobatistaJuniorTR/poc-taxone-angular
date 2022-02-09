@@ -1,4 +1,9 @@
-<bento-toolbar #globalSubnav aria-label="Menu" class="global-subnav">
+<bento-toolbar
+  #subnav
+  aria-label="Menu"
+  [items]="menuItems"
+  class="global-subnav"
+>
   <ul class="nav navbar-right">
     <li *ngFor="let rightBarItem of rightBarItems">
       <a
@@ -13,3 +18,4 @@
     </li>
   </ul>
 </bento-toolbar>
+<bento-zone-watcher></bento-zone-watcher>

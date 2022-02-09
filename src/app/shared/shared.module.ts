@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BentoModule } from '@bento/bento-ng';
+import { BentoModule, BentoNgZoneWatcherModule } from '@bento/bento-ng';
 import { BentoD3Module } from '@bento/bento-ng-d3';
 import { BentoD3DataMapModule } from '@bento/bento-ng-datamap';
 import { BentoFlexGridControlModule } from '@bento/bento-ng-flexgrid-control';
@@ -28,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     WjInputModule,
     WjGridFilterModule,
     WjGridGrouppanelModule,
+    BentoNgZoneWatcherModule,
   ],
   exports: [
     BentoModule,
@@ -40,6 +41,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     WjInputModule,
     WjGridFilterModule,
     WjGridGrouppanelModule,
+    BentoNgZoneWatcherModule,
   ],
 })
 export class SharedModule {}

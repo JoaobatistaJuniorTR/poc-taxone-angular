@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BentoToolbarItem } from '@bento/bento-ng';
+import { Subscription } from 'rxjs';
 import { INavRightBar } from './nav-bar.interface';
+import { NavBarService } from './nav-bar.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.sass'],
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
   rightBarItems: INavRightBar[];
 
-  constructor() {
+  menuItems: BentoToolbarItem[];
+
+  subscription: Subscription | undefined;
+
+  constructor(private service: NavBarService) {
+    this.menuItems = [];
     this.rightBarItems = [];
   }
 
   ngOnInit(): void {
     this.rightBarItems = this.initializeNavRight();
+
+    this.subscription = this.service.menuItems.subscribe(
+      // eslint-disable-next-line no-return-assign
+      (items) => (this.menuItems = items)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   initializeNavRight = (): INavRightBar[] => {

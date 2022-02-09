@@ -6,6 +6,7 @@ import {
   BentoContextualHeaderItem,
 } from '@bento/bento-ng';
 import { BehaviorSubject } from 'rxjs';
+import { NavBarService } from '../nav-bar/nav-bar.service';
 import { ManagerService } from './manager.service';
 
 @Component({
@@ -49,7 +50,11 @@ export class ManagerComponent {
     labelFormatter: (row) => `${row.id} - ${row.description}`,
   };
 
-  constructor(private service: ManagerService, private router: Router) {
+  constructor(
+    private service: ManagerService,
+    private router: Router,
+    private navBarService: NavBarService
+  ) {
     this.companyData = new BehaviorSubject(this.service.generateData(12));
     this.branchData = new BehaviorSubject(this.service.generateData(12));
     this.groupData = new BehaviorSubject(this.service.generateData(12));
@@ -80,6 +85,7 @@ export class ManagerComponent {
         };
         this.hasModuleSelected = false;
         this.router.navigateByUrl('');
+        this.navBarService.changeMenuItems([]);
       }
     );
   };
