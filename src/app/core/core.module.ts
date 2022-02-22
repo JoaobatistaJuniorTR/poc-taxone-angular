@@ -9,7 +9,12 @@ import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [NavBarComponent, ManagerComponent, HomeComponent, PageNotFoundComponent],
+  declarations: [
+    NavBarComponent,
+    ManagerComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+  ],
   imports: [CommonModule, CoreRoutingModule, FormsModule, SharedModule],
   exports: [NavBarComponent, ManagerComponent],
 })

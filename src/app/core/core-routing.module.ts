@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 't1dw',
     loadChildren: () =>
-      import('../features/features.module').then((m) => m.FeaturesModule),
+      import('../features/t1dw/t1dw.module').then((m) => m.T1dwModule),
   },
   {
     path: '**',

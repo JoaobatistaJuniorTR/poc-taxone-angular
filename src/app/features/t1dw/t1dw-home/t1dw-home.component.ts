@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BentoToolbarItem } from '@bento/bento-ng';
 import { Subscription } from 'rxjs';
 import { NavBarService } from 'src/app/core/components/nav-bar/nav-bar.service';
@@ -13,7 +14,7 @@ export class T1dwHomeComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private navBarService: NavBarService) {
+  constructor(private navBarService: NavBarService, private router: Router) {
     this.menuItems = [];
     this.subscription = this.navBarService.menuItems.subscribe(
       // eslint-disable-next-line no-return-assign
@@ -37,13 +38,13 @@ export class T1dwHomeComponent implements OnInit, OnDestroy {
         type: 'takeover',
         megamenu: [
           {
-            label: 'Category 1',
+            label: 'Examples',
             disabled: false,
             menu: [
               {
-                label: 'Application 1',
+                label: 'Grid',
                 action: () => {
-                  console.info('Application 1');
+                  this.router.navigateByUrl('t1dw/example-grid');
                 },
               },
               {

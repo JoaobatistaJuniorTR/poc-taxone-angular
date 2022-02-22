@@ -1,0 +1,50 @@
+<div bento-off-canvas-menu-content>
+  <!-- FLEXGRID GROUP PANEL -->
+  <wj-group-panel
+    [grid]="flexGrid"
+    [hideGroupedColumns]="false"
+    [placeholder]="'Drag columns here to create groups'"
+  ></wj-group-panel>
+
+  <wj-flex-grid
+    #flexGrid
+    class="bento-flex-grid has-row-hover"
+    [itemsSource]="data"
+    (initialized)="gridInitialized()"
+  >
+    <wj-flex-grid-filter #filter></wj-flex-grid-filter>
+    <ng-template wjFlexGridCellTemplate [cellType]="'TopLeft'" let-col="col">
+      <div *ngIf="col.index === 1">
+        <bento-checkbox></bento-checkbox>
+      </div>
+    </ng-template>
+    <ng-template
+      wjFlexGridCellTemplate
+      [cellType]="'RowHeader'"
+      let-col="col"
+      let-row="row"
+      let-item="item"
+    >
+      <div *ngIf="col.index === 0">{{ row.index + 1 }}</div>
+      <div *ngIf="col.index === 1">
+        <bento-checkbox
+          [ngModel]="item.selected"
+          (change)="
+            item.disabled || (item.selected = !item.selected);
+            onCheckBoxChange()
+          "
+        ></bento-checkbox>
+      </div>
+    </ng-template>
+  </wj-flex-grid>
+  <!-- BENTO PAGINATION -->
+  <bento-pagination
+    [page]="data.pageIndex + 1"
+    [directionLinks]="true"
+    [boundaryLinks]="true"
+    [totalItems]="data.totalItemCount"
+    [(itemsPerPage)]="data.pageSize"
+    (itemsPerPageChange)="onPageSizeChanged($event)"
+    (pageChange)="onPageChanged($event)"
+  ></bento-pagination>
+</div>
