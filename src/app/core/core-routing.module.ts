@@ -7,8 +7,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 't1dw',
-    loadChildren: () =>
-      import('../features/t1dw/t1dw.module').then((m) => m.T1dwModule),
+    loadChildren: () => import('../features/t1dw/t1dw.module').then((m) => m.T1dwModule),
   },
   {
     path: '**',

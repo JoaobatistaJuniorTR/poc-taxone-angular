@@ -1,58 +1,58 @@
 import { Injectable } from '@angular/core';
-import { BentoContextualHeaderItem } from '@bento/bento-ng';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpProxyService } from '../../services/http-proxy.service';
+import { LonestarService } from '../../services/lonestar.service';
+import { ManagerMapper } from './manager.mapper';
+import { ManagerModel } from './manager.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ManagerService {
-  managerBarInfo: BentoContextualHeaderItem[] = [];
+  constructor(private proxy: HttpProxyService, private lonestar: LonestarService) {}
 
-  generateData = (size: number = 5): any[] => {
-    const a = [];
-    const product = [
-      { id: '01', description: 'Antitrust' },
-      { id: '02', description: 'Bankruptcy and restructuring' },
-      { id: '03', description: 'Capital markets and corporate governance' },
-      { id: '04', description: 'Commercial transactions' },
-      { id: '05', description: 'Corporate and M&A' },
-      { id: '06', description: 'Employee benefits and executive compensation' },
-      { id: '07', description: 'Finance' },
-      { id: '08', description: 'Intellectual property and technology' },
-      { id: '09', description: 'Labor and employment' },
-      { id: '10', description: 'Litigation' },
-      { id: '11', description: 'Real estate' },
-      { id: '12', description: 'Trusts and estates' },
-    ];
-    for (let i = 0; i < size; i += 1) {
-      a.push(product[i]);
-    }
-    return a;
-  };
+  companies(page: number = 0, search?: string): Observable<ManagerModel[]> {
+    return this.proxy
+      .post('/configuration/empresas', {
+        client: this.lonestar.userClient(),
+        page,
+        search: `"${search}"`,
+        storageId: '',
+      })
+      .pipe(map((companies) => ManagerMapper.fromCompanies(companies)));
+  }
 
-  setManagerBarInfo = (model: any): BentoContextualHeaderItem[] => {
-    this.managerBarInfo = [];
-    const { company, branch, group, module } = model;
-    const companyInfo = new BentoContextualHeaderItem(
-      company.description,
-      company.id,
-      'bento-icon-building'
-    );
-    const branchInfo = new BentoContextualHeaderItem(
-      branch.description,
-      branch.id,
-      'bento-icon-buildings'
-    );
-    const groupInfo = new BentoContextualHeaderItem(
-      group.description,
-      group.id,
-      'bento-icon-group'
-    );
-    const moduleInfo = new BentoContextualHeaderItem(
-      module.description,
-      module.id,
-      'bento-icon-home'
-    );
-    this.managerBarInfo.push(companyInfo, branchInfo, groupInfo, moduleInfo);
-    return this.managerBarInfo;
-  };
+  branches(companyId: string, page: number, search: string): Observable<ManagerModel[]> {
+    return this.proxy
+      .post('/configuration/estabelecimentos', {
+        client: this.lonestar.userClient(),
+        empresa: companyId,
+        page,
+        search: `"${search}"`,
+        storageId: '',
+      })
+      .pipe(map((branches) => ManagerMapper.fromBranches(branches)));
+  }
+
+  groups(companyId: string): Observable<ManagerModel[]> {
+    return this.proxy
+      .post('/configuration/groups', {
+        client: this.lonestar.userClient(),
+        company: companyId,
+        storageId: '',
+      })
+      .pipe(map((groups) => ManagerMapper.fromGroups(groups)));
+  }
+
+  modules(companyId: string, groupId: string): Observable<ManagerModel[]> {
+    return this.proxy
+      .post('/configuration/applicationEntries', {
+        client: this.lonestar.userClient(),
+        company: companyId,
+        group: groupId,
+        storageId: '',
+      })
+      .pipe(map((modules) => ManagerMapper.fromModules(modules)));
+  }
 }

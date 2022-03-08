@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BentoModule, BentoNgZoneWatcherModule } from '@bento/bento-ng';
 import { BentoD3Module } from '@bento/bento-ng-d3';
 import { BentoD3DataMapModule } from '@bento/bento-ng-datamap';
@@ -11,11 +12,13 @@ import { WjGridFilterModule } from '@grapecity/wijmo.angular2.grid.filter';
 import { WjGridGrouppanelModule } from '@grapecity/wijmo.angular2.grid.grouppanel';
 import { WjInputModule } from '@grapecity/wijmo.angular2.input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ComboboxComponent } from './components/combobox/combobox.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [ComboboxComponent],
   imports: [
     CommonModule,
+    FormsModule,
 
     HttpClientModule,
     BentoModule,
@@ -31,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BentoNgZoneWatcherModule,
   ],
   exports: [
+    ComboboxComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,

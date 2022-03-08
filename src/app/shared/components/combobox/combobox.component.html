@@ -1,0 +1,33 @@
+<bento-combobox
+  *ngIf="searchServerSide"
+  [id]="id"
+  [itemsObservable]="items"
+  [options]="comboboxOptionServerSide"
+  [rowTemplate]="comboIdDescription"
+  [disabled]="disabled"
+  [(ngModel)]="model"
+  (ngModelChange)="change($event)"
+  (endOfScroll)="onEndOfScroll($event)"
+  (search)="searchData($event)"
+  (resetItems)="resetData()"
+></bento-combobox>
+
+<bento-combobox
+  *ngIf="searchServerSide === false"
+  [id]="id"
+  [itemsObservable]="items"
+  [options]="comboboxOption"
+  [rowTemplate]="comboIdDescription"
+  [disabled]="disabled"
+  [(ngModel)]="model"
+  (ngModelChange)="change($event)"
+></bento-combobox>
+
+<ng-template
+  #comboIdDescription
+  let-$data="data"
+  let-$options="options"
+  let-$index="index"
+>
+  <span>{{ $data.row.description }}</span>
+</ng-template>

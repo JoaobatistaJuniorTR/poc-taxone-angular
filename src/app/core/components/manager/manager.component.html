@@ -1,4 +1,4 @@
-<div class="bento-uni-filter" *ngIf="hasModuleSelected === false">
+<div class="bento-uni-filter" *ngIf="showManageBarInfoComponent === false">
   <div class="container-fluid">
     <div class="row">
       <div class="col">
@@ -8,13 +8,12 @@
               <label for="combobox-company">Empresa</label>
             </div>
             <div>
-              <bento-combobox
-                id="combobox-company"
-                [(ngModel)]="model.company"
-                [itemsObservable]="companyData"
-                [options]="comboboxOptions"
-                [rowTemplate]="managerComboTemplate"
-              ></bento-combobox>
+              <app-combobox
+                [id]="'combobox-company'"
+                [items]="companyData$"
+                (modelChange)="selectCompany($event)"
+              >
+              </app-combobox>
             </div>
           </div>
         </div>
@@ -26,13 +25,16 @@
               <label for="combobox-branch">Estabelecimento</label>
             </div>
             <div>
-              <bento-combobox
-                id="combobox-branch"
-                [(ngModel)]="model.branch"
-                [itemsObservable]="branchData"
-                [options]="comboboxOptions"
-                [rowTemplate]="managerComboTemplate"
-              ></bento-combobox>
+              <app-combobox
+                [id]="'combobox-branch'"
+                [items]="branchData$"
+                [searchServerSide]="true"
+                (changeScroll)="infiniteScrollBranch($event)"
+                (searchValue)="searchBranch($event)"
+                (resetValues)="resetItemsBranch()"
+                (modelChange)="selectBranch($event)"
+              >
+              </app-combobox>
             </div>
           </div>
         </div>
@@ -44,13 +46,13 @@
               <label for="combobox-group">Grupo</label>
             </div>
             <div>
-              <bento-combobox
-                id="combobox-group"
-                [(ngModel)]="model.group"
-                [itemsObservable]="groupData"
-                [options]="comboboxOptions"
-                [rowTemplate]="managerComboTemplate"
-              ></bento-combobox>
+              <app-combobox
+                [id]="'combobox-group'"
+                [items]="groupData$"
+                [(model)]="model.group"
+                (modelChange)="selectGroup($event)"
+              >
+              </app-combobox>
             </div>
           </div>
         </div>
@@ -62,14 +64,13 @@
               <label for="combobox-module">Módulo</label>
             </div>
             <div>
-              <bento-combobox
-                id="combobox-module"
-                [(ngModel)]="model.module"
-                [itemsObservable]="moduleData"
-                [options]="comboboxOptions"
-                [rowTemplate]="managerComboTemplate"
-                (ngModelChange)="openModule()"
-              ></bento-combobox>
+              <app-combobox
+                [id]="'combobox-module'"
+                [items]="moduleData$"
+                [(model)]="model.module"
+                (modelChange)="selectModule($event)"
+              >
+              </app-combobox>
             </div>
           </div>
         </div>
@@ -77,19 +78,9 @@
     </div>
   </div>
 </div>
-<ng-template
-  #managerComboTemplate
-  let-$data="data"
-  let-$options="options"
-  let-$index="index"
->
-  <span>{{ $data.row.id }} - {{ $data.row.description }}</span>
-</ng-template>
 
-<bento-contextual-header
-  [items]="managerBarInfo"
-  [backButtonHidden]="true"
-  [customButton]="this.closeModule()"
-  *ngIf="hasModuleSelected"
->
-</bento-contextual-header>
+<app-manager-bar-info
+  [hasModuleSelected]="showManageBarInfoComponent"
+  [modelManagerBarInfo]="model"
+  (closeModule)="closeManagerBarInfo()"
+></app-manager-bar-info>
