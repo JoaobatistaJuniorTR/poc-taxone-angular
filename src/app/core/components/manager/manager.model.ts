@@ -1,6 +1,5 @@
 export interface ManagerModel {
-  value: any;
-
+  value: Company | Branch | Group | Module;
   description: string;
 }
 
@@ -32,8 +31,8 @@ export interface Module {
 }
 
 export interface ManagerBarInfo {
-  company: Company;
-  branch: Branch;
-  group: Group;
-  module: Module;
+  company: ManagerModel;
+  branch: ManagerModel;
+  group: ManagerModel;
+  module: ManagerModel;
 }

@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+/* eslint-disable no-underscore-dangle */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BentoComboboxOptions, BentoComboboxSearchEvent } from '@bento/bento-ng';
 import { BehaviorSubject } from 'rxjs';
@@ -13,15 +13,26 @@ export class ComboboxComponent implements OnInit {
 
   comboboxOptionServerSide: BentoComboboxOptions;
 
-  @Input() id: string;
-
-  @Input() model: any = null;
+  /**
+   * For two way data binding in the property model
+   */
+  _model: any;
 
   @Output() modelChange = new EventEmitter<any>();
 
-  @Input() items: BehaviorSubject<any>;
+  @Input()
+  get model() {
+    return this._model;
+  }
 
-  @Input() disabled: boolean = false;
+  set model(val) {
+    this._model = val;
+    this.modelChange.emit(this._model);
+  }
+
+  @Input() id: string;
+
+  @Input() items: BehaviorSubject<any>;
 
   @Input() searchServerSide: boolean = false;
 
@@ -31,6 +42,8 @@ export class ComboboxComponent implements OnInit {
 
   @Output() resetValues = new EventEmitter();
 
+  @Output() selectValue = new EventEmitter();
+
   constructor() {
     this.comboboxOption = {
       searchable: true,
@@ -39,7 +52,7 @@ export class ComboboxComponent implements OnInit {
     };
     this.comboboxOptionServerSide = {
       ...this.comboboxOption,
-      useServerSearch: this.searchServerSide,
+      useServerSearch: true,
       debounceTime: 300,
       minSearchCharacterCount: 3,
     };
@@ -49,6 +62,10 @@ export class ComboboxComponent implements OnInit {
     this.items = new BehaviorSubject<any>([]);
   }
 
+  changeValue = (newValue: any) => {
+    this.selectValue.emit(newValue);
+  };
+
   search = (row: any, search: string) => {
     const searchLowerCase = search.toLocaleLowerCase();
     const name = `${row.description}`.toLowerCase();
@@ -57,11 +74,6 @@ export class ComboboxComponent implements OnInit {
   };
 
   labelFormat = (row: any) => `${row.description}`;
-
-  change = (newValue: any) => {
-    this.model = newValue;
-    this.modelChange.emit(newValue);
-  };
 
   onEndOfScroll = (event: BentoComboboxSearchEvent) => {
     this.changeScroll.emit(event);

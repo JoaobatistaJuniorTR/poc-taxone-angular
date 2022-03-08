@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BentoActionableItem, BentoContextualHeaderItem } from '@bento/bento-ng';
 import { NavBarService } from '../../nav-bar/nav-bar.service';
@@ -18,10 +10,8 @@ import { ManagerBarInfoService } from './manager-bar-info.service';
   templateUrl: './manager-bar-info.component.html',
   styleUrls: ['./manager-bar-info.component.sass'],
 })
-export class ManagerBarInfoComponent implements OnInit, OnChanges {
+export class ManagerBarInfoComponent implements OnInit {
   managerBarInfo: BentoContextualHeaderItem[];
-
-  @Input() hasModuleSelected: boolean = false;
 
   @Input() modelManagerBarInfo: Partial<ManagerBarInfo>;
 
@@ -34,20 +24,13 @@ export class ManagerBarInfoComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.hasModuleSelected = false;
     this.managerBarInfo = [];
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasModuleSelected.currentValue) {
-      this.managerBarInfo = this.service.setManagerBarInfo(this.modelManagerBarInfo);
-      this.router.navigateByUrl('t1dw');
-    }
+    this.managerBarInfo = this.service.setManagerBarInfo(this.modelManagerBarInfo);
+    this.router.navigateByUrl('t1dw');
   }
 
   close = (): BentoActionableItem => {
     return new BentoActionableItem('Fechar módulo', 'bento-icon-close-thick', () => {
-      this.hasModuleSelected = false;
       this.router.navigateByUrl('');
       this.navBarService.changeMenuItems([]);
       this.closeModule.emit();

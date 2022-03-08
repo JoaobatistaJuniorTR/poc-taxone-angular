@@ -11,7 +11,8 @@
               <app-combobox
                 [id]="'combobox-company'"
                 [items]="companyData$"
-                (modelChange)="selectCompany($event)"
+                [(model)]="model.company"
+                (selectValue)="selectCompany($event)"
               >
               </app-combobox>
             </div>
@@ -29,10 +30,11 @@
                 [id]="'combobox-branch'"
                 [items]="branchData$"
                 [searchServerSide]="true"
+                [(model)]="model.branch"
                 (changeScroll)="infiniteScrollBranch($event)"
                 (searchValue)="searchBranch($event)"
                 (resetValues)="resetItemsBranch()"
-                (modelChange)="selectBranch($event)"
+                (selectValue)="selectBranch($event)"
               >
               </app-combobox>
             </div>
@@ -50,7 +52,7 @@
                 [id]="'combobox-group'"
                 [items]="groupData$"
                 [(model)]="model.group"
-                (modelChange)="selectGroup($event)"
+                (selectValue)="selectGroup($event)"
               >
               </app-combobox>
             </div>
@@ -68,7 +70,7 @@
                 [id]="'combobox-module'"
                 [items]="moduleData$"
                 [(model)]="model.module"
-                (modelChange)="selectModule($event)"
+                (selectValue)="selectModule($event)"
               >
               </app-combobox>
             </div>
@@ -80,7 +82,7 @@
 </div>
 
 <app-manager-bar-info
-  [hasModuleSelected]="showManageBarInfoComponent"
+  *ngIf="showManageBarInfoComponent"
   [modelManagerBarInfo]="model"
   (closeModule)="closeManagerBarInfo()"
 ></app-manager-bar-info>
