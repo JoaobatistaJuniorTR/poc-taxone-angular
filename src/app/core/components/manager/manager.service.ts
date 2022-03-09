@@ -18,7 +18,6 @@ export class ManagerService {
         client: this.lonestar.userClient(),
         page,
         search: `"${search}"`,
-        storageId: '',
       })
       .pipe(map((companies) => ManagerMapper.fromCompanies(companies)));
   }
@@ -30,7 +29,6 @@ export class ManagerService {
         empresa: companyId,
         page,
         search: `"${search}"`,
-        storageId: '',
       })
       .pipe(map((branches) => ManagerMapper.fromBranches(branches)));
   }
@@ -40,7 +38,6 @@ export class ManagerService {
       .post('/configuration/groups', {
         client: this.lonestar.userClient(),
         company: companyId,
-        storageId: '',
       })
       .pipe(map((groups) => ManagerMapper.fromGroups(groups)));
   }
@@ -51,7 +48,6 @@ export class ManagerService {
         client: this.lonestar.userClient(),
         company: companyId,
         group: groupId,
-        storageId: '',
       })
       .pipe(map((modules) => ManagerMapper.fromModules(modules)));
   }
