@@ -36,3 +36,7 @@ export interface ManagerBarInfo {
   group: ManagerModel;
   module: ManagerModel;
 }
+
+export interface StorageId {
+  storageID: string;
+}

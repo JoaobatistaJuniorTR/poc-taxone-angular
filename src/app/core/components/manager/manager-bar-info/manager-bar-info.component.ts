@@ -26,7 +26,6 @@ export class ManagerBarInfoComponent implements OnInit {
   ngOnInit(): void {
     this.managerBarInfo = [];
     this.managerBarInfo = this.service.setManagerBarInfo(this.modelManagerBarInfo);
-    this.router.navigateByUrl('t1dw');
   }
 
   close = (): BentoActionableItem => {

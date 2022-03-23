@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BentoComboboxSearchEvent } from '@bento/bento-ng';
 import { BehaviorSubject } from 'rxjs';
-import { Company, Group, ManagerBarInfo, ManagerModel } from './manager.model';
+import { environment } from 'src/environments/environment';
+import { StorageService } from '../../services/storage.service';
+import { Branch, Company, Group, ManagerBarInfo, ManagerModel, Module } from './manager.model';
 import { ManagerService } from './manager.service';
 
 @Component({
@@ -22,95 +24,107 @@ export class ManagerComponent implements OnInit {
 
   moduleData$: BehaviorSubject<ManagerModel[]>;
 
-  constructor(private changeDetector: ChangeDetectorRef, private service: ManagerService) {}
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private service: ManagerService,
+    private storage: StorageService
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.model = {};
     this.showManageBarInfoComponent = false;
     this.companyData$ = new BehaviorSubject<ManagerModel[]>([]);
     this.branchData$ = new BehaviorSubject<ManagerModel[]>([]);
     this.groupData$ = new BehaviorSubject<ManagerModel[]>([]);
     this.moduleData$ = new BehaviorSubject<ManagerModel[]>([]);
-    this.service.companies(0, '').subscribe((company) => {
-      this.companyData$ = new BehaviorSubject(company);
-    });
+    const companies = await this.service.companies(0, '');
+    this.companyData$ = new BehaviorSubject(companies);
   }
 
-  selectCompany = (managerModel: ManagerModel): void => {
+  async selectCompany(managerModel: ManagerModel) {
     if (managerModel) {
       this.model.branch = undefined;
       this.model.group = undefined;
       const company = managerModel.value as Company;
-      this.service.branches(company.id, 0, '').subscribe((branches) => {
-        this.branchData$ = new BehaviorSubject(branches);
-      });
-      this.service.groups(company.id).subscribe((groups) => {
-        this.groupData$ = new BehaviorSubject(groups);
-      });
+      const branches = await this.service.branches(company.id, 0, '');
+      this.branchData$ = new BehaviorSubject(branches);
+      const groups = await this.service.groups(company.id);
+      this.groupData$ = new BehaviorSubject(groups);
     } else {
       this.ngOnInit();
     }
-  };
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  selectBranch = (managerModel: ManagerModel): void => {
+  selectBranch(managerModel: ManagerModel) {
     this.model.module = undefined;
-  };
+  }
 
-  selectGroup = (managerModel: ManagerModel): void => {
+  async selectGroup(managerModel: ManagerModel) {
     this.model.module = undefined;
     if (managerModel) {
       const group = this.model.group?.value as Group;
       const company = this.model.company?.value as Company;
       if (company && group) {
-        this.service.modules(company.id, group.id).subscribe((modules) => {
-          this.moduleData$ = new BehaviorSubject(modules);
-        });
+        const modules = await this.service.modules(company.id, group.id);
+        this.moduleData$ = new BehaviorSubject(modules);
       }
     }
-  };
+  }
 
-  selectModule = (managerModel: ManagerModel): void => {
+  async selectModule(managerModel: ManagerModel) {
     if (managerModel && this.validateModel()) {
       this.showManageBarInfoComponent = true;
       this.companyData$.unsubscribe();
       this.branchData$.unsubscribe();
       this.groupData$.unsubscribe();
       this.moduleData$.unsubscribe();
+      await this.setupModule();
+      // await this.openModule();
     }
-  };
+  }
 
-  infiniteScrollBranch = (event: BentoComboboxSearchEvent) => {
+  async infiniteScrollBranch(event: BentoComboboxSearchEvent) {
     if (!event.search && this.model.company) {
       const company = this.model.company.value as Company;
-      this.service.branches(company.id, event.currentIndex, '').subscribe((branches) => {
-        this.branchData$.next(branches);
-        this.changeDetector.detectChanges();
-      });
+      const branches = await this.service.branches(company.id, event.currentIndex, '');
+      this.branchData$.next(branches);
+      this.changeDetector.detectChanges();
     }
-  };
+  }
 
-  searchBranch = (event: BentoComboboxSearchEvent) => {
+  async searchBranch(event: BentoComboboxSearchEvent) {
     if (this.model.company) {
       const company = this.model.company.value as Company;
-      this.service.branches(company.id, event.currentIndex, event.search).subscribe((branches) => {
-        this.branchData$ = new BehaviorSubject(branches);
-      });
+      const branches = await this.service.branches(company.id, event.currentIndex, event.search);
+      this.branchData$ = new BehaviorSubject(branches);
     }
-  };
+  }
 
-  resetItemsBranch = () => {
+  async resetItemsBranch() {
     if (this.model.company) {
       const company = this.model.company.value as Company;
-      this.service.branches(company.id, 0, '').subscribe((branches) => {
-        this.branchData$ = new BehaviorSubject(branches);
-      });
+      const branches = await this.service.branches(company.id, 0, '');
+      this.branchData$ = new BehaviorSubject(branches);
     }
-  };
+  }
 
-  closeManagerBarInfo = () => {
+  closeManagerBarInfo() {
+    this.storage.removeItem(environment.storageIdKey);
     this.ngOnInit();
-  };
+  }
+
+  async setupModule() {
+    const company = this.model.company?.value as Company;
+    const branch = this.model.branch?.value as Branch;
+    const module = this.model.module?.value as Module;
+    const configModule = await this.service.configModule(
+      company.id,
+      branch.codEstab,
+      module.codModLicParameter
+    );
+    this.storage.setItem(environment.storageIdKey, configModule.storageID);
+  }
 
   private validateModel = (): boolean => {
     return (
