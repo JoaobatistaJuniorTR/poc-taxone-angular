@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BentoComboboxSearchEvent } from '@bento/bento-ng';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,7 +28,8 @@ export class ManagerComponent implements OnInit {
   constructor(
     private changeDetector: ChangeDetectorRef,
     private service: ManagerService,
-    private storage: StorageService
+    private storage: StorageService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -80,7 +82,7 @@ export class ManagerComponent implements OnInit {
       this.groupData$.unsubscribe();
       this.moduleData$.unsubscribe();
       await this.setupModule();
-      // await this.openModule();
+      await this.openModule();
     }
   }
 
@@ -109,11 +111,6 @@ export class ManagerComponent implements OnInit {
     }
   }
 
-  closeManagerBarInfo() {
-    this.storage.removeItem(environment.storageIdKey);
-    this.ngOnInit();
-  }
-
   async setupModule() {
     const company = this.model.company?.value as Company;
     const branch = this.model.branch?.value as Branch;
@@ -124,6 +121,15 @@ export class ManagerComponent implements OnInit {
       module.codModLicParameter
     );
     this.storage.setItem(environment.storageIdKey, configModule.storageID);
+  }
+
+  async openModule(): Promise<void> {
+    await this.router.navigateByUrl('t1dw');
+  }
+
+  closeManagerBarInfo() {
+    this.storage.removeItem(environment.storageIdKey);
+    this.ngOnInit();
   }
 
   private validateModel = (): boolean => {

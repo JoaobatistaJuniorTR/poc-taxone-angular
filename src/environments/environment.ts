@@ -4,8 +4,12 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:4200',
+  api: '',
   storageIdKey: 'storageID',
+  contextProvider: 'contextApp',
+  contextTaxone: '/ws',
+  contextT1dw: '/t1dw',
+  contextTaxAutomation: '/taxautomation',
 };
 
 /*

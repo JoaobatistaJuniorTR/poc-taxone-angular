@@ -1,15 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { EnvService } from './env.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class HttpProxyService {
   private headers: any;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    @Inject(environment.contextProvider) private contextApp: string,
+    private http: HttpClient,
+    private envService: EnvService
+  ) {
     this.headers = {
       headers: {
         ContentType: 'application/json',
@@ -19,7 +24,7 @@ export class HttpProxyService {
 
   post(resource: string, body: any): Observable<any> {
     return this.http.post(
-      `${environment.api}/ws${resource}`,
+      `${this.envService.apiUrl}${this.contextApp}${resource}`,
       body,
       this.headers
     );

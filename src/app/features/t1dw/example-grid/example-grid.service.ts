@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
+import { HttpProxyService } from 'src/app/core/services/http-proxy.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class ExampleGridService {
-  constructor() {}
+  constructor(private proxy: HttpProxyService) {}
 
   mockData = (): any => {
+    this.proxy
+      .post('/johnjohn', {
+        client: 'V9M',
+      })
+      .toPromise();
+
     // create some data for demo
     const data = [];
     const names = 'Paul,Alex,Phil,Bob,Dan,Jane,Erika,Zoe,Amy,Mary'.split(',');
     const products = 'Foo,Bar,Baz,Qux,Fum,Zot'.split(',');
     const productCount = products.length;
-    const links = [
-      'http://www.tr.com',
-      'http://www.reuters.tv',
-      'http://onesource.tr.com',
-    ];
+    const links = ['http://www.tr.com', 'http://www.reuters.tv', 'http://onesource.tr.com'];
 
     for (let i = 1; i <= 100; i++) {
       data.push({

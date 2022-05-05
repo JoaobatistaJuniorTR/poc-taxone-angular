@@ -40,6 +40,7 @@
     "@grapecity/wijmo.angular2.input": "5.20211.781",
     "@grapecity/wijmo.grid": "5.20211.781",
     "@grapecity/wijmo.grid.filter": "5.20211.781",
+    "@minotaur/services": "^0.2.15",
     "@ng-bootstrap/ng-bootstrap": "~9.1.0",
     "d3": "5.9.7",
     "d3-geo-projection": "2.7.0",

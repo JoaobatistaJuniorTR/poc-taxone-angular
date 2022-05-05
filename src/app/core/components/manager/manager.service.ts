@@ -14,7 +14,7 @@ export class ManagerService {
   async companies(page: number = 0, search?: string): Promise<ManagerModel[]> {
     return this.proxy
       .post('/configuration/empresas', {
-        client: this.lonestar.userClient(),
+        client: await this.lonestar.userClient(),
         page,
         search: `"${search}"`,
       })
@@ -25,7 +25,7 @@ export class ManagerService {
   async branches(companyId: string, page: number, search: string): Promise<ManagerModel[]> {
     return this.proxy
       .post('/configuration/estabelecimentos', {
-        client: this.lonestar.userClient(),
+        client: await this.lonestar.userClient(),
         empresa: companyId,
         page,
         search: `"${search}"`,
@@ -37,7 +37,7 @@ export class ManagerService {
   async groups(companyId: string): Promise<ManagerModel[]> {
     return this.proxy
       .post('/configuration/groups', {
-        client: this.lonestar.userClient(),
+        client: await this.lonestar.userClient(),
         company: companyId,
       })
       .pipe(map((groups) => ManagerMapper.fromGroups(groups)))
@@ -47,7 +47,7 @@ export class ManagerService {
   async modules(companyId: string, groupId: string): Promise<ManagerModel[]> {
     return this.proxy
       .post('/configuration/applicationEntries', {
-        client: this.lonestar.userClient(),
+        client: await this.lonestar.userClient(),
         company: companyId,
         group: groupId,
       })
@@ -62,7 +62,7 @@ export class ManagerService {
   ): Promise<StorageId> {
     const body = {
       empresa: companyId,
-      client: this.lonestar.userClient(),
+      client: await this.lonestar.userClient(),
       estabelecimento: branchId,
       codModLicParameter,
     };
