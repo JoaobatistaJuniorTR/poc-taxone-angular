@@ -67,13 +67,11 @@ export class DatePickerComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onModelChange = (value: NgbDateStruct) => {
+  onModelChange = (value: any) => {
     if (value !== this.previousDataStructure) {
       this.previousDataStructure = { ...value };
-      if (value) {
+      if (value && value.year > 999) {
         this.localModel = this.format(value);
-      } else {
-        this.localModel = '';
       }
       this.onChange(this.localModel);
       this.modelChange.emit(this.localModel);
@@ -82,7 +80,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   private format = (value: NgbDateStruct): string => {
     const tokens: string[] = [];
-    if (value) {
+    if (value.year) {
       tokens.push(`${value.year}`);
       if (`${value.month}`.length === 2) {
         tokens.push(`${value.month}`);
@@ -101,7 +99,7 @@ export class DatePickerComponent implements ControlValueAccessor {
     return `${tokens.join('-')}T00:00:00`;
   };
 
-  private parse = (value: string): NgbDateStruct => {
+  private parse = (value: any): NgbDateStruct => {
     let date;
     if (value) {
       date = new Date(value);

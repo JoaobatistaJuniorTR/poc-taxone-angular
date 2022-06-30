@@ -3,11 +3,11 @@ export class SearchInvoicesParams {
 
   estab: any;
 
-  dataSaidaRecIni: string;
+  dataSaidaRecIni: any;
 
-  dataSaidaRecFim: string;
+  dataSaidaRecFim: any;
 
-  constructor(codEmpresa: string, estab: any, dataSaidaRecIni: string, dataSaidaRecFim: string) {
+  constructor(codEmpresa: string, estab: any, dataSaidaRecIni: any, dataSaidaRecFim: any) {
     this.codEmpresa = codEmpresa;
     this.estab = estab;
     this.dataSaidaRecIni = dataSaidaRecIni;
