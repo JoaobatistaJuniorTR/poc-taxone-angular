@@ -15,7 +15,7 @@ export class ManagerMapper {
   static fromBranch(branch: Branch): ManagerModel {
     return {
       value: branch,
-      description: `${branch.codEstab} - ${branch.razaoSocial}`,
+      description: branch.codEstab ? `${branch.codEstab} - ${branch.razaoSocial}` : '[ Todos ]',
     };
   }
 

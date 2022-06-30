@@ -1,6 +1,5 @@
 <bento-combobox
   *ngIf="searchServerSide == true"
-  [id]="id"
   [itemsObservable]="items"
   [options]="comboboxOptionServerSide"
   [rowTemplate]="comboRowTemplate"
@@ -13,13 +12,17 @@
 
 <bento-combobox
   *ngIf="searchServerSide == false"
-  [id]="id"
   [itemsObservable]="items"
   [options]="comboboxOption"
   [rowTemplate]="comboRowTemplate"
   [(ngModel)]="model"
   (ngModelChange)="changeValue($event)"
 ></bento-combobox>
+<span
+  [bentoBusyLoader]="isBusyLoader"
+  [size]="'sm'"
+  class="app-combobox-loader"
+></span>
 
 <ng-template
   #comboRowTemplate

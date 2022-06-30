@@ -13,6 +13,7 @@
                 [items]="companyData$"
                 [(model)]="model.company"
                 (selectValue)="selectCompany($event)"
+                [isBusyLoader]="companyBusyLoader"
               >
               </app-combobox>
             </div>
@@ -35,6 +36,7 @@
                 (searchValue)="searchBranch($event)"
                 (resetValues)="resetItemsBranch()"
                 (selectValue)="selectBranch($event)"
+                [isBusyLoader]="branchesBusyLoader"
               >
               </app-combobox>
             </div>
@@ -53,6 +55,7 @@
                 [items]="groupData$"
                 [(model)]="model.group"
                 (selectValue)="selectGroup($event)"
+                [isBusyLoader]="groupsBusyLoader"
               >
               </app-combobox>
             </div>
@@ -71,6 +74,7 @@
                 [items]="moduleData$"
                 [(model)]="model.module"
                 (selectValue)="selectModule($event)"
+                [isBusyLoader]="modulesBusyLoader"
               >
               </app-combobox>
             </div>

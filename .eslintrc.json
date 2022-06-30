@@ -23,14 +23,15 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
-        "max-len": ["error", { "code": 100 }],
+        "max-len": ["error", { "code": 125 }],
         "import/prefer-default-export": "off",
+        "@typescript-eslint/lines-between-class-members": "off",
         "no-param-reassign": [2, {"props": false}],
         "prettier/prettier": [
           "error",
           {
             "endOfLine": "auto",
-            "printWidth": 100
+            "printWidth": 125
           }
         ],
         "@angular-eslint/component-selector": [

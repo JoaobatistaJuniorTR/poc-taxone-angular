@@ -3,5 +3,10 @@
     "target": "http://localhost:8087",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/t1dw/*": {
+    "target": "http://localhost:9595",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

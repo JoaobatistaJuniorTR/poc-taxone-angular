@@ -1,0 +1,27 @@
+<bento-splitter-group
+  style="
+    top: 180px;
+    min-height: 500px;
+    border-style: solid !important;
+    border-top: 1px;
+  "
+  [leftWidth]="300"
+  [leftMaxWidth]="300"
+  [leftOpened]="true"
+>
+  <bento-splitter-group-left>
+    <bento-tree-view
+      style="min-height: 550px"
+      [multiSelect]="false"
+      [showCheckboxes]="false"
+      [items]="treeData"
+      itemIconProp="iconName"
+      itemChildrenProp="items"
+      itemLabelProp="name"
+      (itemSelect)="onItemSelect($event)"
+    ></bento-tree-view>
+  </bento-splitter-group-left>
+  <bento-splitter-group-main>
+    <router-outlet></router-outlet>
+  </bento-splitter-group-main>
+</bento-splitter-group>

@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   api: '',
   storageIdKey: 'storageID',
+  moduleData: 'moduleData',
   contextProvider: 'contextApp',
   contextTaxone: '/ws',
   contextT1dw: '/t1dw',

@@ -4,6 +4,8 @@ import { BentoComboboxSearchEvent } from '@bento/bento-ng';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StorageService } from '../../services/storage.service';
+import { NavBarService } from '../nav-bar/nav-bar.service';
+import { ManagerMapper } from './manager.mapper';
 import { Branch, Company, Group, ManagerBarInfo, ManagerModel, Module } from './manager.model';
 import { ManagerService } from './manager.service';
 
@@ -14,6 +16,14 @@ import { ManagerService } from './manager.service';
 })
 export class ManagerComponent implements OnInit {
   model: Partial<ManagerBarInfo>;
+
+  companyBusyLoader: boolean = false;
+
+  branchesBusyLoader: boolean = false;
+
+  groupsBusyLoader: boolean = false;
+
+  modulesBusyLoader: boolean = false;
 
   showManageBarInfoComponent: boolean = false;
 
@@ -29,18 +39,37 @@ export class ManagerComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private service: ManagerService,
     private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private navBarservice: NavBarService
   ) {}
 
   async ngOnInit() {
     this.model = {};
-    this.showManageBarInfoComponent = false;
     this.companyData$ = new BehaviorSubject<ManagerModel[]>([]);
     this.branchData$ = new BehaviorSubject<ManagerModel[]>([]);
     this.groupData$ = new BehaviorSubject<ManagerModel[]>([]);
     this.moduleData$ = new BehaviorSubject<ManagerModel[]>([]);
-    const companies = await this.service.companies(0, '');
-    this.companyData$ = new BehaviorSubject(companies);
+
+    const moduleData: any = this.storage.getObject('moduleData');
+
+    if (moduleData) {
+      this.model.company = ManagerMapper.fromCompany(moduleData.company);
+      this.model.branch = ManagerMapper.fromBranch(moduleData.branch);
+      this.model.group = ManagerMapper.fromGroup(moduleData.group);
+      this.model.module = ManagerMapper.fromModule(moduleData.module);
+      this.showManageBarInfoComponent = true;
+    } else {
+      this.showManageBarInfoComponent = false;
+      this.companyBusyLoader = true;
+      this.service
+        .companies(0, '')
+        .then((companies: ManagerModel[]) => {
+          this.companyData$ = new BehaviorSubject(companies);
+        })
+        .finally(() => {
+          this.companyBusyLoader = false;
+        });
+    }
   }
 
   async selectCompany(managerModel: ManagerModel) {
@@ -48,10 +77,26 @@ export class ManagerComponent implements OnInit {
       this.model.branch = undefined;
       this.model.group = undefined;
       const company = managerModel.value as Company;
-      const branches = await this.service.branches(company.id, 0, '');
-      this.branchData$ = new BehaviorSubject(branches);
-      const groups = await this.service.groups(company.id);
-      this.groupData$ = new BehaviorSubject(groups);
+
+      this.branchesBusyLoader = true;
+      this.service
+        .branches(company.id, 0, '')
+        .then((branches: ManagerModel[]) => {
+          this.branchData$ = new BehaviorSubject(branches);
+        })
+        .finally(() => {
+          this.branchesBusyLoader = false;
+        });
+
+      this.groupsBusyLoader = true;
+      this.service
+        .groups(company.id)
+        .then((groups: ManagerModel[]) => {
+          this.groupData$ = new BehaviorSubject(groups);
+        })
+        .finally(() => {
+          this.groupsBusyLoader = false;
+        });
     } else {
       this.ngOnInit();
     }
@@ -68,8 +113,15 @@ export class ManagerComponent implements OnInit {
       const group = this.model.group?.value as Group;
       const company = this.model.company?.value as Company;
       if (company && group) {
-        const modules = await this.service.modules(company.id, group.id);
-        this.moduleData$ = new BehaviorSubject(modules);
+        this.modulesBusyLoader = true;
+        this.service
+          .modules(company.id, group.id)
+          .then((modules: ManagerModel[]) => {
+            this.moduleData$ = new BehaviorSubject(modules);
+          })
+          .finally(() => {
+            this.modulesBusyLoader = false;
+          });
       }
     }
   }
@@ -89,17 +141,31 @@ export class ManagerComponent implements OnInit {
   async infiniteScrollBranch(event: BentoComboboxSearchEvent) {
     if (!event.search && this.model.company) {
       const company = this.model.company.value as Company;
-      const branches = await this.service.branches(company.id, event.currentIndex, '');
-      this.branchData$.next(branches);
-      this.changeDetector.detectChanges();
+      this.branchesBusyLoader = true;
+      this.service
+        .branches(company.id, event.currentIndex, '')
+        .then((branches: ManagerModel[]) => {
+          this.branchData$.next(branches);
+        })
+        .finally(() => {
+          this.changeDetector.detectChanges();
+          this.branchesBusyLoader = false;
+        });
     }
   }
 
   async searchBranch(event: BentoComboboxSearchEvent) {
     if (this.model.company) {
       const company = this.model.company.value as Company;
-      const branches = await this.service.branches(company.id, event.currentIndex, event.search);
-      this.branchData$ = new BehaviorSubject(branches);
+      this.branchesBusyLoader = true;
+      this.service
+        .branches(company.id, event.currentIndex, event.search)
+        .then((branches: ManagerModel[]) => {
+          this.branchData$ = new BehaviorSubject(branches);
+        })
+        .finally(() => {
+          this.branchesBusyLoader = false;
+        });
     }
   }
 
@@ -114,12 +180,14 @@ export class ManagerComponent implements OnInit {
   async setupModule() {
     const company = this.model.company?.value as Company;
     const branch = this.model.branch?.value as Branch;
+    const group = this.model.group?.value as Group;
     const module = this.model.module?.value as Module;
     const configModule = await this.service.configModule(
       company.id,
       branch.codEstab,
       module.codModLicParameter
     );
+    this.storage.setObject('moduleData', { company, branch, group, module });
     this.storage.setItem(environment.storageIdKey, configModule.storageID);
   }
 
@@ -128,6 +196,8 @@ export class ManagerComponent implements OnInit {
   }
 
   closeManagerBarInfo() {
+    this.navBarservice.changeMenuItems([]);
+    this.storage.removeItem('moduleData');
     this.storage.removeItem(environment.storageIdKey);
     this.ngOnInit();
   }

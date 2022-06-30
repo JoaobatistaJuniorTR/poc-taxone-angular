@@ -1,0 +1,16 @@
+<bento-combobox
+  [inputLabelText]="inputLabelText"
+  [itemsObservable]="itemsObservable"
+  [options]="comboboxOptions"
+  [(ngModel)]="model"
+  (ngModelChange)="onModelChange($event)"
+  (search)="searchData($event)"
+  (endOfScroll)="onEndOfScroll($event)"
+  [disabled]="disabled"
+  (click)="onTouched()"
+></bento-combobox>
+<span
+  [bentoBusyLoader]="isBusyLoader"
+  [size]="'sm'"
+  class="app-combobox-loader"
+></span>

@@ -40,7 +40,9 @@
               "node_modules/@bento/bento-ng/styles/cdk-table.css",
               "src/styles.sass"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@grapecity/wijmo.cultures/wijmo.culture.pt.js"
+            ]
           },
           "configurations": {
             "production": {

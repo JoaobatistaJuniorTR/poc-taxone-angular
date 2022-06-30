@@ -19,11 +19,15 @@ export class ManagerBarInfoService {
       `tenant (ambiente)`,
       'bento-icon-building'
     );
-    const branchInfo = new BentoContextualHeaderItem(
-      `${branch.codEstab || ''} - ${branch?.razaoSocial || ''}`,
-      '',
-      'bento-icon-buildings'
-    );
+
+    let branchLabel: string;
+    if (branch.codEstab) {
+      branchLabel = `${branch.codEstab || ''} - ${branch?.razaoSocial || ''}`;
+    } else {
+      branchLabel = '[ Todos ]';
+    }
+
+    const branchInfo = new BentoContextualHeaderItem(branchLabel, '', 'bento-icon-buildings');
     const moduleInfo = new BentoContextualHeaderItem(
       module.name || '',
       group.description || '',

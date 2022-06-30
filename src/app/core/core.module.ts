@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -11,7 +12,6 @@ import { ManagerComponent } from './components/manager/manager.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CoreRoutingModule } from './core-routing.module';
-import { StorageIdInterceptor } from './interceptors/storage-id.interceptor';
 import { EnvService } from './services/env.service';
 import { LonestarService } from './services/lonestar.service';
 
@@ -34,11 +34,6 @@ import { LonestarService } from './services/lonestar.service';
         await envService.init();
       },
       deps: [EnvService, LonestarService],
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: StorageIdInterceptor,
       multi: true,
     },
     {

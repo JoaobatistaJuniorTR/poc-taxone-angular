@@ -12,6 +12,17 @@ export class StorageService {
     return localStorage.getItem(key);
   };
 
+  setObject = (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  getObject = (key: string): any => {
+    if (localStorage.getItem(key)) {
+      return JSON.parse(localStorage.getItem(key) || '');
+    }
+    return null;
+  };
+
   removeItem = (key: string) => {
     localStorage.removeItem(key);
   };

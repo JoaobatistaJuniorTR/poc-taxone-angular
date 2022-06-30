@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BentoToolbarItem } from '@bento/bento-ng';
 import { Subscription } from 'rxjs';
+import { StorageService } from '../../services/storage.service';
 import { INavRightBar } from './nav-bar.interface';
 import { NavBarService } from './nav-bar.service';
 
@@ -16,18 +17,23 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   subscription: Subscription | undefined;
 
-  constructor(private service: NavBarService) {
-    this.menuItems = [];
+  constructor(private service: NavBarService, private storage: StorageService) {
     this.rightBarItems = [];
   }
 
   ngOnInit(): void {
     this.rightBarItems = this.initializeNavRight();
 
-    this.subscription = this.service.menuItems.subscribe(
-      // eslint-disable-next-line no-return-assign
-      (items) => (this.menuItems = items)
-    );
+    if (this.storage.getItem('menuItems')) {
+      this.menuItems = this.storage.getObject('menuItems');
+    } else {
+      this.menuItems = [];
+    }
+
+    this.subscription = this.service.menuItems.subscribe((items) => {
+      this.storage.setObject('menuItems', items);
+      this.menuItems = items;
+    });
   }
 
   ngOnDestroy(): void {

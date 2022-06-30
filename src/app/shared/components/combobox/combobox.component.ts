@@ -13,9 +13,8 @@ export class ComboboxComponent implements OnInit {
 
   comboboxOptionServerSide: BentoComboboxOptions;
 
-  /**
-   * For two way data binding in the property model
-   */
+  @Input() isBusyLoader: boolean = false;
+
   _model: any;
 
   @Output() modelChange = new EventEmitter<any>();
@@ -29,8 +28,6 @@ export class ComboboxComponent implements OnInit {
     this._model = val;
     this.modelChange.emit(this._model);
   }
-
-  @Input() id: string;
 
   @Input() items: BehaviorSubject<any>;
 

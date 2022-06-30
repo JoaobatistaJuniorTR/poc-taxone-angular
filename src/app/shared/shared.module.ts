@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -11,10 +12,23 @@ import { WjGridFilterModule } from '@grapecity/wijmo.angular2.grid.filter';
 import { WjGridGrouppanelModule } from '@grapecity/wijmo.angular2.grid.grouppanel';
 import { WjInputModule } from '@grapecity/wijmo.angular2.input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BfmModule } from '@bento/bfm-ng';
 import { ComboboxComponent } from './components/combobox/combobox.component';
+import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { ModalConfirmationComponent } from './components/modal-confirmation/modal-confirmation.component';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
-  declarations: [ComboboxComponent],
+  declarations: [
+    ComboboxComponent,
+    AutocompleteComponent,
+    ModalComponent,
+    ModalConfirmationComponent,
+    DatePickerComponent,
+    AlertComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,9 +43,15 @@ import { ComboboxComponent } from './components/combobox/combobox.component';
     WjGridFilterModule,
     WjGridGrouppanelModule,
     BentoNgZoneWatcherModule,
+    BfmModule,
   ],
   exports: [
     ComboboxComponent,
+    AutocompleteComponent,
+    ModalComponent,
+    ModalConfirmationComponent,
+    DatePickerComponent,
+    AlertComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,
@@ -43,6 +63,7 @@ import { ComboboxComponent } from './components/combobox/combobox.component';
     WjGridFilterModule,
     WjGridGrouppanelModule,
     BentoNgZoneWatcherModule,
+    BfmModule,
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,27 @@
+<button type="button" class="btn btn-outline-primary" (click)="open(content)">
+  Open
+</button>
+<ng-template #content let-c="close" let-d="dismiss">
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    ngbTooltip="{{ closeToolTip }}"
+    placement="bottom"
+    container="body"
+  >
+    <i class="bento-icon-close-x" (click)="d('Cancel')" aria-hidden="true"></i>
+  </button>
+  <h3 id="modal-basic-title" class="modal-header">{{ title }}</h3>
+  <div class="modal-body">
+    <p>{{ body }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('Ok')">
+      {{ confirmButtonLabel }}
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="d('Cancel')">
+      {{ cancelButtonLabel }}
+    </button>
+  </div>
+</ng-template>

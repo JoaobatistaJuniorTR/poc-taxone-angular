@@ -1,0 +1,29 @@
+<div class="data-picker-container">
+  <label for="dt-saida-recetimento-begin" class="bento-label">{{
+    label
+  }}</label>
+  <div class="input-group bento-datepicker">
+    <input
+      class="form-control bento-datepicker"
+      [firstDayOfWeek]="7"
+      ngbDatepicker
+      [(ngModel)]="model"
+      (ngModelChange)="onModelChange($event)"
+      [bentoDatepickerConfig]="dateConfig"
+      #datePicker="ngbDatepicker"
+      (click)="onTouched(); datePickerButton.click()"
+      (focus)="onTouched()"
+    />
+    <button
+      #datePickerButton
+      class="btn btn-outline-primary btn-icon sm"
+      [bentoDatepickerToggle]="datePicker"
+      type="button"
+      aria-haspopup="false"
+      aria-label="Open calendar"
+      title="{{ buttonLabel }}"
+    >
+      <i class="bento-icon-calendar" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>

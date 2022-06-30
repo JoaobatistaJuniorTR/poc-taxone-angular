@@ -1,0 +1,34 @@
+<div class="container width-full new-module-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Informações Gerais</h3>
+    </div>
+  </div>
+  <hr class="no-margin-t" />
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="form-group" style="width: 350px; margin-right: 20px">
+          <div class="form-group" style="width: 350px; margin-right: 20px">
+            <app-autocomplete
+              id="cod-estab"
+              name="codEstab"
+              required="true"
+              inputLabelText="Estabelecimento"
+              [(ngModel)]="coverData.id.codEstab"
+              [columns]="estabColumns"
+              [blockSize]="15"
+              [headerTranslation]="{
+                codEstab: 'Cód. Estabelecimento',
+                razaoSocial: 'Razão Social',
+                nomeFantasia: 'Nome Fantasia'
+              }"
+              [searchCallback]="estabCallBackFunction"
+            >
+            </app-autocomplete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

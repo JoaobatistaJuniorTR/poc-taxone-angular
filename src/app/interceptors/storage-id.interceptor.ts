@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { StorageService } from '../services/storage.service';
+import { StorageService } from '../core/services/storage.service';
 
 @Injectable()
 export class StorageIdInterceptor implements HttpInterceptor {
@@ -10,7 +10,7 @@ export class StorageIdInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const storageId = this.storage.getItem(environment.storageIdKey);
-    if (storageId) {
+    if (!storageId) {
       const { body } = request;
       if (typeof body === 'object') {
         const data = {
