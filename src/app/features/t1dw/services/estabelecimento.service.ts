@@ -19,10 +19,11 @@ export class EstabelecimentoService {
     };
 
     return this.http
-      .get<any>(
-        `${environment.contextT1dw}/empresas/${codEmpresa}/estabelecimentos/suggestions/`,
-        httpOptions
-      )
+      .get<any>(`${environment.contextT1dw}/empresas/${codEmpresa}/estabelecimentos/suggestions/`, httpOptions)
       .toPromise();
+  }
+
+  public findByCodEmpresaAndCodEstab(codEmpresa: string, codEstab: string): Promise<any> {
+    return this.http.get<any>(`${environment.contextT1dw}/empresas/${codEmpresa}/estabelecimentos/${codEstab}`).toPromise();
   }
 }

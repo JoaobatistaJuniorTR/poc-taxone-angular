@@ -14,7 +14,9 @@ import { Pagination } from '../../model/interface.model';
 export class InvoiceCoverComponent implements OnInit {
   private invoiceId: string;
 
-  coverData: TmpX07DoctoFiscal;
+  coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
+
+  estabelecimento: any;
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -47,12 +49,24 @@ export class InvoiceCoverComponent implements OnInit {
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
       this.coverData = value;
-      console.log(this.coverData);
+      this.findEstab();
     });
+  }
+
+  findEstab() {
+    this.estabelecimentoService
+      .findByCodEmpresaAndCodEstab(this.coverData.id.codEmpresa, this.coverData.id.codEstab)
+      .then((value: any) => {
+        this.estabelecimento = value;
+      });
   }
 
   estabCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
     const pagination: Pagination = { page, size };
-    return this.estabelecimentoService.autocomplete(this.coverData.id.codEmpresa, pagination, filter);
+    if (this.estabelecimento) {
+      return this.estabelecimentoService.autocomplete(this.estabelecimento.codEmpresa, pagination, filter);
+    }
+
+    return this.estabelecimentoService.autocomplete('empty', pagination, filter);
   };
 }

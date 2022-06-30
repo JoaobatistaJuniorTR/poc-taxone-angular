@@ -1,14 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+// eslint-disable-next-line max-len
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatepickerConfig } from '@bento/bento-ng';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-date-picker',
@@ -23,7 +17,11 @@ import { DatepickerConfig } from '@bento/bento-ng';
   ],
 })
 export class DatePickerComponent implements ControlValueAccessor {
-  private previousModel: any = null;
+  private previousDataStructure: NgbDateStruct;
+
+  dateStructure: NgbDateStruct;
+
+  @Input('format-max-time') formatMaxDate: boolean = false;
 
   @Input() disabled?: boolean;
 
@@ -31,7 +29,20 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input() buttonLabel?: string;
 
-  @Input('ngModel') model: any;
+  private localModel: any;
+
+  @Input('ngModel')
+  get model() {
+    return this.localModel;
+  }
+
+  set model(val: any) {
+    this.localModel = val;
+    if (val) {
+      this.dateStructure = this.parse(val);
+    }
+    this.modelChange.emit(this.localModel);
+  }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
 
@@ -46,7 +57,6 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.model = value;
-    this.onModelChange(value);
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -57,11 +67,47 @@ export class DatePickerComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onModelChange = (value: any) => {
-    if (value !== this.previousModel) {
-      this.onChange(value);
-      this.modelChange.emit(value);
-      this.previousModel = value;
+  onModelChange = (value: NgbDateStruct) => {
+    if (value !== this.previousDataStructure) {
+      this.previousDataStructure = { ...value };
+      if (value) {
+        this.localModel = this.format(value);
+      } else {
+        this.localModel = '';
+      }
+      this.onChange(this.localModel);
+      this.modelChange.emit(this.localModel);
     }
+  };
+
+  private format = (value: NgbDateStruct): string => {
+    const tokens: string[] = [];
+    if (value) {
+      tokens.push(`${value.year}`);
+      if (`${value.month}`.length === 2) {
+        tokens.push(`${value.month}`);
+      } else {
+        tokens.push(`0${value.month}`);
+      }
+      if (`${value.day}`.length === 2) {
+        tokens.push(`${value.day}`);
+      } else {
+        tokens.push(`0${value.day}`);
+      }
+    }
+    if (this.formatMaxDate) {
+      return `${tokens.join('-')}T23:59:59`;
+    }
+    return `${tokens.join('-')}T00:00:00`;
+  };
+
+  private parse = (value: string): NgbDateStruct => {
+    let date;
+    if (value) {
+      date = new Date(value);
+      return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
+    }
+    date = new Date();
+    return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
   };
 }

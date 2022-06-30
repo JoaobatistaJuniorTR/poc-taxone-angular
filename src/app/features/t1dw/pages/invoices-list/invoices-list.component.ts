@@ -132,7 +132,7 @@ export class InvoicesListComponent implements OnInit {
     totalItemCount: 0,
   };
 
-  formFilters: SearchInvoicesParams = new SearchInvoicesParams('', '', undefined, undefined);
+  formFilters: SearchInvoicesParams = new SearchInvoicesParams('', '', '', '');
 
   private gridFilters: GridFilter[] = [];
 
@@ -155,19 +155,16 @@ export class InvoicesListComponent implements OnInit {
 
   loadInitialDates() {
     const today = new Date();
-    const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    lastDayOfPreviousMonth.setDate(lastDayOfPreviousMonth.getDate() - 1);
+    lastDayOfPreviousMonth.setHours(0);
+    lastDayOfPreviousMonth.setMinutes(0);
+    lastDayOfPreviousMonth.setSeconds(0);
 
-    this.formFilters.dataSaidaRecIni = {
-      year: lastDayOfPreviousMonth.getFullYear(),
-      month: lastDayOfPreviousMonth.getMonth() + 1,
-      day: 1,
-    };
+    this.formFilters.dataSaidaRecFim = lastDayOfPreviousMonth.toJSON();
+    lastDayOfPreviousMonth.setDate(1);
 
-    this.formFilters.dataSaidaRecFim = {
-      year: lastDayOfPreviousMonth.getFullYear(),
-      month: lastDayOfPreviousMonth.getMonth() + 1,
-      day: lastDayOfPreviousMonth.getDate(),
-    };
+    this.formFilters.dataSaidaRecIni = lastDayOfPreviousMonth.toJSON();
   }
 
   estabCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
@@ -185,16 +182,10 @@ export class InvoicesListComponent implements OnInit {
   }
 
   onSubmit() {
-    const dateIni = new Date();
-    dateIni.setFullYear(this.formFilters.dataSaidaRecIni.year);
-    dateIni.setMonth(this.formFilters.dataSaidaRecIni.month);
-    dateIni.setDate(this.formFilters.dataSaidaRecIni.day);
+    const dateIni = new Date(this.formFilters.dataSaidaRecIni);
     dateIni.setHours(0, 0, 0);
 
-    const dateFim = new Date();
-    dateFim.setFullYear(this.formFilters.dataSaidaRecFim.year);
-    dateFim.setMonth(this.formFilters.dataSaidaRecFim.month);
-    dateFim.setDate(this.formFilters.dataSaidaRecFim.day);
+    const dateFim = new Date(this.formFilters.dataSaidaRecFim);
     dateFim.setHours(23, 59, 59);
 
     if (dateIni.getTime() > dateFim.getTime()) {
@@ -230,8 +221,8 @@ export class InvoicesListComponent implements OnInit {
       new GridFilter(
         'dataFiscal',
         QueryOperator.AND,
-        new GridFilterConditional(OperatorType.GE, this.formFilters.getDataSaidaRecIniAsString()),
-        new GridFilterConditional(OperatorType.LE, this.formFilters.getDataSaidaRecFimAsDate())
+        new GridFilterConditional(OperatorType.GE, this.formFilters.dataSaidaRecIni),
+        new GridFilterConditional(OperatorType.LE, this.formFilters.dataSaidaRecFim)
       )
     );
 
