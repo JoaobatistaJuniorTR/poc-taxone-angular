@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
+import { NgForm } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
 import TmpX07DoctoFiscal from '../../model/TmpX07DoctoFiscal.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
@@ -13,6 +14,8 @@ import { Pagination } from '../../model/interface.model';
 })
 export class InvoiceCoverComponent implements OnInit {
   private invoiceId: string;
+
+  resetErrors: boolean;
 
   coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
 
@@ -33,11 +36,17 @@ export class InvoiceCoverComponent implements OnInit {
     },
   ];
 
+  @ViewChild('f') private form: NgForm;
+
   constructor(
     private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private estabelecimentoService: EstabelecimentoService
   ) {}
+
+  validations = {
+    required: '{0} é obrigatório',
+  };
 
   ngOnInit(): void {
     this.invoiceId = this.route.parent?.snapshot.params['invoice-id'];
@@ -49,16 +58,16 @@ export class InvoiceCoverComponent implements OnInit {
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
       this.coverData = value;
-      this.findEstab();
+      console.log(this.coverData);
+      this.findEstab(this.coverData.id.codEmpresa, this.coverData.id.codEstab);
     });
   }
 
-  findEstab() {
-    this.estabelecimentoService
-      .findByCodEmpresaAndCodEstab(this.coverData.id.codEmpresa, this.coverData.id.codEstab)
-      .then((value: any) => {
-        this.estabelecimento = value;
-      });
+  findEstab(codEmpresa: string, codEstab: string) {
+    this.estabelecimentoService.findByCodEmpresaAndCodEstab(codEmpresa, codEstab).then((value: any) => {
+      console.log(value);
+      this.estabelecimento = value;
+    });
   }
 
   estabCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
@@ -69,4 +78,6 @@ export class InvoiceCoverComponent implements OnInit {
 
     return this.estabelecimentoService.autocomplete('empty', pagination, filter);
   };
+
+  onSubmit = () => {};
 }

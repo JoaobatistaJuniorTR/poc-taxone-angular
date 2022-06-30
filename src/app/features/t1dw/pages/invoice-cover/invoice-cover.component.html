@@ -1,43 +1,43 @@
-<div class="container width-full new-module-container">
+<div class="container">
   <div class="row">
     <div class="col-md-12">
       <h3>Informações Gerais</h3>
     </div>
   </div>
   <hr class="no-margin-t" />
-  <div class="row">
-    <div class="col-md-12">
-      <div class="form-group">
-        <div class="form-group">
-          <app-autocomplete
-            id="cod-estab"
-            name="codEstab"
-            required="true"
-            model-field="codEstab"
-            label-field="label"
-            inputLabelText="Estabelecimento"
-            [show-all-option]="true"
-            [(ngModel)]="estabelecimento"
-            [columns]="estabColumns"
-            [blockSize]="15"
-            [headerTranslation]="{
-              codEstab: 'Cód. Estabelecimento',
-              razaoSocial: 'Razão Social',
-              nomeFantasia: 'Nome Fantasia'
-            }"
-            [searchCallback]="estabCallBackFunction"
-          >
-          </app-autocomplete>
-        </div>
+  <form
+    bfmForm
+    (ngSubmit)="onSubmit()"
+    novalidate
+    [resetErrors]="resetErrors"
+    #f="ngForm"
+    [validations]="validations"
+  >
+    <div class="form-row">
+      <div class="form-group" style="width: 100%">
+        <app-autocomplete
+          id="cod-estab"
+          name="codEstab"
+          bfmField
+          bfmLabel="Estabelecimento"
+          inputLabelText="Estabelecimento"
+          required="true"
+          model-field="codEstab"
+          [(ngModel)]="estabelecimento"
+          [columns]="estabColumns"
+          [blockSize]="15"
+          [headerTranslation]="{
+            codEstab: 'Cód. Estabelecimento',
+            razaoSocial: 'Razão Social',
+            nomeFantasia: 'Nome Fantasia'
+          }"
+          [searchCallback]="estabCallBackFunction"
+        >
+        </app-autocomplete>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
+    <div class="form-row">
       <div class="form-group">
-        <label for="data_fiscal" class="bento-label-required"
-          >Data Fiscal</label
-        >
         <app-date-picker
           id="data-fiscal"
           name="dataFiscal"
@@ -47,6 +47,36 @@
           [(ngModel)]="coverData.id.dataFiscal"
         ></app-date-picker>
       </div>
+      <div class="form-group">
+        <app-date-picker
+          id="data-emissao"
+          name="data-emissao"
+          inputLabelText="Data de Emissão"
+          required="true"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.dataEmissao"
+        ></app-date-picker>
+      </div>
+      <div class="form-group">
+        <label for="hora_emissao" class="bento-label">Hora Emissão</label>
+        <input
+          id="hora_emissao"
+          name="hora_emissao"
+          type="number"
+          [(ngModel)]="coverData.horaEmissao"
+          class="form-control width-half"
+        />
+      </div>
+      <div class="form-group">
+        <app-date-picker
+          id="data_saida_rec"
+          name="data_saida_rec"
+          inputLabelText="Data Entrada/Saida"
+          required="true"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.dataSaidaRec"
+        ></app-date-picker>
+      </div>
     </div>
-  </div>
+  </form>
 </div>

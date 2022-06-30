@@ -19,7 +19,7 @@
     #f="ngForm"
     [validations]="validations"
   >
-    <div style="display: flex; flex-direction: row; flex-wrap: wrap">
+    <div class="row-form">
       <div class="form-group" style="width: 350px; margin-right: 20px">
         <app-autocomplete
           id="cod-estab"
@@ -47,7 +47,7 @@
           bfmField
           bfmLabel="Data Inicial"
           required="true"
-          label="Data de Saída / Recebimento"
+          inputLabelText="Data de Saída / Recebimento"
           buttonLabel="Abrir calendário"
           [(ngModel)]="formFilters.dataSaidaRecIni"
         ></app-date-picker>
@@ -59,7 +59,7 @@
           bfmField
           bfmLabel="Data Final"
           required="true"
-          label="&nbsp;"
+          inputLabelText="&nbsp;"
           buttonLabel="Abrir calendário"
           [(ngModel)]="formFilters.dataSaidaRecFim"
         ></app-date-picker>

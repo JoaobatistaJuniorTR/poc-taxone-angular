@@ -25,7 +25,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input() disabled?: boolean;
 
-  @Input() label?: string;
+  @Input() inputLabelText: string;
 
   @Input() buttonLabel?: string;
 
