@@ -65,10 +65,8 @@ export class InvoiceCoverComponent implements OnInit {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   isDisabled() {
-    if (1 === 1) {
-      return true;
-    }
     return true;
   }
 

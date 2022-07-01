@@ -1,6 +1,7 @@
-<div class="form-group" [style]="getStyle()">
+<div class="number-input-container">
   <label class="bento-label">{{ inputLabelText }}</label>
   <bento-number-input
+    [style]="getStyle()"
     [id]="id"
     [name]="name"
     [(ngModel)]="model"
