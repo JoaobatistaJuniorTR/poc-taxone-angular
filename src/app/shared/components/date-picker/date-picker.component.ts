@@ -23,7 +23,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input('format-max-time') formatMaxDate: boolean = false;
 
-  @Input() disabled?: boolean;
+  @Input() disabled: boolean;
 
   @Input() inputLabelText: string;
 

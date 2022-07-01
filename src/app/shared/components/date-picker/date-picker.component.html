@@ -13,11 +13,13 @@
       #datePicker="ngbDatepicker"
       (click)="onTouched(); datePickerButton.click()"
       (focus)="onTouched()"
+      [disabled]="disabled"
     />
     <button
       #datePickerButton
       class="btn btn-outline-primary btn-icon sm"
       [bentoDatepickerToggle]="datePicker"
+      [disabled]="disabled"
       type="button"
       aria-haspopup="false"
       aria-label="Open calendar"

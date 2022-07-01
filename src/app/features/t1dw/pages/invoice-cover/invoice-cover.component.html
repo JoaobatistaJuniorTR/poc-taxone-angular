@@ -20,23 +20,22 @@
           name="codEstab"
           bfmField
           bfmLabel="Estabelecimento"
-          inputLabelText="Estabelecimento"
           required="true"
+          inputLabelText="Estabelecimento"
           model-field="codEstab"
+          label-field="label"
+          [show-all-option]="false"
           [(ngModel)]="estabelecimento"
           [columns]="estabColumns"
           [blockSize]="15"
-          [headerTranslation]="{
-            codEstab: 'Cód. Estabelecimento',
-            razaoSocial: 'Razão Social',
-            nomeFantasia: 'Nome Fantasia'
-          }"
+          [headerTranslation]="estabHeaderTranslation"
           [searchCallback]="estabCallBackFunction"
+          [disabled]="isDisabled()"
         >
         </app-autocomplete>
       </div>
     </div>
-    <div class="form-row">
+    <div class="row-flex-space-around">
       <div class="form-group">
         <app-date-picker
           id="data-fiscal"
@@ -45,6 +44,7 @@
           required="true"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.id.dataFiscal"
+          [disabled]="isDisabled()"
         ></app-date-picker>
       </div>
       <div class="form-group">
@@ -55,18 +55,18 @@
           required="true"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.dataEmissao"
+          [disabled]="isDisabled()"
         ></app-date-picker>
       </div>
-      <div class="form-group">
-        <label for="hora_emissao" class="bento-label">Hora Emissão</label>
-        <input
-          id="hora_emissao"
-          name="hora_emissao"
-          type="number"
-          [(ngModel)]="coverData.horaEmissao"
-          class="form-control width-half"
-        />
-      </div>
+      <app-number-input
+        inputLabelText="Hora Emissão"
+        id="hora_emissao"
+        name="hora_emissao"
+        [(ngModel)]="coverData.horaEmissao"
+        [min]="0"
+        [max]="24"
+        [disabled]="isDisabled()"
+      ></app-number-input>
       <div class="form-group">
         <app-date-picker
           id="data_saida_rec"
@@ -75,8 +75,19 @@
           required="true"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.dataSaidaRec"
+          [disabled]="isDisabled()"
         ></app-date-picker>
       </div>
+      <app-number-input
+        inputLabelText="Hora Entrada/Saída"
+        id="hora_saida_rec"
+        name="hora_saida_rec"
+        [(ngModel)]="coverData.horaSaidaRec"
+        [min]="0"
+        [max]="24"
+        [disabled]="isDisabled()"
+      ></app-number-input>
     </div>
   </form>
 </div>
+{{ coverData | json }}

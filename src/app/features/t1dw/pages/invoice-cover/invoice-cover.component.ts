@@ -6,6 +6,7 @@ import { InvoiceService } from '../../services/invoice.service';
 import TmpX07DoctoFiscal from '../../model/TmpX07DoctoFiscal.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { Pagination } from '../../model/interface.model';
+import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -17,7 +18,7 @@ export class InvoiceCoverComponent implements OnInit {
 
   resetErrors: boolean;
 
-  coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
+  coverData: TmpX07DoctoFiscal;
 
   estabelecimento: any;
 
@@ -36,13 +37,22 @@ export class InvoiceCoverComponent implements OnInit {
     },
   ];
 
+  estabHeaderTranslation: any = {
+    codEstab: 'Cód. Estabelecimento',
+    razaoSocial: 'Razão Social',
+    nomeFantasia: 'Nome Fantasia',
+  };
+
   @ViewChild('f') private form: NgForm;
 
   constructor(
     private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private estabelecimentoService: EstabelecimentoService
-  ) {}
+  ) {
+    this.coverData = new TmpX07DoctoFiscal();
+    this.coverData.id = new TmpX07DoctoFiscalId();
+  }
 
   validations = {
     required: '{0} é obrigatório',
@@ -55,17 +65,22 @@ export class InvoiceCoverComponent implements OnInit {
     }
   }
 
+  isDisabled() {
+    if (1 === 1) {
+      return true;
+    }
+    return true;
+  }
+
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
       this.coverData = value;
-      console.log(this.coverData);
       this.findEstab(this.coverData.id.codEmpresa, this.coverData.id.codEstab);
     });
   }
 
   findEstab(codEmpresa: string, codEstab: string) {
     this.estabelecimentoService.findByCodEmpresaAndCodEstab(codEmpresa, codEstab).then((value: any) => {
-      console.log(value);
       this.estabelecimento = value;
     });
   }
