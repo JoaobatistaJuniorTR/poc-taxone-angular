@@ -13,7 +13,7 @@
     #f="ngForm"
     [validations]="validations"
   >
-    <div class="row-flex-space-around">
+    <div class="form-row-space-between">
       <div class="form-group" style="width: 100%">
         <app-autocomplete
           id="cod-estab"
@@ -39,7 +39,7 @@
       <div class="form-group">
         <app-date-picker
           id="data-fiscal"
-          name="dataFiscal"
+          name="data-fiscal"
           bfmField
           bfmLabel="Data Fiscal"
           inputLabelText="Data Fiscal"
@@ -64,9 +64,9 @@
       </div>
       <div class="form-group">
         <app-number-input
+          id="hora-emissao"
+          name="hora-emissao"
           inputLabelText="Hora Emissão"
-          id="hora_emissao"
-          name="hora_emissao"
           bfmField
           bfmLabel="Hora Emissão"
           [(ngModel)]="coverData.horaEmissao"
@@ -77,8 +77,8 @@
       </div>
       <div class="form-group">
         <app-date-picker
-          id="data_saida_rec"
-          name="data_saida_rec"
+          id="data-saida-rec"
+          name="data-saida-rec"
           bfmField
           bfmLabel="Data Entrada/Saida"
           inputLabelText="Data Entrada/Saida"
@@ -90,8 +90,8 @@
       </div>
       <div class="form-group">
         <app-number-input
-          id="hora_saida_rec"
-          name="hora_saida_rec"
+          id="hora-saida-rec"
+          name="hora-saida-rec"
           bfmField
           bfmLabel="Hora Entrada/Saída"
           inputLabelText="Hora Entrada/Saída"
@@ -103,8 +103,8 @@
       </div>
       <div class="form-group">
         <app-date-picker
-          id="dt_extemp"
-          name="dt_extemp"
+          id="dt-extemp"
+          name="dt-extemp"
           bfmField
           bfmLabel="Dt. Extemp"
           inputLabelText="Dt. Extemp"
@@ -113,6 +113,32 @@
           [disabled]="isDisabled()"
         ></app-date-picker>
       </div>
+    </div>
+    <div class="form-row-space-between">
+      <app-select
+        id="e-s"
+        name="e-s"
+        bfmField
+        bfmLabel="E/S"
+        inputLabelText="E/S"
+        [width]="250"
+        [items]="movtoESItems"
+        [(ngModel)]="coverData.id.movtoES"
+        required="true"
+        [disabled]="isDisabled()"
+      ></app-select>
+      <app-select
+        id="norm-dev"
+        name="norm-dev"
+        bfmField
+        bfmLabel="N/D"
+        inputLabelText="N/D"
+        required="true"
+        [width]="150"
+        [items]="normDevItems"
+        [(ngModel)]="coverData.id.normDev"
+        [disabled]="isDisabled()"
+      ></app-select>
     </div>
   </form>
 </div>

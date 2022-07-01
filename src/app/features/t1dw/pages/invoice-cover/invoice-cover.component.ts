@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
+import { SelectModel } from '../../../../shared/components/select/select-model';
 import { InvoiceService } from '../../services/invoice.service';
 import TmpX07DoctoFiscal from '../../model/TmpX07DoctoFiscal.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
@@ -42,6 +43,25 @@ export class InvoiceCoverComponent implements OnInit {
     razaoSocial: 'Razão Social',
     nomeFantasia: 'Nome Fantasia',
   };
+
+  movtoESItems: SelectModel[] = [
+    { value: '', label: 'Selecione uma opção' },
+    { value: '1', label: '1 - Doc. de entrada, documentos de terceiros' },
+    { value: '2', label: '2 - Doc. de entrada emitida pelo estabelecimento, acolhendo notas de produtores agropecuarios' },
+    {
+      value: '3',
+      label: '3 - Doc. de entrada emitida pelo estabelecimento, por retorno de mercadorias não entregues ao destinatário',
+    },
+    { value: '4', label: '4 - Doc. de entrada emitida pelo estabelecimento, outros motivos legais' },
+    { value: '5', label: '5 - Doc. de entrada emitida pelo estabelecimento, globalizando conhecimentos de frete' },
+    { value: '6', label: '9 - Doc. de saída' },
+  ];
+
+  normDevItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '1', label: '1 - Normal' },
+    { value: '2', label: '2 - Devolução' },
+  ];
 
   @ViewChild('f') private form: NgForm;
 

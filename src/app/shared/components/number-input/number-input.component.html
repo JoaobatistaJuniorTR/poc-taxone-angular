@@ -1,7 +1,6 @@
 <div class="number-input-container">
-  <label class="bento-label">{{ inputLabelText }}</label>
+  <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
   <bento-number-input
-    [style]="getStyle()"
     [id]="id"
     [name]="name"
     [(ngModel)]="model"
@@ -9,5 +8,6 @@
     [min]="min"
     [max]="max"
     (ngModelChange)="onModelChange($event)"
+    [style]="getStyle()"
   ></bento-number-input>
 </div>

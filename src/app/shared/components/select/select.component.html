@@ -1,0 +1,16 @@
+<div class="select-container" [style]="getStyle()">
+  <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
+  <select
+    [id]="id"
+    [name]="name"
+    [(ngModel)]="model"
+    bentoSelect
+    class="form-control"
+    [disabled]="disabled"
+    (ngModelChange)="onModelChange($event)"
+  >
+    <option *ngFor="let item of items" [value]="item.value">
+      {{ item.label }}
+    </option>
+  </select>
+</div>

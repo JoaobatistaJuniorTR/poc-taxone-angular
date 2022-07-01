@@ -20,6 +20,7 @@ import { ModalConfirmationComponent } from './components/modal-confirmation/moda
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
+import { SelectComponent } from './components/select/select.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NumberInputComponent } from './components/number-input/number-input.com
     DatePickerComponent,
     AlertComponent,
     NumberInputComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +57,7 @@ import { NumberInputComponent } from './components/number-input/number-input.com
     DatePickerComponent,
     AlertComponent,
     NumberInputComponent,
+    SelectComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,

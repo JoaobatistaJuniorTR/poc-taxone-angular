@@ -1,9 +1,9 @@
 <div class="data-picker-container">
-  <label for="dt-saida-recetimento-begin" class="bento-label">{{
-    inputLabelText
-  }}</label>
+  <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
   <div class="input-group bento-datepicker">
     <input
+      [id]="id"
+      [name]="name"
       class="form-control bento-datepicker"
       [firstDayOfWeek]="7"
       ngbDatepicker

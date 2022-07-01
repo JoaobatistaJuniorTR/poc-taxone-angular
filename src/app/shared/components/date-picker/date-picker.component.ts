@@ -21,6 +21,10 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   dateStructure: NgbDateStruct;
 
+  @Input() id: string;
+
+  @Input() name: string;
+
   @Input('format-max-time') formatMaxDate: boolean = false;
 
   @Input() disabled: boolean;
@@ -57,6 +61,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.model = value;
+    this.onChange(value);
   }
 
   registerOnChange(fn: (value: any) => void): void {
