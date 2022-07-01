@@ -35,11 +35,13 @@
         </app-autocomplete>
       </div>
     </div>
-    <div class="row-flex-space-around">
+    <div class="form-row-space-between">
       <div class="form-group">
         <app-date-picker
           id="data-fiscal"
           name="dataFiscal"
+          bfmField
+          bfmLabel="Data Fiscal"
           inputLabelText="Data Fiscal"
           required="true"
           buttonLabel="Abrir calendário"
@@ -51,6 +53,8 @@
         <app-date-picker
           id="data-emissao"
           name="data-emissao"
+          bfmField
+          bfmLabel="Data de Emissão"
           inputLabelText="Data de Emissão"
           required="true"
           buttonLabel="Abrir calendário"
@@ -63,6 +67,8 @@
           inputLabelText="Hora Emissão"
           id="hora_emissao"
           name="hora_emissao"
+          bfmField
+          bfmLabel="Hora Emissão"
           [(ngModel)]="coverData.horaEmissao"
           [min]="0"
           [max]="24"
@@ -73,6 +79,8 @@
         <app-date-picker
           id="data_saida_rec"
           name="data_saida_rec"
+          bfmField
+          bfmLabel="Data Entrada/Saida"
           inputLabelText="Data Entrada/Saida"
           required="true"
           buttonLabel="Abrir calendário"
@@ -82,14 +90,28 @@
       </div>
       <div class="form-group">
         <app-number-input
-          inputLabelText="Hora Entrada/Saída"
           id="hora_saida_rec"
           name="hora_saida_rec"
+          bfmField
+          bfmLabel="Hora Entrada/Saída"
+          inputLabelText="Hora Entrada/Saída"
           [(ngModel)]="coverData.horaSaidaRec"
           [min]="0"
           [max]="24"
           [disabled]="isDisabled()"
         ></app-number-input>
+      </div>
+      <div class="form-group">
+        <app-date-picker
+          id="dt_extemp"
+          name="dt_extemp"
+          bfmField
+          bfmLabel="Dt. Extemp"
+          inputLabelText="Dt. Extemp"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.datEscrExtemp"
+          [disabled]="isDisabled()"
+        ></app-date-picker>
       </div>
     </div>
   </form>
