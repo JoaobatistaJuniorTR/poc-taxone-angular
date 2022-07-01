@@ -68,12 +68,12 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   onModelChange = (value: any) => {
+    this.onChange(value);
     if (value !== this.previousDataStructure) {
       this.previousDataStructure = { ...value };
       if (value && value.year > 999) {
         this.localModel = this.format(value);
       }
-      this.onChange(this.localModel);
       this.modelChange.emit(this.localModel);
     }
   };

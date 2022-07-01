@@ -43,7 +43,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input() blockSize: number = 25;
 
-  @Input() debounceTime: number = 500;
+  @Input() debounceTime: number = 1000;
 
   @Input() minSearchCharacterCount: number = 3;
 
@@ -95,10 +95,10 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   onModelChange = (item: any) => {
-    if (item !== this.previousSelectedItem) {
-      this.previousSelectedItem = item;
+    this.onChange(item);
+    if (!item || item !== this.previousSelectedItem) {
+      this.previousSelectedItem = { ...item };
       this.model = item;
-      this.onChange(item);
 
       this.modelChange.emit(this.model);
       if (!item) {
@@ -120,8 +120,8 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   private loadData(page: number, blockSize: number, search: string) {
-    if (this.previusSearch !== search) {
-      this.previusSearch = search.slice();
+    if (!search || this.previusSearch !== search) {
+      this.previusSearch = search ? search.slice() : '';
       this.isBusyLoader = true;
       let tmpSearch: string = search?.toLowerCase() || '';
       if (this.showAllOption && tmpSearch === 'todos') {

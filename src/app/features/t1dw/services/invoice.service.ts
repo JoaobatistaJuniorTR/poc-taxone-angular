@@ -35,7 +35,7 @@ export class InvoiceService {
       .toPromise();
   }
 
-  getInvoiceById(invoiceId: string): Promise<HttpEvent<TmpX07DoctoFiscal>> {
+  getInvoiceById(invoiceId: string): Promise<any> {
     this.httpOptions.params = {};
     return this.http
       .get<TmpX07DoctoFiscal>(`${environment.contextT1dw}/${this.API_ENDPOINT}/${invoiceId}`, this.httpOptions)
