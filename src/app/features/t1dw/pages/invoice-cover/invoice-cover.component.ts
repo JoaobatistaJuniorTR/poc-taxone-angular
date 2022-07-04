@@ -15,6 +15,7 @@ import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
   styleUrls: ['./invoice-cover.component.sass'],
 })
 export class InvoiceCoverComponent implements OnInit {
+  value: string = '123456';
   private invoiceId: string;
 
   resetErrors: boolean;

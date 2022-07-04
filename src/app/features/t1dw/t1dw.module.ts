@@ -12,21 +12,8 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { InvoiceCoverComponent } from './pages/invoice-cover/invoice-cover.component';
 
 @NgModule({
-  declarations: [
-    T1dwHomeComponent,
-    ExampleGridComponent,
-    InvoicesListComponent,
-    InvoiceComponent,
-    InvoiceCoverComponent,
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    SharedModule,
-    FormsModule,
-    T1dwRoutingModule,
-  ],
+  declarations: [T1dwHomeComponent, ExampleGridComponent, InvoicesListComponent, InvoiceComponent, InvoiceCoverComponent],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule, SharedModule, FormsModule, T1dwRoutingModule],
   providers: [
     {
       provide: environment.contextProvider,

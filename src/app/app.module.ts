@@ -3,6 +3,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -11,7 +12,7 @@ import { StorageIdInterceptor } from './interceptors/storage-id.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, CoreModule, SharedModule],
+  imports: [BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, CoreModule, SharedModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -144,7 +144,58 @@
         bfmLabel="Nota Fiscal de venda emitida por terceiro"
         inputLabelText="Nota Fiscal de venda emitida por terceiro"
         [(ngModel)]="coverData.indNfVendaTerceiros"
+        [disabled]="isDisabled()"
       ></app-checkbox>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-flex">
+        <div class="form-group">
+          <label for="num-docfis" class="bento-label-required">Número NF</label>
+          <input
+            id="num-docfis"
+            name="num-docfis"
+            bfmField
+            bfmLabel="Número NF"
+            class="form-control"
+            type="text"
+            [(ngModel)]="coverData.id.numDocfis"
+            maxlength="12"
+            [disabled]="isDisabled()"
+            required="true"
+            style="width: 150px"
+          />
+        </div>
+        <div class="form-group">
+          <label for="serie-docfis" class="bento-label">&nbsp;</label>
+          <input
+            id="serie-docfis"
+            name="serie-docfis"
+            bfmField
+            bfmField="Série NF"
+            class="form-control"
+            type="text"
+            [disabled]="isDisabled()"
+            [(ngModel)]="coverData.id.serieDocfis"
+            maxlength="3"
+            style="width: 100px"
+          />
+        </div>
+        <div class="form-group">
+          <label for="sub-serie-docfis" class="bento-label">&nbsp;</label>
+          <input
+            id="sub-serie-docfis"
+            name="sub-serie-docfis"
+            bfmField
+            bfmField="Série NF"
+            class="form-control"
+            type="text"
+            [disabled]="isDisabled()"
+            [(ngModel)]="coverData.id.subSerieDocfis"
+            maxlength="2"
+            style="width: 100px"
+          />
+        </div>
+      </div>
     </div>
   </form>
 </div>
