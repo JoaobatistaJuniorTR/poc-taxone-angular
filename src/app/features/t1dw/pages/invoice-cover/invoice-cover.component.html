@@ -147,8 +147,8 @@
         [disabled]="isDisabled()"
       ></app-checkbox>
     </div>
-    <div class="form-row-space-between">
-      <div class="form-flex">
+    <div class="form-flex">
+      <div class="form-flex" style="width: 360px; column-gap: 5px">
         <div class="form-group">
           <label for="num-docfis" class="bento-label-required">Número NF</label>
           <input
@@ -195,6 +195,43 @@
             style="width: 100px"
           />
         </div>
+      </div>
+      <div class="form-group" style="width: 350px">
+        <app-autocomplete
+          id="cod-docto"
+          name="cod-docto"
+          bfmField
+          bfmLabel="Tipo de Documento"
+          required="true"
+          inputLabelText="Tipo de Documento"
+          model-field="codEstab"
+          label-field="label"
+          [show-all-option]="false"
+          [(ngModel)]="estabelecimento"
+          [columns]="estabColumns"
+          [blockSize]="15"
+          [headerTranslation]="estabHeaderTranslation"
+          [searchCallback]="estabCallBackFunction"
+          [disabled]="isDisabled()"
+        >
+        </app-autocomplete>
+      </div>
+    </div>
+    <div class="form-flex">
+      <div class="form-group" style="width: 100%">
+        <label for="num_docfis_serv" class="bento-label"
+          >Número NF (60 posições)</label
+        >
+        <input
+          id="num_docfis_serv"
+          name="num_docfis_serv"
+          bfmField
+          bfmField="Número NF (60 posições)"
+          class="form-control"
+          type="text"
+          [(ngModel)]="coverData.numDocfisServ"
+          maxlength="60"
+        />
       </div>
     </div>
   </form>
