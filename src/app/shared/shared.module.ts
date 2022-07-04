@@ -21,6 +21,7 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { AlertComponent } from './components/alert/alert.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { SelectComponent } from './components/select/select.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SelectComponent } from './components/select/select.component';
     AlertComponent,
     NumberInputComponent,
     SelectComponent,
+    CheckboxComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +60,7 @@ import { SelectComponent } from './components/select/select.component';
     AlertComponent,
     NumberInputComponent,
     SelectComponent,
+    CheckboxComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,

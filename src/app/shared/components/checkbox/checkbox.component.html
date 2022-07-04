@@ -1,0 +1,10 @@
+<div class="form-group form-check">
+  <bento-checkbox
+    [id]="id"
+    [name]="name"
+    [(ngModel)]="model"
+    (ngModelChange)="onModelChange($event)"
+    [disabled]="disabled"
+  ></bento-checkbox>
+  <label for="{{ id }}">{{ inputLabelText }}</label>
+</div>

@@ -1,20 +1,25 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { SelectModel } from './select-model';
 
 @Component({
-  selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.sass'],
+  selector: 'app-checkbox',
+  templateUrl: './checkbox.component.html',
+  styleUrls: ['./checkbox.component.sass'],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class CheckboxComponent implements ControlValueAccessor {
   @Input() id: string;
 
   @Input() name: string;
 
-  @Input() items: SelectModel[] = [];
+  private model$: any;
 
-  @Input('ngModel') model: any;
+  @Input('ngModel') get model() {
+    return this.model$;
+  }
+
+  set model(val: string) {
+    this.model$ = val ? 'S' : 'N';
+  }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
 
@@ -39,6 +44,6 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   onModelChange(value: any) {
-    this.modelChange.emit(value);
+    this.modelChange.emit(value ? 'S' : 'N');
   }
 }

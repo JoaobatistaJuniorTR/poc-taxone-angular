@@ -121,7 +121,6 @@
         bfmField
         bfmLabel="E/S"
         inputLabelText="E/S"
-        [width]="250"
         [items]="movtoESItems"
         [(ngModel)]="coverData.id.movtoES"
         required="true"
@@ -134,11 +133,18 @@
         bfmLabel="N/D"
         inputLabelText="N/D"
         required="true"
-        [width]="150"
         [items]="normDevItems"
         [(ngModel)]="coverData.id.normDev"
         [disabled]="isDisabled()"
       ></app-select>
+      <app-checkbox
+        id="ind-nf-venda-terceiros"
+        name="ind-nf-venda-terceiros"
+        bfmField
+        bfmLabel="Nota Fiscal de venda emitida por terceiro"
+        inputLabelText="Nota Fiscal de venda emitida por terceiro"
+        [(ngModel)]="coverData.indNfVendaTerceiros"
+      ></app-checkbox>
     </div>
   </form>
 </div>
