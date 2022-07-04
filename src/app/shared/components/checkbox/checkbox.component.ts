@@ -1,12 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.sass'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CheckboxComponent),
+      multi: true,
+    },
+  ],
 })
 export class CheckboxComponent implements ControlValueAccessor {
+  value: boolean;
+
   @Input() id: string;
 
   @Input() name: string;
@@ -18,7 +27,8 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   set model(val: string) {
-    this.model$ = val ? 'S' : 'N';
+    this.model$ = val;
+    this.value = this.model$ === 'S';
   }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
@@ -44,6 +54,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   onModelChange(value: any) {
-    this.modelChange.emit(value ? 'S' : 'N');
+    this.model$ = value ? 'S' : 'N';
+    this.modelChange.emit(this.model$);
   }
 }
