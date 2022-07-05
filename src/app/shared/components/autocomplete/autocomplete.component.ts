@@ -139,7 +139,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
     }
 
     this.isBusyLoader = true;
-    this.searchCallback(page, blockSize, search === 'Todos' ? '' : search, unique)
+    this.searchCallback(page, blockSize, search, unique)
       .then((data) => {
         if (this.shouldPrependAllOption(unique, page, search)) {
           data.content = this.prependAllOption(data.content);
@@ -158,7 +158,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   private shouldPrependAllOption = (unique: boolean, page: number, search: string): Boolean => {
-    return !unique && this.showAllOption && page === 0 && search === 'Todos';
+    return !unique && this.showAllOption && page === 0 && search.toLocaleLowerCase() === 'todos';
   };
 
   private prependAllOption = (list: any[]): any[] => {

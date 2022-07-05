@@ -202,9 +202,11 @@ export class InvoicesListComponent implements OnInit {
         new GridFilterConditional(OperatorType.EQ, this.formFilters.codEmpresa)
       )
     );
-    gridFilters.push(
-      new GridFilter('codEstab', QueryOperator.AND, new GridFilterConditional(OperatorType.EQ, this.formFilters.codEstab))
-    );
+
+    const { codEstab } = this.formFilters;
+    if (codEstab?.toLocaleLowerCase() !== 'todos') {
+      gridFilters.push(new GridFilter('codEstab', QueryOperator.AND, new GridFilterConditional(OperatorType.EQ, codEstab)));
+    }
     gridFilters.push(
       new GridFilter(
         'dataFiscal',
