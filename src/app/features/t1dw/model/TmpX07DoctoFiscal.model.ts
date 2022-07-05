@@ -5,6 +5,7 @@ import ServiceTotals from './ServiceTotals.model';
 
 export default class TmpX07DoctoFiscal {
   public id: TmpX07DoctoFiscalId;
+  public razaoSocialFisJur: string;
   public totaisMercadoria: MerchandiseTotals;
   public totaisServico: ServiceTotals;
   public idDoctoFiscal: string;

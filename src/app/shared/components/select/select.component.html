@@ -1,5 +1,7 @@
 <div class="select-container">
-  <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
+  <label *ngIf="inputLabelText" for="{{ id }}" class="bento-label">{{
+    inputLabelText
+  }}</label>
   <select
     [id]="id"
     [name]="name"

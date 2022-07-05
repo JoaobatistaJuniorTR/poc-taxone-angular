@@ -234,19 +234,63 @@
         />
       </div>
     </div>
-    <div class="form-flex">
-      <div class="form-flex" style="flex-direction: column">
+    <div class="form-row-space-between">
+      <div class="form-flex" style="flex-direction: column; width: 15%">
         <label for="ind_fis_jur" class="bento-label-required">Fis/Jur</label>
         <div class="flex-row-compose input-group">
           <div class="input-group-addon">
             <app-modal></app-modal>
           </div>
-          <div>
+          <div style="width: 100%">
             <app-select></app-select>
           </div>
         </div>
       </div>
-      <div class="form-flex"></div>
+      <div class="form-group" style="width: 15%">
+        <label for="cod-fis-jur" class="bento-label">&nbsp;</label>
+        <input
+          id="cod-fis-jur"
+          name="cod-fis-jur"
+          bfmField
+          bfmField="Código Fis/Jur"
+          required="true"
+          class="form-control"
+          type="text"
+          [disabled]="isDisabled()"
+          [(ngModel)]="coverData.id.codFisJur"
+          maxlength="14"
+        />
+      </div>
+      <div class="form-group" style="width: 52%">
+        <label for="razao-social-fis-jur" class="bento-label">&nbsp;</label>
+        <input
+          id="razao-social-fis-jur"
+          name="razao-social-fis-jur"
+          bfmField
+          bfmField="Razão Social Fis/Jur"
+          required="true"
+          class="form-control"
+          type="text"
+          [disabled]="isDisabled()"
+          [(ngModel)]="coverData.razaoSocialFisJur"
+          maxlength="14"
+        />
+      </div>
+      <div class="form-group" style="width: 15%">
+        <label for="razao-social-fis-jur" class="bento-label">&nbsp;</label>
+        <input
+          id="razao-social-fis-jur"
+          name="razao-social-fis-jur"
+          bfmField
+          bfmField="Razão Social Fis/Jur"
+          required="true"
+          class="form-control"
+          type="text"
+          [disabled]="isDisabled()"
+          [(ngModel)]="coverData.razaoSocialFisJur"
+          maxlength="14"
+        />
+      </div>
     </div>
   </form>
 </div>
