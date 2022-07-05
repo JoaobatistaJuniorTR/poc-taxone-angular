@@ -277,7 +277,7 @@
         />
       </div>
       <div class="form-group" style="width: 15%">
-        <label for="razao-social-fis-jur" class="bento-label">&nbsp;</label>
+        <label for="razao-social-fis-jur" class="bento-label">CPF/CNPJ</label>
         <input
           id="razao-social-fis-jur"
           name="razao-social-fis-jur"
@@ -287,9 +287,53 @@
           class="form-control"
           type="text"
           [disabled]="isDisabled()"
-          [(ngModel)]="coverData.razaoSocialFisJur"
+          [(ngModel)]="coverData.fisJurCpfCnpj"
           maxlength="14"
         />
+      </div>
+    </div>
+    <div class="form-flex">
+      <div class="form-group" style="flex-grow: 0.75">
+        <app-autocomplete
+          id="cod-modelo"
+          name="cod-modelo"
+          bfmField
+          bfmLabel="Modelo Doc."
+          required="true"
+          inputLabelText="Modelo Doc."
+          [(ngModel)]="coverData.codModelo"
+          [columns]="codDoctoColumns"
+          model-field="codigo"
+          label-field="label"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [minSearchCharacterCount]="2"
+          [headerTranslation]="codDoctoHeaderTranslation"
+          [searchCallback]="codDoctoCallBackFunction"
+          [disabled]="isDisabled()"
+        >
+        </app-autocomplete>
+      </div>
+      <div class="form-group" style="flex-grow: 0.25">
+        <app-autocomplete
+          id="cod-modelo"
+          name="cod-modelo"
+          bfmField
+          bfmLabel="Trib. Interna"
+          required="true"
+          inputLabelText="Trib. Interna"
+          [(ngModel)]="coverData.codTribInt"
+          [columns]="codDoctoColumns"
+          model-field="codigo"
+          label-field="label"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [minSearchCharacterCount]="2"
+          [headerTranslation]="codDoctoHeaderTranslation"
+          [searchCallback]="codDoctoCallBackFunction"
+          [disabled]="isDisabled()"
+        >
+        </app-autocomplete>
       </div>
     </div>
   </form>

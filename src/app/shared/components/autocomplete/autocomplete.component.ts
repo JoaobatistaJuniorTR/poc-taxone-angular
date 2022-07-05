@@ -65,19 +65,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   onChange: Function = () => {};
 
-  writeValue(value: any): void {
-    this.model = value;
-    this.onChange(value);
-  }
-
-  registerOnChange(fn: (value: any) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
   ngOnInit(): void {
     this.comboboxOptions = {
       searchable: true,
@@ -92,6 +79,19 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
       },
     };
     this.preloadDataIfExists();
+  }
+
+  writeValue(value: any): void {
+    this.model = value;
+    this.onChange(value);
+  }
+
+  registerOnChange(fn: (value: any) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 
   private preloadDataIfExists = (): void => {
