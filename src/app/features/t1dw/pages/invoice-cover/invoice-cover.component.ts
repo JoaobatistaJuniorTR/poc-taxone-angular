@@ -22,10 +22,6 @@ export class InvoiceCoverComponent implements OnInit {
 
   coverData: TmpX07DoctoFiscal;
 
-  estabelecimento: any;
-
-  tipoDocumento: any;
-
   estabColumns: BentoComboboxColumn[] = [
     {
       name: 'codEstab',
@@ -113,48 +109,35 @@ export class InvoiceCoverComponent implements OnInit {
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
       this.coverData = value;
-      this.findEstab(this.coverData.id.codEmpresa, this.coverData.id.codEstab);
     });
   }
 
-  findEstab(codEmpresa: string, codEstab: string) {
-    this.estabelecimentoService.findByCodEmpresaAndCodEstab(codEmpresa, codEstab).then((value: any) => {
-      this.estabelecimento = value;
-    });
-  }
-
-  estabCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
-    const pagination: Pagination = { page, size };
-    if (this.estabelecimento) {
-      return this.estabelecimentoService.autocomplete(this.estabelecimento.codEmpresa, pagination, filter);
+  estabCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.estabelecimentoService.findByCodEmpresaAndCodEstab(this.coverData.id.codEmpresa, filter);
     }
-
-    return this.estabelecimentoService.autocomplete('empty', pagination, filter);
+    const pagination: Pagination = { page, size };
+    return this.estabelecimentoService.autocomplete(this.coverData.id.codEmpresa, pagination, filter);
   };
 
-  codDoctoCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
-    // if (unique) {
-    //  return this.tipoDocumentoService.findByCodigo(
-    //    this.coverData.id.codEmpresa,
-    //    this.coverData.id.codEstab,
-    //    this.coverData.id.dataFiscal,
-    //    filter
-    //  );
-    // }
-
-    if (this.coverData.id.dataFiscal) {
-      const pagination: Pagination = { page, size };
-
-      return this.tipoDocumentoService.autocomplete(
+  codDoctoCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.tipoDocumentoService.findByCodigo(
         this.coverData.id.codEmpresa,
-        this.coverData.id.codEstab,
+        filter,
         this.coverData.id.dataFiscal,
-        pagination,
         filter
       );
     }
+    const pagination: Pagination = { page, size };
 
-    return Promise.resolve();
+    return this.tipoDocumentoService.autocomplete(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      pagination,
+      filter
+    );
   };
 
   onSubmit = () => {};

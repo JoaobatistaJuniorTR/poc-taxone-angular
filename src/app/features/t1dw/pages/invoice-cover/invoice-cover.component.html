@@ -17,20 +17,19 @@
       <div class="form-group" style="width: 100%">
         <app-autocomplete
           id="cod-estab"
-          name="codEstab"
+          name="cod-estab"
           bfmField
           bfmLabel="Estabelecimento"
           required="true"
           inputLabelText="Estabelecimento"
           model-field="codEstab"
           label-field="label"
-          [show-all-option]="false"
-          [(ngModel)]="estabelecimento"
+          [(ngModel)]="coverData.id.codEstab"
           [columns]="estabColumns"
-          [blockSize]="15"
+          [blockSize]="25"
+          [debounceTime]="1000"
           [headerTranslation]="estabHeaderTranslation"
           [searchCallback]="estabCallBackFunction"
-          [disabled]="isDisabled()"
         >
         </app-autocomplete>
       </div>
@@ -204,12 +203,13 @@
           bfmLabel="Tipo de Documento"
           required="true"
           inputLabelText="Tipo de Documento"
-          model-field="codEstab"
-          label-field="label"
-          [show-all-option]="false"
-          [(ngModel)]="tipoDocumento"
+          [(ngModel)]="coverData.id.codDocto"
           [columns]="codDoctoColumns"
+          model-field="codigo"
+          label-field="label"
           [blockSize]="25"
+          [debounceTime]="1000"
+          [minSearchCharacterCount]="2"
           [headerTranslation]="codDoctoHeaderTranslation"
           [searchCallback]="codDoctoCallBackFunction"
           [disabled]="isDisabled()"

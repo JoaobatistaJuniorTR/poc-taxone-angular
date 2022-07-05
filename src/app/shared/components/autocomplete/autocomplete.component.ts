@@ -39,7 +39,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input('label-field') labelField: string;
 
-  @Input('show-all-option') showAllOption: boolean = true;
+  @Input('show-all-option') showAllOption: boolean = false;
 
   @Input() blockSize: number = 25;
 
@@ -109,7 +109,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   onModelChange = (item: any) => {
     if (item) {
-      this.model = item.codEstab;
+      this.model = item[this.modelField];
     } else {
       this.selectedItem = undefined;
       this.model = '';
