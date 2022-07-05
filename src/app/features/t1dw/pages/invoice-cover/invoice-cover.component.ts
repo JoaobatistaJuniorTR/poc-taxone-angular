@@ -8,6 +8,7 @@ import TmpX07DoctoFiscal from '../../model/TmpX07DoctoFiscal.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { Pagination } from '../../model/interface.model';
 import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
+import { TipoDocumentoService } from '../../services/tipo-documento.service';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -15,7 +16,6 @@ import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
   styleUrls: ['./invoice-cover.component.sass'],
 })
 export class InvoiceCoverComponent implements OnInit {
-  value: string = '123456';
   private invoiceId: string;
 
   resetErrors: boolean;
@@ -23,6 +23,8 @@ export class InvoiceCoverComponent implements OnInit {
   coverData: TmpX07DoctoFiscal;
 
   estabelecimento: any;
+
+  tipoDocumento: any;
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -64,20 +66,37 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '2', label: '2 - Devolução' },
   ];
 
-  @ViewChild('f') private form: NgForm;
+  codDoctoColumns: BentoComboboxColumn[] = [
+    {
+      name: 'codigo',
+      width: '80px',
+    },
+    {
+      name: 'descricao',
+      width: '250px',
+    },
+  ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private invoiceService: InvoiceService,
-    private estabelecimentoService: EstabelecimentoService
-  ) {
-    this.coverData = new TmpX07DoctoFiscal();
-    this.coverData.id = new TmpX07DoctoFiscalId();
-  }
+  codDoctoHeaderTranslation: any = {
+    codigo: 'Código',
+    descricao: 'Descrição',
+  };
+
+  @ViewChild('f') private form: NgForm;
 
   validations = {
     required: '{0} é obrigatório',
   };
+
+  constructor(
+    private route: ActivatedRoute,
+    private invoiceService: InvoiceService,
+    private estabelecimentoService: EstabelecimentoService,
+    private tipoDocumentoService: TipoDocumentoService
+  ) {
+    this.coverData = new TmpX07DoctoFiscal();
+    this.coverData.id = new TmpX07DoctoFiscalId();
+  }
 
   ngOnInit(): void {
     this.invoiceId = this.route.parent?.snapshot.params['invoice-id'];
@@ -111,6 +130,31 @@ export class InvoiceCoverComponent implements OnInit {
     }
 
     return this.estabelecimentoService.autocomplete('empty', pagination, filter);
+  };
+
+  codDoctoCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
+    // if (unique) {
+    //  return this.tipoDocumentoService.findByCodigo(
+    //    this.coverData.id.codEmpresa,
+    //    this.coverData.id.codEstab,
+    //    this.coverData.id.dataFiscal,
+    //    filter
+    //  );
+    // }
+
+    if (this.coverData.id.dataFiscal) {
+      const pagination: Pagination = { page, size };
+
+      return this.tipoDocumentoService.autocomplete(
+        this.coverData.id.codEmpresa,
+        this.coverData.id.codEstab,
+        this.coverData.id.dataFiscal,
+        pagination,
+        filter
+      );
+    }
+
+    return Promise.resolve();
   };
 
   onSubmit = () => {};

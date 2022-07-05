@@ -18,16 +18,10 @@ export class GridFilterService {
       gridFilter.operatorBetweenConditions = filter.and ? QueryOperator.AND : QueryOperator.OR;
 
       if (filter.condition1.value) {
-        gridFilter.firstCondition = new GridFilterConditional(
-          filter.condition1.operator,
-          filter.condition1.value
-        );
+        gridFilter.firstCondition = new GridFilterConditional(filter.condition1.operator, filter.condition1.value);
 
         if (filter.condition2.value) {
-          gridFilter.secondCondition = new GridFilterConditional(
-            filter.condition2.operator,
-            filter.condition2.value
-          );
+          gridFilter.secondCondition = new GridFilterConditional(filter.condition2.operator, filter.condition2.value);
         }
       }
 

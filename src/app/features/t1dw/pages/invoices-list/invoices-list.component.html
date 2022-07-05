@@ -2,7 +2,6 @@
   (activate)="isHidden = true"
   (deactivate)="isHidden = false"
 ></router-outlet>
-
 <div class="container" [hidden]="isHidden">
   <app-alert></app-alert>
   <div class="row">
@@ -19,7 +18,7 @@
     #f="ngForm"
     [validations]="validations"
   >
-    <div class="row-flex">
+    <div class="form-flex">
       <div class="form-group" style="width: 350px; margin-right: 20px">
         <app-autocomplete
           id="cod-estab"
@@ -31,7 +30,7 @@
           model-field="codEstab"
           label-field="label"
           [show-all-option]="true"
-          [(ngModel)]="formFilters.estab"
+          [(ngModel)]="formFilters.codEstab"
           [columns]="estabColumns"
           [blockSize]="15"
           [headerTranslation]="estabHeaderTranslation"

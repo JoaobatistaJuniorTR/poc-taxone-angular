@@ -141,16 +141,7 @@ export class InvoicesListComponent implements OnInit {
     this.data.pageSize = this.pageInfo.pageSize;
     const moduleData: any = this.storage.getObject('moduleData');
     this.formFilters.codEmpresa = moduleData.company.id;
-    this.formFilters.estab = moduleData.branch;
-    if (this.formFilters.estab) {
-      if (this.formFilters.estab.codEstab) {
-        this.estabDisabled = true;
-        this.formFilters.estab.label = `${this.formFilters.estab.codEstab} - ${this.formFilters.estab.razaoSocial}`;
-      } else {
-        this.formFilters.estab.codEstab = 'Todos';
-        this.formFilters.estab.label = 'Todos';
-      }
-    }
+    this.formFilters.codEstab = moduleData.branch.codEstab ? moduleData.branch.codEstab : 'Todos';
   }
 
   loadInitialDates() {
@@ -167,7 +158,10 @@ export class InvoicesListComponent implements OnInit {
     this.formFilters.dataSaidaRecIni = lastDayOfPreviousMonth.toJSON();
   }
 
-  estabCallBackFunction = (page: number, size: number, filter: string): Promise<any> => {
+  estabCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.estabelecimentoService.findByCodEmpresaAndCodEstab(this.formFilters.codEmpresa, filter);
+    }
     const pagination: Pagination = { page, size };
     return this.estabelecimentoService.autocomplete(this.formFilters.codEmpresa, pagination, filter);
   };
@@ -208,15 +202,9 @@ export class InvoicesListComponent implements OnInit {
         new GridFilterConditional(OperatorType.EQ, this.formFilters.codEmpresa)
       )
     );
-    if (this.formFilters.estab.codEstab !== 'Todos') {
-      gridFilters.push(
-        new GridFilter(
-          'codEstab',
-          QueryOperator.AND,
-          new GridFilterConditional(OperatorType.EQ, this.formFilters.estab.codEstab)
-        )
-      );
-    }
+    gridFilters.push(
+      new GridFilter('codEstab', QueryOperator.AND, new GridFilterConditional(OperatorType.EQ, this.formFilters.codEstab))
+    );
     gridFilters.push(
       new GridFilter(
         'dataFiscal',

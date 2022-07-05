@@ -7,6 +7,8 @@ import { Pagination } from '../model/interface.model';
   providedIn: 'root',
 })
 export class EstabelecimentoService {
+  private readonly API_ENDPOINT = `${environment.contextT1dw}/empresas`;
+
   constructor(private http: HttpClient) {}
 
   autocomplete(codEmpresa: string, pagination: Pagination, search?: string): Promise<any> {
@@ -18,12 +20,10 @@ export class EstabelecimentoService {
       },
     };
 
-    return this.http
-      .get<any>(`${environment.contextT1dw}/empresas/${codEmpresa}/estabelecimentos/suggestions/`, httpOptions)
-      .toPromise();
+    return this.http.get<any>(`${this.API_ENDPOINT}/${codEmpresa}/estabelecimentos/suggestions/`, httpOptions).toPromise();
   }
 
   public findByCodEmpresaAndCodEstab(codEmpresa: string, codEstab: string): Promise<any> {
-    return this.http.get<any>(`${environment.contextT1dw}/empresas/${codEmpresa}/estabelecimentos/${codEstab}`).toPromise();
+    return this.http.get<any>(`${this.API_ENDPOINT}/${codEmpresa}/estabelecimentos/${codEstab}`).toPromise();
   }
 }

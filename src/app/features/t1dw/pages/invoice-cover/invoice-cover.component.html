@@ -147,7 +147,7 @@
         [disabled]="isDisabled()"
       ></app-checkbox>
     </div>
-    <div class="form-flex">
+    <div class="form-flex" style="flex-wrap: nowrap">
       <div class="form-flex" style="width: 360px; column-gap: 5px">
         <div class="form-group">
           <label for="num-docfis" class="bento-label-required">Número NF</label>
@@ -196,7 +196,7 @@
           />
         </div>
       </div>
-      <div class="form-group" style="width: 350px">
+      <div class="form-group" style="flex-grow: 1">
         <app-autocomplete
           id="cod-docto"
           name="cod-docto"
@@ -207,11 +207,11 @@
           model-field="codEstab"
           label-field="label"
           [show-all-option]="false"
-          [(ngModel)]="estabelecimento"
-          [columns]="estabColumns"
-          [blockSize]="15"
-          [headerTranslation]="estabHeaderTranslation"
-          [searchCallback]="estabCallBackFunction"
+          [(ngModel)]="tipoDocumento"
+          [columns]="codDoctoColumns"
+          [blockSize]="25"
+          [headerTranslation]="codDoctoHeaderTranslation"
+          [searchCallback]="codDoctoCallBackFunction"
           [disabled]="isDisabled()"
         >
         </app-autocomplete>

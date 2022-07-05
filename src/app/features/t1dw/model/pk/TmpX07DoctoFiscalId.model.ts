@@ -5,7 +5,7 @@ export default class TmpX07DoctoFiscalId {
 
   public codEstab: string;
 
-  public dataFiscal: Date;
+  public dataFiscal: any;
 
   public movtoES: string;
 
