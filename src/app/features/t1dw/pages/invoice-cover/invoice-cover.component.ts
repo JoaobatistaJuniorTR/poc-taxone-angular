@@ -11,6 +11,7 @@ import { Pagination } from '../../model/interface.model';
 import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
 import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { ModeloDocumentoService } from '../../services/modelo-documento.service';
+import { TributacaoInternaService } from '../../services/tributacao-interna.service';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -94,7 +95,8 @@ export class InvoiceCoverComponent implements OnInit {
     private estabelecimentoService: EstabelecimentoService,
     private tipoDocumentoService: TipoDocumentoService,
     private storage: StorageService,
-    private modeloDocumentoService: ModeloDocumentoService
+    private modeloDocumentoService: ModeloDocumentoService,
+    private tributacaoInternaService: TributacaoInternaService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -166,6 +168,15 @@ export class InvoiceCoverComponent implements OnInit {
       filter,
       pagination
     );
+  };
+
+  codTribIntCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.tributacaoInternaService.findByCodigo(filter);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.tributacaoInternaService.autocomplete(filter, pagination);
   };
 
   onSubmit = () => {};
