@@ -17,8 +17,6 @@ import { BehaviorSubject } from 'rxjs';
   ],
 })
 export class AutocompleteComponent implements OnInit, ControlValueAccessor {
-  private started = false;
-
   isBusyLoader = false;
 
   comboboxOptions: BentoComboboxOptions;
@@ -26,6 +24,10 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   itemsObservable: BehaviorSubject<any>;
 
   selectedItem: any;
+
+  @Input() id: string;
+
+  @Input() name: string;
 
   @Input() disabled: boolean = false;
 
@@ -83,7 +85,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any): void {
     this.model = value;
-    this.onChange(value);
+    this.preloadDataIfExists();
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -102,7 +104,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
         this.onModelChange(this.selectedItem);
         return;
       }
-      this.started = true;
       this.loadData(0, this.blockSize, this.model, true);
     }
   };
@@ -133,11 +134,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   private loadData(page: number, blockSize: number, search: string, unique: boolean) {
-    if (this.started === false) {
-      this.started = true;
-      return;
-    }
-
     this.isBusyLoader = true;
     this.searchCallback(page, blockSize, search, unique)
       .then((data) => {

@@ -10,15 +10,21 @@ export class TipoDocumentoService {
   private readonly API_ENDPOINT;
 
   constructor(private http: HttpClient) {
-    this.API_ENDPOINT = `${environment.contextT1dw}/tiposLancamento`;
+    this.API_ENDPOINT = `${environment.contextT1dw}/tiposDocumento`;
   }
 
   autocomplete(codEmpresa: string, codEstab: string, dataRef: any, pagination: Pagination, filter?: string): Promise<any> {
+    let dataRef$: string;
+    if (dataRef instanceof Date) {
+      dataRef$ = dataRef.toJSON();
+    } else {
+      dataRef$ = dataRef;
+    }
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef,
+        dataRef: dataRef$,
         filter: filter || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
@@ -28,14 +34,21 @@ export class TipoDocumentoService {
     return this.http.get<any>(`${this.API_ENDPOINT}/suggestions/`, httpOptions).toPromise();
   }
 
-  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: Date, codigo: string): Promise<any> {
+  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: any, codigo: string): Promise<any> {
+    let dataRef$: string;
+    if (dataRef instanceof Date) {
+      dataRef$ = dataRef.toJSON();
+    } else {
+      dataRef$ = dataRef;
+    }
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: dataRef$,
       },
     };
+
     return this.http.get<any>(`${this.API_ENDPOINT}/${codigo}`, httpOptions).toPromise();
   }
 

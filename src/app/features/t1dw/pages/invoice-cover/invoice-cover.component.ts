@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { SelectModel } from '../../../../shared/components/select/select-model';
 import { InvoiceService } from '../../services/invoice.service';
 import TmpX07DoctoFiscal from '../../model/TmpX07DoctoFiscal.model';
@@ -18,9 +19,11 @@ import { TipoDocumentoService } from '../../services/tipo-documento.service';
 export class InvoiceCoverComponent implements OnInit {
   private invoiceId: string;
 
+  codEstab: string = '001AM';
+
   resetErrors: boolean;
 
-  coverData: TmpX07DoctoFiscal;
+  coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -88,7 +91,8 @@ export class InvoiceCoverComponent implements OnInit {
     private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private estabelecimentoService: EstabelecimentoService,
-    private tipoDocumentoService: TipoDocumentoService
+    private tipoDocumentoService: TipoDocumentoService,
+    private storage: StorageService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -96,6 +100,8 @@ export class InvoiceCoverComponent implements OnInit {
 
   ngOnInit(): void {
     this.invoiceId = this.route.parent?.snapshot.params['invoice-id'];
+    const moduleData: any = this.storage.getObject('moduleData');
+    this.coverData.id.codEmpresa = moduleData.company.id;
     if (this.invoiceId) {
       this.findInvoiceById(this.invoiceId);
     }
@@ -108,7 +114,7 @@ export class InvoiceCoverComponent implements OnInit {
 
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
-      this.coverData = value;
+      this.coverData = new TmpX07DoctoFiscal(value);
     });
   }
 
@@ -124,7 +130,7 @@ export class InvoiceCoverComponent implements OnInit {
     if (unique) {
       return this.tipoDocumentoService.findByCodigo(
         this.coverData.id.codEmpresa,
-        filter,
+        this.coverData.id.codEstab,
         this.coverData.id.dataFiscal,
         filter
       );
