@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 import * as wjcCore from '@grapecity/wijmo';
 import * as wjcGrid from '@grapecity/wijmo.grid';
@@ -13,6 +13,10 @@ import { BentoToolbarItem } from '@bento/bento-ng';
 })
 export class ModalComponent {
   isBusyLoader: boolean = false;
+
+  @Input() title: string;
+
+  @Input() size: 'sm' | 'lg' | 'xl' = 'lg';
 
   toolbarItems: BentoToolbarItem[] = [
     {
@@ -51,8 +55,6 @@ export class ModalComponent {
 
   columnDefinitions: any[] = [];
 
-  @Input() title: string;
-
   constructor(private modalService: NgbModal) {
     this.itemsSource = new wjcCore.CollectionView([], {
       pageSize: this.ctx.pageSize,
@@ -61,7 +63,8 @@ export class ModalComponent {
   }
 
   open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    const modalConfig: NgbModalOptions = { ariaLabelledBy: 'modal-basic-title', size: this.size };
+    this.modalService.open(content, modalConfig);
   }
 
   columnDefinitionsByBinding: any = this.columnDefinitions.reduce((result, item) => {

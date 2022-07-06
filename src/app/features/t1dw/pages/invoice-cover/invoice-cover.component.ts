@@ -5,10 +5,10 @@ import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { SelectModel } from '../../../../shared/components/select/select-model';
 import { InvoiceService } from '../../services/invoice.service';
-import TmpX07DoctoFiscal from '../../model/TmpX07DoctoFiscal.model';
+import TmpX07DoctoFiscal from '../../model/tmp-x07-docto-fiscal.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { Pagination } from '../../model/interface.model';
-import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
+import TmpX07DoctoFiscalId from '../../model/tmp-x07-docto-fiscal-id.model';
 import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { ModeloDocumentoService } from '../../services/modelo-documento.service';
 import { TributacaoInternaService } from '../../services/tributacao-interna.service';
@@ -122,7 +122,7 @@ export class InvoiceCoverComponent implements OnInit {
     });
   }
 
-  estabCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+  loadEstabelecimentos = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
     if (unique) {
       return this.estabelecimentoService.findByCodEmpresaAndCodEstab(this.coverData.id.codEmpresa, filter);
     }
@@ -130,7 +130,7 @@ export class InvoiceCoverComponent implements OnInit {
     return this.estabelecimentoService.autocomplete(this.coverData.id.codEmpresa, pagination, filter);
   };
 
-  codDoctoCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+  loadTipoDocumento = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
     if (unique) {
       return this.tipoDocumentoService.findByCodigo(
         this.coverData.id.codEmpresa,
@@ -150,7 +150,7 @@ export class InvoiceCoverComponent implements OnInit {
     );
   };
 
-  codModeloCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+  loadModeloDocumento = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
     if (unique) {
       return this.modeloDocumentoService.findByCodigo(
         this.coverData.id.codEmpresa,
@@ -170,7 +170,7 @@ export class InvoiceCoverComponent implements OnInit {
     );
   };
 
-  codTribIntCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+  loadTributacaoInterna = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
     if (unique) {
       return this.tributacaoInternaService.findByCodigo(filter);
     }

@@ -29,7 +29,7 @@
           [blockSize]="25"
           [debounceTime]="1000"
           [headerTranslation]="estabHeaderTranslation"
-          [searchCallback]="estabCallBackFunction"
+          [searchCallback]="loadEstabelecimentos"
         >
         </app-autocomplete>
       </div>
@@ -211,7 +211,7 @@
           [debounceTime]="1000"
           [minSearchCharacterCount]="2"
           [headerTranslation]="defaultHeaderTranslation"
-          [searchCallback]="codDoctoCallBackFunction"
+          [searchCallback]="loadTipoDocumento"
           [disabled]="isDisabled()"
         >
         </app-autocomplete>
@@ -239,7 +239,7 @@
         <label for="ind_fis_jur" class="bento-label-required">Fis/Jur</label>
         <div class="flex-row-compose input-group">
           <div class="input-group-addon">
-            <app-modal></app-modal>
+            <app-modal title="Pessoa Física / Jurídica" size="xl"></app-modal>
           </div>
           <div style="width: 100%">
             <app-select></app-select>
@@ -309,7 +309,7 @@
           [debounceTime]="1000"
           [minSearchCharacterCount]="2"
           [headerTranslation]="defaultHeaderTranslation"
-          [searchCallback]="codModeloCallBackFunction"
+          [searchCallback]="loadModeloDocumento"
           [disabled]="isDisabled()"
         >
         </app-autocomplete>
@@ -330,7 +330,7 @@
           [debounceTime]="1000"
           [minSearchCharacterCount]="2"
           [headerTranslation]="defaultHeaderTranslation"
-          [searchCallback]="codTribIntCallBackFunction"
+          [searchCallback]="loadTributacaoInterna"
           [disabled]="isDisabled()"
         >
         </app-autocomplete>

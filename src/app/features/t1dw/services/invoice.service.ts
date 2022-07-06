@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import GridFilter from '../model/grid-filter.model';
 import { Pagination } from '../model/interface.model';
-import TmpX07DoctoFiscal from '../model/TmpX07DoctoFiscal.model';
+import TmpX07DoctoFiscal from '../model/tmp-x07-docto-fiscal.model';
 
 @Injectable({
   providedIn: 'root',

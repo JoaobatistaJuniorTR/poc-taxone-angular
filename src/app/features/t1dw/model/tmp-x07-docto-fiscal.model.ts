@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
-import MerchandiseTotals from './MerchandiseTotals.model';
-import TmpX07DoctoFiscalId from './pk/TmpX07DoctoFiscalId.model';
-import ServiceTotals from './ServiceTotals.model';
+import MerchandiseTotals from './merchandise-totals.model';
+import TmpX07DoctoFiscalId from './pk/tmp-x07-docto-fiscal-id.model';
+import ServiceTotals from './service-totals.model';
 
 export default class TmpX07DoctoFiscal {
   public id: TmpX07DoctoFiscalId;

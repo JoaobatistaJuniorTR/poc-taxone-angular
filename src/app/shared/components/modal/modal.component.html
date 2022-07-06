@@ -51,18 +51,15 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-min-width">Selecionar</button>
-    <button class="btn btn-default btn-min-width" ng-click="cancel()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">
+      Selecionar
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="c('Close click')"
+    >
+      Cancelar
+    </button>
   </div>
 </ng-template>
-<style type="text/css">
-  .grid-modal .modal-dialog .modal-content {
-    width: 90%;
-    height: 90vh;
-  }
-
-  .custom-grid-height {
-    height: 37vh;
-    max-height: 600px;
-  }
-</style>

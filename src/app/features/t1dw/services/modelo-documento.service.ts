@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Pagination } from '../model/interface.model';
-import { ModeloDocumento } from '../model/modelo-documento';
+import { ModeloDocumento } from '../model/modelo-documento.model';
 import { ServiceBase } from './services-base';
 
 @Injectable({
