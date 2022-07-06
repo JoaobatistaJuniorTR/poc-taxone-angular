@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { TipoDocumento } from '../model/tipo-documento';
 import { Pagination } from '../model/interface.model';
 
 @Injectable({
@@ -13,7 +14,13 @@ export class TipoDocumentoService {
     this.API_ENDPOINT = `${environment.contextT1dw}/tiposDocumento`;
   }
 
-  autocomplete(codEmpresa: string, codEstab: string, dataRef: any, pagination: Pagination, filter?: string): Promise<any> {
+  autocomplete(
+    codEmpresa: string,
+    codEstab: string,
+    dataRef: any,
+    pagination: Pagination,
+    filter?: string
+  ): Promise<TipoDocumento[]> {
     let dataRef$: string;
     if (dataRef instanceof Date) {
       dataRef$ = dataRef.toJSON();
@@ -31,10 +38,10 @@ export class TipoDocumentoService {
       },
     };
 
-    return this.http.get<any>(`${this.API_ENDPOINT}/suggestions/`, httpOptions).toPromise();
+    return this.http.get<TipoDocumento[]>(`${this.API_ENDPOINT}/suggestions/`, httpOptions).toPromise();
   }
 
-  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: any, codigo: string): Promise<any> {
+  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: any, codigo: string): Promise<TipoDocumento> {
     let dataRef$: string;
     if (dataRef instanceof Date) {
       dataRef$ = dataRef.toJSON();
@@ -49,11 +56,11 @@ export class TipoDocumentoService {
       },
     };
 
-    return this.http.get<any>(`${this.API_ENDPOINT}/${codigo}`, httpOptions).toPromise();
+    return this.http.get<TipoDocumento>(`${this.API_ENDPOINT}/${codigo}`, httpOptions).toPromise();
   }
 
-  public findById(id: string): Promise<any> {
+  public findById(id: string): Promise<TipoDocumento> {
     const httpOptions = {};
-    return this.http.get<any>(`${this.API_ENDPOINT}/byId/${id}`, httpOptions).toPromise();
+    return this.http.get<TipoDocumento>(`${this.API_ENDPOINT}/byId/${id}`, httpOptions).toPromise();
   }
 }

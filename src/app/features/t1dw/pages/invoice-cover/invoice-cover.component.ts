@@ -10,6 +10,7 @@ import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { Pagination } from '../../model/interface.model';
 import TmpX07DoctoFiscalId from '../../model/TmpX07DoctoFiscalId.model';
 import { TipoDocumentoService } from '../../services/tipo-documento.service';
+import { ModeloDocumentoService } from '../../services/modelo-documento.service';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -65,18 +66,18 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '2', label: '2 - Devolução' },
   ];
 
-  codDoctoColumns: BentoComboboxColumn[] = [
+  defaultColumns: BentoComboboxColumn[] = [
     {
       name: 'codigo',
-      width: '80px',
+      width: '20%',
     },
     {
       name: 'descricao',
-      width: '250px',
+      width: '80%',
     },
   ];
 
-  codDoctoHeaderTranslation: any = {
+  defaultHeaderTranslation: any = {
     codigo: 'Código',
     descricao: 'Descrição',
   };
@@ -92,7 +93,8 @@ export class InvoiceCoverComponent implements OnInit {
     private invoiceService: InvoiceService,
     private estabelecimentoService: EstabelecimentoService,
     private tipoDocumentoService: TipoDocumentoService,
-    private storage: StorageService
+    private storage: StorageService,
+    private modeloDocumentoService: ModeloDocumentoService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -135,14 +137,34 @@ export class InvoiceCoverComponent implements OnInit {
         filter
       );
     }
-    const pagination: Pagination = { page, size };
 
+    const pagination: Pagination = { page, size };
     return this.tipoDocumentoService.autocomplete(
       this.coverData.id.codEmpresa,
       this.coverData.id.codEstab,
       this.coverData.id.dataFiscal,
       pagination,
       filter
+    );
+  };
+
+  codModeloCallBackFunction = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.modeloDocumentoService.findByCodigo(
+        this.coverData.id.codEmpresa,
+        this.coverData.id.codEstab,
+        this.coverData.id.dataFiscal,
+        filter
+      );
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.modeloDocumentoService.autocomplete(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      filter,
+      pagination
     );
   };
 

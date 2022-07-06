@@ -1,26 +1,15 @@
 export default class TmpX07DoctoFiscalId {
   public username: string;
-
   public codEmpresa: string;
-
   public codEstab: string;
-
   public dataFiscal: any;
-
   public movtoES: string;
-
   public normDev: string;
-
   public codDocto: number;
-
   public indFisJur: string;
-
   public codFisJur: string;
-
   public numDocfis: string;
-
   public serieDocfis: string;
-
   public subSerieDocfis: string;
 
   constructor(data?: any) {
