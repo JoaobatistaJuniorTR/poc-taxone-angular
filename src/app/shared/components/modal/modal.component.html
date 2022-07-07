@@ -1,58 +1,15 @@
 <em class="bento-icon-folder-open modal-button" (click)="open(content)"></em>
 <ng-template #content let-c="close" let-d="dismiss">
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    ngbTooltip="Close"
-    placement="bottom"
-    container="body"
-    (click)="d('Cross click')"
-  >
-    <i class="bento-icon-close-x" aria-hidden="true"></i>
-  </button>
   <div class="modal-header">
     <h3 id="modal-scrollable-title">{{ title }}</h3>
   </div>
-  <div class="modal-body" [bentoBusyLoader]="isBusyLoader">
-    <div class="row">
-      <div class="col-md-12">
-        <bento-toolbar
-          class="navbar navbar-default bento-toolbar"
-          [items]="toolbarItems"
-        ></bento-toolbar>
-        <wj-flex-grid
-          #flexGrid
-          [id]="'modal-grid'"
-          [itemsSource]="itemsSource"
-          [selectionMode]="'Row'"
-          [stickyHeaders]="true"
-          class="bento-flex-grid custom-grid-height"
-        >
-          <wj-flex-grid-filter
-            #gridFilter
-            defaultFilterType="1"
-            [showSortButtons]="false"
-            (filterChanged)="onFilterChanged(gridFilter, $event)"
-          ></wj-flex-grid-filter>
-          <wj-flex-grid-column
-            *ngFor="let item of gridColumnsData"
-            is-read-only="true"
-            allow-sorting="false"
-            width="{{ item.width }}"
-            header="{{ item.header }}"
-            binding="{{ item.binding }}"
-          ></wj-flex-grid-column>
-        </wj-flex-grid>
-        <bento-pagination
-          [(page)]="ctx.page"
-          [directionLinks]="true"
-          [boundaryLinks]="true"
-          [itemsArray]="ctx.itemPerPageOptions"
-        >
-        </bento-pagination>
-      </div>
-    </div>
+  <div class="modal-body">
+    <app-flex-grid
+      [gridFilters]="gridFilters"
+      [gridColumnsData]="gridColumnsData"
+      [startLoading]="startLoading"
+      [searchCallbackFunction]="searchCallbackFunction"
+    ></app-flex-grid>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="c('Close click')">

@@ -52,6 +52,8 @@ export class FlexGridComponent implements OnInit {
 
   @Input() searchCallbackFunction: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
 
+  @Input() startLoading: boolean = false;
+
   @Output() onSelectedItem: EventEmitter<wjcGrid.CellRangeEventArgs> = new EventEmitter<wjcGrid.CellRangeEventArgs>();
 
   data: wjcCore.CollectionView<any>;
@@ -72,6 +74,9 @@ export class FlexGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.pageSize = this.pageInfo.pageSize;
+    if (this.startLoading) {
+      this.loadData(0, this.data.pageSize);
+    }
   }
 
   isToolbarVisible = (): boolean => {
@@ -110,7 +115,7 @@ export class FlexGridComponent implements OnInit {
   };
 
   private loadData(page: number, size: number) {
-    if (!this.searchCallbackFunction) {
+    if (!(this.searchCallbackFunction instanceof Function)) {
       return;
     }
     this.isGridBusyLoader = true;

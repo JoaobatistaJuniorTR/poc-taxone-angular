@@ -184,18 +184,37 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   pessoaFisJurModalGrid: GridData[] = [
-    //new GridData('indFisJur', 'Indicador', '', '140'),
-    //new GridData('codigo', 'Código', '', '140'),
-    //new GridData('cpfCgc', 'CPF / CNPJ', '', '140'),
-    //new GridData('codAtividade', 'Cód. Atividade', '', '140'),
-    //new GridData('inscEstadual', 'Insc. Estadual', '', '140'),
-    //new GridData('inscMunicipal', 'Insc. Municipal', '', '140'),
-    //new GridData('razaoSocial', 'Razão Social', '', '*'),
-    //new GridData('nomeFantasia', 'Nome Fantasia', '', '*'),
+    {
+      header: 'Indicador',
+      binding: 'indFisJur',
+    },
+    {
+      header: 'Código',
+      binding: 'codigo',
+    },
+    {
+      header: 'CPF / CNPJ',
+      binding: 'cpfCgc',
+    },
+    {
+      header: 'Cód. Atividade',
+      binding: 'codAtividade',
+    },
+    {
+      header: 'Insc. Estadual',
+      binding: 'inscEstadual',
+    },
+    {
+      header: 'Razão Social',
+      binding: 'razaoSocial',
+    },
+    {
+      header: 'Nome Fantasia',
+      binding: 'nomeFantasia',
+    },
   ];
 
-  pessoaFisJurModalSearch = (gridFilters: GridFilter[], page: number, size: number): Promise<{}> => {
-    const pagination: Pagination = { page, size };
+  pessoaFisJurModalSearch = (gridFilters: GridFilter[], pagination: Pagination): Promise<any> => {
     return this.pessoaService.search(
       gridFilters,
       this.coverData.id.codEmpresa,
