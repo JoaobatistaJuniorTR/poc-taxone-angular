@@ -5,6 +5,9 @@ import * as wjcCore from '@grapecity/wijmo';
 import * as wjcGrid from '@grapecity/wijmo.grid';
 import * as wjcGridFilter from '@grapecity/wijmo.grid.filter';
 import { BentoToolbarItem } from '@bento/bento-ng';
+import GridFilter from 'src/app/features/t1dw/model/grid-filter.model';
+import { WjFlexGridFilter } from '@grapecity/wijmo.angular2.grid.filter';
+import GridData from './grid-data.model';
 
 @Component({
   selector: 'app-modal',
@@ -18,6 +21,12 @@ export class ModalComponent {
 
   @Input() size: 'sm' | 'lg' | 'xl' = 'lg';
 
+  @Input() gridColumnsData: GridData[];
+
+  @Input() searchCallbackFunction: (gridFilters: GridFilter[], page: number, size: number) => {};
+
+  @Input() onItemSelectedCallbackFunction: (item: any) => void;
+
   toolbarItems: BentoToolbarItem[] = [
     {
       label: 'Pesquisar',
@@ -28,7 +37,7 @@ export class ModalComponent {
 
   @ViewChild('flexGrid', { static: true }) flexGrid: wjcGrid.FlexGrid;
 
-  @ViewChild('filter', { static: true }) gridFilter: wjcGridFilter.FlexGridFilter;
+  @ViewChild('gridFilter', { static: true }) gridFilter: wjcGridFilter.FlexGridFilter;
 
   toolbarConfig: any = {
     filterButtonHidden: false,
@@ -63,7 +72,7 @@ export class ModalComponent {
   }
 
   open(content: any) {
-    const modalConfig: NgbModalOptions = { ariaLabelledBy: 'modal-basic-title', size: this.size };
+    const modalConfig: NgbModalOptions = { ariaLabelledBy: 'modal-basic-title', windowClass: 'grid-modal', size: this.size };
     this.modalService.open(content, modalConfig);
   }
 
@@ -86,4 +95,9 @@ export class ModalComponent {
       this.gridFilter.grid.refresh();
     }
   }
+
+  onFilterChanged = (gridFilter: WjFlexGridFilter, event: wjcGrid.CellRangeEventArgs): void => {
+    console.log(gridFilter);
+    console.log(event);
+  };
 }

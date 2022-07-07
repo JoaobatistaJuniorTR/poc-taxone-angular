@@ -30,14 +30,18 @@
           class="bento-flex-grid custom-grid-height"
         >
           <wj-flex-grid-filter
-            #filter
-            default-filter-type="1"
-            show-sort-buttons="false"
+            #gridFilter
+            defaultFilterType="1"
+            [showSortButtons]="false"
+            (filterChanged)="onFilterChanged(gridFilter, $event)"
           ></wj-flex-grid-filter>
           <wj-flex-grid-column
-            ng-repeat="item in gridColumnsData"
+            *ngFor="let item of gridColumnsData"
             is-read-only="true"
             allow-sorting="false"
+            width="{{ item.columnWidth }}"
+            header="{{ item.headerLabel }}"
+            binding="{{ item.column }}"
           ></wj-flex-grid-column>
         </wj-flex-grid>
         <bento-pagination

@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
+import GridData from 'src/app/shared/components/modal/grid-data.model';
+import { PessoaService } from '../../services/pessoa.service';
 import { SelectModel } from '../../../../shared/components/select/select-model';
 import { InvoiceService } from '../../services/invoice.service';
 import TmpX07DoctoFiscal from '../../model/tmp-x07-docto-fiscal.model';
@@ -12,6 +14,7 @@ import TmpX07DoctoFiscalId from '../../model/tmp-x07-docto-fiscal-id.model';
 import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { ModeloDocumentoService } from '../../services/modelo-documento.service';
 import { TributacaoInternaService } from '../../services/tributacao-interna.service';
+import GridFilter from '../../model/grid-filter.model';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -96,7 +99,8 @@ export class InvoiceCoverComponent implements OnInit {
     private tipoDocumentoService: TipoDocumentoService,
     private storage: StorageService,
     private modeloDocumentoService: ModeloDocumentoService,
-    private tributacaoInternaService: TributacaoInternaService
+    private tributacaoInternaService: TributacaoInternaService,
+    private pessoaService: PessoaService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -177,6 +181,35 @@ export class InvoiceCoverComponent implements OnInit {
 
     const pagination: Pagination = { page, size };
     return this.tributacaoInternaService.autocomplete(filter, pagination);
+  };
+
+  pessoaFisJurModalGrid: GridData[] = [
+    new GridData('indFisJur', 'Indicador', '', '140'),
+    new GridData('codigo', 'Código', '', '140'),
+    new GridData('cpfCgc', 'CPF / CNPJ', '', '140'),
+    new GridData('codAtividade', 'Cód. Atividade', '', '140'),
+    new GridData('inscEstadual', 'Insc. Estadual', '', '140'),
+    new GridData('inscMunicipal', 'Insc. Municipal', '', '140'),
+    new GridData('razaoSocial', 'Razão Social', '', '*'),
+    new GridData('nomeFantasia', 'Nome Fantasia', '', '*'),
+  ];
+
+  pessoaFisJurModalSearch = (gridFilters: GridFilter[], page: number, size: number): Promise<{}> => {
+    const pagination: Pagination = { page, size };
+    return this.pessoaService.search(
+      gridFilters,
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      pagination
+    );
+  };
+
+  pessoaFisJurSelected = (item: any): void => {
+    this.coverData.id.indFisJur = item.indFisJur;
+    this.coverData.id.codFisJur = item.codigo;
+    this.coverData.razaoSocialFisJur = item.razaoSocial;
+    this.coverData.fisJurCpfCnpj = item.cpfCgc;
   };
 
   onSubmit = () => {};
