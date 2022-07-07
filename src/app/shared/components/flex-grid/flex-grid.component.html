@@ -1,6 +1,7 @@
 <div class="row" bento-off-canvas-menu-content>
   <div class="col-md-12">
     <bento-toolbar
+      *ngIf="isToolbarVisible()"
       class="bento-toolbar"
       [items]="toolbarDataItems"
     ></bento-toolbar>

@@ -74,6 +74,10 @@ export class FlexGridComponent implements OnInit {
     this.data.pageSize = this.pageInfo.pageSize;
   }
 
+  isToolbarVisible = (): boolean => {
+    return this.toolbarDataItems?.length > 0;
+  };
+
   onGridInitialized() {
     this.flexGrid.hostElement.addEventListener('dblclick', () => {
       this.doubleClickCallbackFunction();
