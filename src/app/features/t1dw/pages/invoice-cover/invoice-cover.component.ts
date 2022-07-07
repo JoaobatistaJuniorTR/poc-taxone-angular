@@ -184,14 +184,14 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   pessoaFisJurModalGrid: GridData[] = [
-    new GridData('indFisJur', 'Indicador', '', '140'),
-    new GridData('codigo', 'Código', '', '140'),
-    new GridData('cpfCgc', 'CPF / CNPJ', '', '140'),
-    new GridData('codAtividade', 'Cód. Atividade', '', '140'),
-    new GridData('inscEstadual', 'Insc. Estadual', '', '140'),
-    new GridData('inscMunicipal', 'Insc. Municipal', '', '140'),
-    new GridData('razaoSocial', 'Razão Social', '', '*'),
-    new GridData('nomeFantasia', 'Nome Fantasia', '', '*'),
+    //new GridData('indFisJur', 'Indicador', '', '140'),
+    //new GridData('codigo', 'Código', '', '140'),
+    //new GridData('cpfCgc', 'CPF / CNPJ', '', '140'),
+    //new GridData('codAtividade', 'Cód. Atividade', '', '140'),
+    //new GridData('inscEstadual', 'Insc. Estadual', '', '140'),
+    //new GridData('inscMunicipal', 'Insc. Municipal', '', '140'),
+    //new GridData('razaoSocial', 'Razão Social', '', '*'),
+    //new GridData('nomeFantasia', 'Nome Fantasia', '', '*'),
   ];
 
   pessoaFisJurModalSearch = (gridFilters: GridFilter[], page: number, size: number): Promise<{}> => {

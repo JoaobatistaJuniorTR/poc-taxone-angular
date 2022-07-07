@@ -22,6 +22,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { SelectComponent } from './components/select/select.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { FlexGridComponent } from './components/flex-grid/flex-grid.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
     NumberInputComponent,
     SelectComponent,
     CheckboxComponent,
+    FlexGridComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
     NumberInputComponent,
     SelectComponent,
     CheckboxComponent,
+    FlexGridComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,

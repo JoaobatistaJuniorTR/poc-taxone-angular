@@ -39,9 +39,9 @@
             *ngFor="let item of gridColumnsData"
             is-read-only="true"
             allow-sorting="false"
-            width="{{ item.columnWidth }}"
-            header="{{ item.headerLabel }}"
-            binding="{{ item.column }}"
+            width="{{ item.width }}"
+            header="{{ item.header }}"
+            binding="{{ item.binding }}"
           ></wj-flex-grid-column>
         </wj-flex-grid>
         <bento-pagination
