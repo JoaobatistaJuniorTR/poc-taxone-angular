@@ -39,6 +39,8 @@ export class ModalComponent {
 
   @ViewChild('gridFilter', { static: true }) gridFilter: wjcGridFilter.FlexGridFilter;
 
+  itemsSource: wjcCore.CollectionView;
+
   toolbarConfig: any = {
     filterButtonHidden: false,
     filtersHidden: true,
@@ -49,8 +51,6 @@ export class ModalComponent {
       this.toolbarConfig.groupPanelHidden = !this.toolbarConfig.groupPanelHidden;
     },
   };
-
-  itemsSource: wjcCore.CollectionView;
 
   ctx = {
     filterButtonHidden: true,
