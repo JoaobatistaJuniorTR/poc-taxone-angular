@@ -4,6 +4,7 @@ import { BentoToolbarItem } from '@bento/bento-ng';
 import * as wjcCore from '@grapecity/wijmo';
 import { WjFlexGridFilter } from '@grapecity/wijmo.angular2.grid.filter';
 import * as wjcGrid from '@grapecity/wijmo.grid';
+import * as wjcGridFilter from '@grapecity/wijmo.grid.filter';
 import GridFilter from 'src/app/features/t1dw/model/grid-filter.model';
 import { Pagination } from 'src/app/features/t1dw/model/interface.model';
 import { GridFilterService } from '../../../features/t1dw/services/grid-filter.service';
@@ -25,6 +26,8 @@ export class FlexGridComponent implements OnInit {
 
   @Input() toolbarDataItems: BentoToolbarItem[] = [];
 
+  private tmpGridFilters: GridFilter[] = [];
+
   private gridFilters$: GridFilter[] = [];
 
   @Input()
@@ -34,6 +37,10 @@ export class FlexGridComponent implements OnInit {
 
   set gridFilters(val) {
     this.gridFilters$ = val;
+    this.tmpGridFilters = this.gridFilters$.filter(() => true);
+    if (this.gridFilter) {
+      this.gridFilter.clear();
+    }
     this.loadData(0, this.data.pageSize);
   }
 
@@ -61,15 +68,15 @@ export class FlexGridComponent implements OnInit {
 
   @ViewChild('flexGrid', { static: true }) flexGrid: wjcGrid.FlexGrid;
 
+  @ViewChild('gridFilter', { static: true }) gridFilter: wjcGridFilter.FlexGridFilter;
+
   ngOnInit(): void {
     this.data.pageSize = this.pageInfo.pageSize;
   }
 
   onGridInitialized() {
     this.flexGrid.hostElement.addEventListener('dblclick', () => {
-      if (this.doubleClickCallbackFunction) {
-        this.doubleClickCallbackFunction();
-      }
+      this.doubleClickCallbackFunction();
     });
   }
 
@@ -94,7 +101,7 @@ export class FlexGridComponent implements OnInit {
 
   onFilterChanged = (gridFilter: WjFlexGridFilter, event: wjcGrid.CellRangeEventArgs): void => {
     if (event.cancel) return;
-    this.gridFilters = this.gridFilters.concat(this.gridFilterService.parseFilter(gridFilter.filterDefinition));
+    this.tmpGridFilters = this.gridFilters.concat(this.gridFilterService.parseFilter(gridFilter.filterDefinition));
     this.loadData(this.pageInfo.page - 1, this.data.pageSize);
   };
 
@@ -104,7 +111,7 @@ export class FlexGridComponent implements OnInit {
     }
     this.isGridBusyLoader = true;
     const pagination: Pagination = { page, size };
-    this.searchCallbackFunction(this.gridFilters, pagination)
+    this.searchCallbackFunction(this.tmpGridFilters, pagination)
       .then((result: any) => {
         this.data.sourceCollection = result.content;
         this.data.pageSize = result.size;

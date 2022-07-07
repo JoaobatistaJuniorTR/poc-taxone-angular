@@ -4,17 +4,13 @@ import { NgForm } from '@angular/forms';
 import { BentoComboboxColumn, DatepickerConfig } from '@bento/bento-ng';
 import { StorageService } from 'src/app/core/services/storage.service';
 
-import * as wjcCore from '@grapecity/wijmo';
-import * as wjcGrid from '@grapecity/wijmo.grid';
-import { WjFlexGridFilter } from '@grapecity/wijmo.angular2.grid.filter';
-import { CellRangeEventArgs, FlexGrid } from '@grapecity/wijmo.grid';
+import { FlexGrid } from '@grapecity/wijmo.grid';
 import { EnumAlert } from 'src/app/shared/components/alert/alert-model';
 import { AlertService } from 'src/app/shared/components/alert/alert.service';
 import { HttpEvent } from '@angular/common/http';
 import GridData from 'src/app/shared/components/modal/grid-data.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { InvoiceService } from '../../services/invoice.service';
-import { GridFilterService } from '../../services/grid-filter.service';
 import GridFilter from '../../model/grid-filter.model';
 import { Pagination } from '../../model/interface.model';
 import { QueryOperator } from '../../enum/query-operator.enum';
@@ -32,17 +28,13 @@ import { TempTableService } from '../../services/temp-table.service';
 export class InvoicesListComponent implements OnInit {
   isHidden: boolean = false;
 
-  selectedRowIndex?: number;
-
   estabDisabled: boolean = false;
-
-  isGridBusyLoader = false;
-
-  data: wjcCore.CollectionView<any>;
 
   @ViewChild('f') private form: NgForm;
 
   @ViewChild('flexGrid', { static: true }) flexGrid: FlexGrid;
+
+  private selectedItem: any = undefined;
 
   resetErrors: boolean;
 
@@ -51,14 +43,11 @@ export class InvoicesListComponent implements OnInit {
     private estabelecimentoService: EstabelecimentoService,
     private invoiceService: InvoiceService,
     private alertService: AlertService,
-    private gridFilterService: GridFilterService,
     private datamartService: DatamartService,
     private tempTableService: TempTableService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-    this.data = new wjcCore.CollectionView<any>([]);
-  }
+  ) {}
 
   validations = {
     required: '{0} é obrigatório',
@@ -101,13 +90,6 @@ export class InvoicesListComponent implements OnInit {
       icon: 'bento-icon-enter',
       action: () => {
         this.editInvoice();
-      },
-    },
-    {
-      label: 'Aplicar Filtro',
-      icon: 'bento-icon-filter',
-      action: () => {
-        this.applyFilter();
       },
     },
   ];
@@ -179,23 +161,12 @@ export class InvoicesListComponent implements OnInit {
     'vlrTotNota',
   ];
 
-  pageInfo: any = {
-    page: 1,
-    infoText: 'Exibindo _START_ até _END_ de _MAX_ Invoices',
-    infoPageText: 'Página _PAGE_ de _PAGES_',
-    goToText: 'Ir',
-    pageSize: 10,
-    itemsArray: [10, 25, 50, 100],
-    totalItemCount: 0,
-  };
-
   formFilters: SearchInvoicesParams = new SearchInvoicesParams('', '', '', '');
 
   gridFilters: GridFilter[] = [];
 
   ngOnInit(): void {
     this.loadInitialDates();
-    this.data.pageSize = this.pageInfo.pageSize;
     const moduleData: any = this.storage.getObject('moduleData');
     this.formFilters.codEmpresa = moduleData.company.id;
     this.formFilters.codEstab = moduleData.branch.codEstab ? moduleData.branch.codEstab : 'Todos';
@@ -245,7 +216,6 @@ export class InvoicesListComponent implements OnInit {
       });
     } else {
       this.gridFilters = this.buildBasicFilters();
-      this.loadData(0, this.data.pageSize);
     }
   }
 
@@ -276,78 +246,31 @@ export class InvoicesListComponent implements OnInit {
     return gridFilters;
   }
 
-  onSelectionChanged(event: CellRangeEventArgs) {
-    this.selectedRowIndex = event.row;
-  }
-
-  onGridInitialized() {
-    this.flexGrid.hostElement.addEventListener('dblclick', () => {
-      this.editInvoice();
-    });
-  }
-
-  onFilterChanged = (gridFilter: WjFlexGridFilter, event: wjcGrid.CellRangeEventArgs): void => {
-    if (event.cancel) return;
-
-    this.gridFilters = this.buildBasicFilters();
-    this.gridFilters = this.gridFilters.concat(this.gridFilterService.parseFilter(gridFilter.filterDefinition));
-
-    this.loadData(this.pageInfo.page - 1, this.data.pageSize);
-  };
-
-  applyFilter = () => {
-    this.loadData(this.pageInfo.page - 1, this.data.pageSize);
-  };
-
-  onPageSizeChanged(size: number) {
-    this.loadData(this.pageInfo.page - 1, size);
-  }
-
-  onPageChanged(page: number) {
-    this.loadData(page - 1, this.data.pageSize);
-  }
-
-  private loadData(page: number, size: number) {
-    this.isGridBusyLoader = true;
-    const pagination: Pagination = { page, size };
-    this.invoiceService
-      .searchInvoices(this.gridFilters, pagination)
-      .then((result: any) => {
-        result.content.forEach((item: any) => {
-          item.dataEmissao = new Date(item.dataEmissao);
-          item.dataSaidaRec = new Date(item.dataSaidaRec);
-        });
-        this.data.sourceCollection = result.content;
-        this.data.pageSize = result.size;
-        this.pageInfo.totalItemCount = result.totalElements;
-      })
-      .finally(() => {
-        this.isGridBusyLoader = false;
-      });
-  }
-
   searchCallbackFunction = (gridFilters: GridFilter[], pagination: Pagination) => {
     return this.invoiceService.searchInvoices(gridFilters, pagination);
   };
 
-  private editInvoice() {
-    const selectedRow: wjcGrid.Row = this.flexGrid.rows[this.selectedRowIndex || 0];
-    if (selectedRow) {
+  onSelectedItem(value: any) {
+    this.selectedItem = value;
+  }
+
+  editInvoice = (): void => {
+    if (this.selectedItem) {
       this.datamartService
-        .isActiveNow(selectedRow.dataItem.codEmpresa, selectedRow.dataItem.codEstab, 'DWT_DOCTO_FISCAL')
+        .isActiveNow(this.selectedItem.codEmpresa, this.selectedItem.codEstab, 'DWT_DOCTO_FISCAL')
         .then((isActive: HttpEvent<boolean>) => {
           if (isActive) {
             this.alertService.warn(
               'Um Processo de Equalização/Importação está sendo executado por outro usuário no momento.'
             );
           } else {
-            this.convertInvoiceToTemp(selectedRow.dataItem);
+            this.convertInvoiceToTemp(this.selectedItem);
           }
         });
     } else {
       this.alertService.warn('Atenção! Selecione um item na tabela para edição!');
     }
-  }
+  };
 
   private async convertInvoiceToTemp(selectedItem: any) {
     this.tempTableService

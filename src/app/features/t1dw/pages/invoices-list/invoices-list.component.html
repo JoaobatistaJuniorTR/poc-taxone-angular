@@ -78,135 +78,13 @@
       </div>
     </div>
   </form>
-  <div class="row" bento-off-canvas-menu-content>
-    <div class="col-md-12">
-      <bento-toolbar
-        class="bento-toolbar"
-        [items]="toolbarData"
-      ></bento-toolbar>
-      <wj-flex-grid
-        #flexGrid
-        class="bento-flex-grid"
-        style="min-height: 300px"
-        [itemsSource]="data"
-        [bentoBusyLoader]="isGridBusyLoader"
-        selectionMode="Row"
-        (initialized)="onGridInitialized()"
-        (selectionChanged)="onSelectionChanged($event)"
-        [(ngModel)]="selectedRowIndex"
-      >
-        <ng-template
-          wjFlexGridCellTemplate
-          [cellType]="'RowHeader'"
-          let-col="col"
-          let-row="row"
-        >
-          <div *ngIf="col.index === 0">{{ row.index + 1 }}</div>
-        </ng-template>
-        <wj-flex-grid-filter
-          #gridFilter
-          [filterColumns]="columnsToFilter"
-          defaultFilterType="1"
-          [showSortButtons]="false"
-          (filterChanged)="onFilterChanged(gridFilter, $event)"
-        ></wj-flex-grid-filter>
-        <wj-flex-grid-column
-          header="Estabelecimento"
-          binding="codEstab"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Número NF"
-          binding="numDocfis"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Série NF"
-          binding="serieDocfis"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Pessoa Fis/Jur"
-          binding="pessoa.codigo"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Data Emissão"
-          binding="dataEmissao"
-          isReadOnly="true"
-          [allowSorting]="false"
-          [dataType]="4"
-          format="dd/MM/yyyy"
-          [align]="'center'"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Data de Saída/Recebimento"
-          binding="dataSaidaRec"
-          isReadOnly="true"
-          [allowSorting]="false"
-          [dataType]="4"
-          format="dd/MM/yyyy"
-          [align]="'center'"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Tipo Documento"
-          binding="tipoDocto.codDocto"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Cód. Classificação"
-          binding="codClassDocFis"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Movto. E/S"
-          binding="movtoES"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Norm. / Dev."
-          binding="normDev"
-          isReadOnly="true"
-          [allowSorting]="false"
-        ></wj-flex-grid-column>
-        <wj-flex-grid-column
-          header="Valor da NFe"
-          binding="vlrTotNota"
-          isReadOnly="true"
-          [allowSorting]="false"
-          [dataType]="2"
-          format="n2"
-        ></wj-flex-grid-column>
-      </wj-flex-grid>
-      <bento-pagination
-        #paginator
-        [(page)]="pageInfo.page"
-        [directionLinks]="true"
-        [boundaryLinks]="true"
-        [goToLink]="true"
-        [totalItems]="pageInfo.totalItemCount"
-        [(itemsPerPage)]="data.pageSize"
-        (itemsPerPageChange)="onPageSizeChanged($event)"
-        (pageChange)="onPageChanged($event)"
-        [itemsArray]="pageInfo.itemsArray"
-        [infoText]="pageInfo.infoText"
-        [infoPageText]="pageInfo.infoPageText"
-        [goToText]="pageInfo.goToText"
-      ></bento-pagination>
-    </div>
-  </div>
   <app-flex-grid
     [gridColumnsData]="gridColumnsData"
     [toolbarDataItems]="toolbarData"
     [columnsToFilter]="columnsToFilter"
     [gridFilters]="gridFilters"
     [searchCallbackFunction]="searchCallbackFunction"
+    [doubleClickCallbackFunction]="editInvoice"
+    (onSelectedItem)="onSelectedItem($event)"
   ></app-flex-grid>
 </div>
