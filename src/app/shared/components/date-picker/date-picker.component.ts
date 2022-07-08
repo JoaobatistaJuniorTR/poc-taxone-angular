@@ -31,7 +31,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input() inputLabelText: string;
 
-  @Input() bfmLabel: string;
+  @Input() required: boolean;
 
   @Input() buttonLabel?: string;
 

@@ -25,7 +25,6 @@
           name="codEstab"
           bfmField
           bfmLabel="Estabelecimento"
-          required="true"
           inputLabelText="Estabelecimento"
           model-field="codEstab"
           label-field="label"
@@ -37,6 +36,7 @@
           [headerTranslation]="estabHeaderTranslation"
           [searchCallback]="estabCallBackFunction"
           [disabled]="estabDisabled"
+          [required]="true"
         >
         </app-autocomplete>
       </div>
@@ -46,7 +46,7 @@
           name="dataSaidaRecIni"
           bfmField
           bfmLabel="Data Inicial"
-          required="true"
+          [required]="true"
           inputLabelText="Data de Saída / Recebimento"
           buttonLabel="Abrir calendário"
           [(ngModel)]="formFilters.dataSaidaRecIni"
@@ -58,7 +58,7 @@
           name="dataSaidaRecFim"
           bfmField
           bfmLabel="Data Final"
-          required="true"
+          [required]="true"
           inputLabelText="&nbsp;"
           buttonLabel="Abrir calendário"
           [(ngModel)]="formFilters.dataSaidaRecFim"

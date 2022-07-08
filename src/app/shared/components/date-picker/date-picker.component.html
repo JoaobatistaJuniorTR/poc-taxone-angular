@@ -4,8 +4,6 @@
     <input
       [id]="id"
       [name]="name"
-      bfmField
-      [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
       class="form-control bento-datepicker"
       [firstDayOfWeek]="7"
       ngbDatepicker
@@ -16,6 +14,7 @@
       (click)="onTouched(); datePickerButton.click()"
       (focus)="onTouched()"
       [disabled]="disabled"
+      [required]="required"
     />
     <button
       #datePickerButton

@@ -30,7 +30,7 @@ export class InvoiceCoverComponent implements OnInit {
 
   coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
 
-  isEstablishmentAlreadyDefined: boolean = true;
+  isEstablishmentAlreadyDefined: boolean = false;
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -183,6 +183,9 @@ export class InvoiceCoverComponent implements OnInit {
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
       this.coverData = new TmpX07DoctoFiscal(value);
+      if (this.coverData.id.codEstab) {
+        this.isEstablishmentAlreadyDefined = true;
+      }
     });
   }
 
