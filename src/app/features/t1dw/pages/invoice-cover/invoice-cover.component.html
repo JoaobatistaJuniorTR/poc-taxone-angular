@@ -238,16 +238,14 @@
       <div class="form-flex" style="flex-direction: column; width: 15%">
         <label for="ind_fis_jur" class="bento-label-required">Fis/Jur</label>
         <div class="flex-row-compose input-group">
-          <div class="input-group-addon">
-            <app-modal
-              title="Pessoa Física / Jurídica"
-              size="xl"
-              [startLoading]="true"
-              [gridColumnsData]="pessoaFisJurModalGrid"
-              [searchCallbackFunction]="pessoaFisJurModalSearch"
-              [onItemSelectedCallbackFunction]="pessoaFisJurSelected"
-            ></app-modal>
-          </div>
+          <app-modal
+            title="Pessoa Física / Jurídica"
+            size="xl"
+            [startLoading]="true"
+            [gridColumnsData]="pessoaFisJurModalGrid"
+            [searchCallbackFunction]="pessoaFisJurModalSearch"
+            [onItemSelectedCallbackFunction]="pessoaFisJurSelected"
+          ></app-modal>
           <div style="width: 100%">
             <app-select></app-select>
           </div>

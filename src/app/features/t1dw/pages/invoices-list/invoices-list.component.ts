@@ -92,6 +92,13 @@ export class InvoicesListComponent implements OnInit {
         this.editInvoice();
       },
     },
+    {
+      label: 'Aplicar Filtro',
+      icon: 'bento-icon-filter',
+      action: () => {
+        this.applyFilter();
+      },
+    },
   ];
 
   gridColumnsData: GridData[] = [
@@ -171,6 +178,8 @@ export class InvoicesListComponent implements OnInit {
     this.formFilters.codEmpresa = moduleData.company.id;
     this.formFilters.codEstab = moduleData.branch.codEstab ? moduleData.branch.codEstab : 'Todos';
   }
+
+  applyFilter = () => {};
 
   loadInitialDates() {
     const today = new Date();

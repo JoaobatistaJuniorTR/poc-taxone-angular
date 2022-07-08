@@ -1,62 +1,64 @@
-<div class="row" bento-off-canvas-menu-content>
+<div class="row">
   <div class="col-md-12">
     <bento-toolbar
       *ngIf="isToolbarVisible()"
       class="bento-toolbar"
       [items]="toolbarDataItems"
     ></bento-toolbar>
-    <wj-flex-grid
-      #flexGrid
-      class="bento-flex-grid"
-      style="min-height: 300px"
-      [itemsSource]="data"
-      [bentoBusyLoader]="isGridBusyLoader"
-      selectionMode="Row"
-      (initialized)="onGridInitialized()"
-      (selectionChanged)="onSelectionChanged($event)"
-      [(ngModel)]="selectedRowIndex"
-    >
-      <ng-template
-        wjFlexGridCellTemplate
-        [cellType]="'RowHeader'"
-        let-col="col"
-        let-row="row"
+    <div style="overflow: auto">
+      <wj-flex-grid
+        #flexGrid
+        class="bento-flex-grid"
+        style="min-height: 300px"
+        [itemsSource]="data"
+        [bentoBusyLoader]="isGridBusyLoader"
+        selectionMode="Row"
+        (initialized)="onGridInitialized()"
+        (selectionChanged)="onSelectionChanged($event)"
+        [(ngModel)]="selectedRowIndex"
       >
-        <div *ngIf="col.index === 0">{{ row.index + 1 }}</div>
-      </ng-template>
-      <wj-flex-grid-filter
-        #gridFilter
-        [filterColumns]="columnsToFilter"
-        defaultFilterType="1"
-        [showSortButtons]="false"
-        (filterChanged)="onFilterChanged(gridFilter, $event)"
-      ></wj-flex-grid-filter>
-      <wj-flex-grid-column
-        *ngFor="let item of gridColumnsData"
-        [header]="item.header"
-        [binding]="item.binding"
-        [width]="item.width"
-        [dataType]="item.dataType"
-        [format]="item.format"
-        [align]="item.align"
-        isReadOnly="true"
-        allowSorting="false"
-      ></wj-flex-grid-column>
-    </wj-flex-grid>
-    <bento-pagination
-      #paginator
-      [(page)]="pageInfo.page"
-      [directionLinks]="true"
-      [boundaryLinks]="true"
-      [goToLink]="true"
-      [totalItems]="pageInfo.totalItemCount"
-      [(itemsPerPage)]="data.pageSize"
-      (itemsPerPageChange)="onPageSizeChanged($event)"
-      (pageChange)="onPageChanged($event)"
-      [itemsArray]="pageInfo.itemsArray"
-      [infoText]="pageInfo.infoText"
-      [infoPageText]="pageInfo.infoPageText"
-      [goToText]="pageInfo.goToText"
-    ></bento-pagination>
+        <ng-template
+          wjFlexGridCellTemplate
+          [cellType]="'RowHeader'"
+          let-col="col"
+          let-row="row"
+        >
+          <div *ngIf="col.index === 0">{{ row.index + 1 }}</div>
+        </ng-template>
+        <wj-flex-grid-filter
+          #gridFilter
+          [filterColumns]="columnsToFilter"
+          defaultFilterType="1"
+          [showSortButtons]="false"
+          (filterChanged)="onFilterChanged(gridFilter, $event)"
+        ></wj-flex-grid-filter>
+        <wj-flex-grid-column
+          *ngFor="let item of gridColumnsData"
+          [header]="item.header"
+          [binding]="item.binding"
+          [width]="item.width"
+          [dataType]="item.dataType"
+          [format]="item.format"
+          [align]="item.align"
+          isReadOnly="true"
+          allowSorting="false"
+        ></wj-flex-grid-column>
+      </wj-flex-grid>
+      <bento-pagination
+        #paginator
+        [(page)]="pageInfo.page"
+        [directionLinks]="true"
+        [boundaryLinks]="true"
+        [goToLink]="true"
+        [totalItems]="pageInfo.totalItemCount"
+        [(itemsPerPage)]="data.pageSize"
+        (itemsPerPageChange)="onPageSizeChanged($event)"
+        (pageChange)="onPageChanged($event)"
+        [itemsArray]="pageInfo.itemsArray"
+        [infoText]="pageInfo.infoText"
+        [infoPageText]="pageInfo.infoPageText"
+        [goToText]="pageInfo.goToText"
+      ></bento-pagination>
+    </div>
   </div>
 </div>

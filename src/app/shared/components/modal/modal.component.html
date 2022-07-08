@@ -1,10 +1,13 @@
-<em class="bento-icon-folder-open modal-button" (click)="open(content)"></em>
+<div class="input-group-addon">
+  <em class="bento-icon-folder-open modal-button" (click)="open(content)"></em>
+</div>
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h3 id="modal-scrollable-title">{{ title }}</h3>
   </div>
   <div class="modal-body">
     <app-flex-grid
+      [toolbarDataItems]="toolbarData"
       [gridFilters]="gridFilters"
       [gridColumnsData]="gridColumnsData"
       [startLoading]="startLoading"

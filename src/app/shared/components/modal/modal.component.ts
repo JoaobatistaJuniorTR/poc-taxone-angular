@@ -27,10 +27,21 @@ export class ModalComponent {
 
   @Input() onItemSelectedCallbackFunction: (item: any) => void;
 
+  toolbarData: any[] = [
+    {
+      label: 'Aplicar Filtro',
+      icon: 'bento-icon-filter',
+      action: () => {},
+    },
+  ];
+
   constructor(private modalService: NgbModal) {}
 
   open(content: any) {
-    const modalConfig: NgbModalOptions = { ariaLabelledBy: 'modal-basic-title', windowClass: 'grid-modal', size: this.size };
+    const modalConfig: NgbModalOptions = {
+      ariaLabelledBy: 'modal-basic-title',
+      size: this.size,
+    };
     this.modalService.open(content, modalConfig);
   }
 }
