@@ -8,7 +8,7 @@ import * as wjcGridFilter from '@grapecity/wijmo.grid.filter';
 import GridFilter from 'src/app/features/t1dw/model/grid-filter.model';
 import { Pagination } from 'src/app/features/t1dw/model/interface.model';
 import { GridFilterService } from '../../../features/t1dw/services/grid-filter.service';
-import GridData from '../modal/grid-data.model';
+import GridData from './flex-grid.model';
 
 @Component({
   selector: 'app-flex-grid',
@@ -31,11 +31,11 @@ export class FlexGridComponent implements OnInit {
   private gridFilters$: GridFilter[] = [];
 
   @Input()
-  get gridFilters() {
+  get gridFilters(): GridFilter[] {
     return this.gridFilters$;
   }
 
-  set gridFilters(val) {
+  set gridFilters(val: GridFilter[]) {
     this.gridFilters$ = val;
     this.tmpGridFilters = this.gridFilters$.filter(() => true);
     if (this.gridFilter) {
@@ -54,7 +54,7 @@ export class FlexGridComponent implements OnInit {
 
   @Input() startLoading: boolean = false;
 
-  @Output() onSelectedItem: EventEmitter<wjcGrid.CellRangeEventArgs> = new EventEmitter<wjcGrid.CellRangeEventArgs>();
+  @Output() selectedItem: EventEmitter<any> = new EventEmitter<any>();
 
   data: wjcCore.CollectionView<any>;
 
@@ -79,8 +79,18 @@ export class FlexGridComponent implements OnInit {
     }
   }
 
-  isToolbarVisible = (): boolean => {
-    return this.toolbarDataItems?.length > 0;
+  getToolbarItems = (): BentoToolbarItem[] => {
+    const result: BentoToolbarItem[] = this.toolbarDataItems.filter(() => {
+      return true;
+    });
+
+    result.push({
+      label: 'Aplicar Filtro',
+      icon: 'bento-icon-filter',
+      action: () => {},
+    });
+
+    return result;
   };
 
   onGridInitialized() {
@@ -94,9 +104,9 @@ export class FlexGridComponent implements OnInit {
     const selectedRow: wjcGrid.Row = this.flexGrid.rows[this.selectedRowIndex || 0];
 
     if (selectedRow) {
-      this.onSelectedItem.emit(selectedRow.dataItem);
+      this.selectedItem.emit(selectedRow.dataItem);
     } else {
-      this.onSelectedItem.emit(undefined);
+      this.selectedItem.emit(undefined);
     }
   }
 

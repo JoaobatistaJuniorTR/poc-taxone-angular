@@ -8,7 +8,7 @@ import { FlexGrid } from '@grapecity/wijmo.grid';
 import { EnumAlert } from 'src/app/shared/components/alert/alert-model';
 import { AlertService } from 'src/app/shared/components/alert/alert.service';
 import { HttpEvent } from '@angular/common/http';
-import GridData from 'src/app/shared/components/modal/grid-data.model';
+import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { InvoiceService } from '../../services/invoice.service';
 import GridFilter from '../../model/grid-filter.model';

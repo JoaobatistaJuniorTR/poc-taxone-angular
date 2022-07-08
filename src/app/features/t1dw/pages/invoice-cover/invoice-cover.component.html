@@ -244,10 +244,19 @@
             [startLoading]="true"
             [gridColumnsData]="pessoaFisJurModalGrid"
             [searchCallbackFunction]="pessoaFisJurModalSearch"
-            [onItemSelectedCallbackFunction]="pessoaFisJurSelected"
+            (closeSelectedItem)="pessoaFisJurSelected($event)"
           ></app-modal>
           <div style="width: 100%">
-            <app-select></app-select>
+            <app-select
+              id="ind-fis-jur"
+              name="ind-fis-jur"
+              bfmField
+              bfmLabel="N/D"
+              required="true"
+              [items]="naturalLegalIndicators"
+              [(ngModel)]="coverData.id.indFisJur"
+              [disabled]="isDisabled()"
+            ></app-select>
           </div>
         </div>
       </div>

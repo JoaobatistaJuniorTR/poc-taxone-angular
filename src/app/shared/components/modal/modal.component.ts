@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import GridFilter from 'src/app/features/t1dw/model/grid-filter.model';
 import { Pagination } from 'src/app/features/t1dw/model/interface.model';
-import GridData from './grid-data.model';
+import GridData from '../flex-grid/flex-grid.model';
 
 @Component({
   selector: 'app-modal',
@@ -12,6 +12,10 @@ import GridData from './grid-data.model';
 })
 export class ModalComponent {
   isBusyLoader: boolean = false;
+
+  selectedItem: any;
+
+  private modalRef: NgbModalRef;
 
   @Input() title: string;
 
@@ -25,15 +29,7 @@ export class ModalComponent {
 
   @Input() searchCallbackFunction: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
 
-  @Input() onItemSelectedCallbackFunction: (item: any) => void;
-
-  toolbarData: any[] = [
-    {
-      label: 'Aplicar Filtro',
-      icon: 'bento-icon-filter',
-      action: () => {},
-    },
-  ];
+  @Output() closeSelectedItem: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private modalService: NgbModal) {}
 
@@ -42,6 +38,19 @@ export class ModalComponent {
       ariaLabelledBy: 'modal-basic-title',
       size: this.size,
     };
-    this.modalService.open(content, modalConfig);
+    this.modalRef = this.modalService.open(content, modalConfig);
   }
+
+  onSelectedItem = (item: any): void => {
+    this.selectedItem = item;
+  };
+
+  onDoubleClickCallbackFunction = (): void => {
+    this.closeSelectedItem.emit(this.selectedItem);
+    this.modalRef.close();
+  };
+
+  selectClose = (): void => {
+    this.closeSelectedItem.emit(this.selectedItem);
+  };
 }

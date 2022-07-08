@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
-import GridData from 'src/app/shared/components/modal/grid-data.model';
+import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { PessoaService } from '../../services/pessoa.service';
 import { SelectModel } from '../../../../shared/components/select/select-model';
 import { InvoiceService } from '../../services/invoice.service';
@@ -15,6 +15,7 @@ import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { ModeloDocumentoService } from '../../services/modelo-documento.service';
 import { TributacaoInternaService } from '../../services/tributacao-interna.service';
 import GridFilter from '../../model/grid-filter.model';
+import { constants } from '../../constants/constants';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -230,6 +231,8 @@ export class InvoiceCoverComponent implements OnInit {
     this.coverData.razaoSocialFisJur = item.razaoSocial;
     this.coverData.fisJurCpfCnpj = item.cpfCgc;
   };
+
+  naturalLegalIndicators = constants.NATURAL_LEGAL_INDICATOR;
 
   onSubmit = () => {};
 }
