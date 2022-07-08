@@ -3,6 +3,8 @@
   <bento-number-input
     [id]="id"
     [name]="name"
+    bfmField
+    [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
     [(ngModel)]="model"
     [disabled]="disabled"
     [min]="min"

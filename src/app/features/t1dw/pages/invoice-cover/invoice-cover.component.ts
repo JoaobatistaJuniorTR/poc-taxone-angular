@@ -24,13 +24,13 @@ import { StateParams } from '../../model/state-params.model';
   styleUrls: ['./invoice-cover.component.sass'],
 })
 export class InvoiceCoverComponent implements OnInit {
-  private stateParams: StateParams;
-
-  codEstab: string = '001AM';
+  params: StateParams;
 
   resetErrors: boolean;
 
   coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
+
+  isEstablishmentAlreadyDefined: boolean = true;
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -167,11 +167,11 @@ export class InvoiceCoverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.stateParams = this.storageService.getObject('stateParams');
+    this.params = this.storageService.getObject('stateParams');
     const moduleData: any = this.storage.getObject('moduleData');
     this.coverData.id.codEmpresa = moduleData.company.id;
-    if (this.stateParams.invoiceId) {
-      this.findInvoiceById(this.stateParams.invoiceId);
+    if (this.params.invoiceId) {
+      this.findInvoiceById(this.params.invoiceId);
     }
   }
 

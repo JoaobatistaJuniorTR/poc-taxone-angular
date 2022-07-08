@@ -1,9 +1,11 @@
 <div class="data-picker-container">
   <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
-  <div class="input-group bento-datepicker">
+  <div class="bento-datepicker" style="display: flex; flex-wrap: nowrap">
     <input
       [id]="id"
       [name]="name"
+      bfmField
+      [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
       class="form-control bento-datepicker"
       [firstDayOfWeek]="7"
       ngbDatepicker

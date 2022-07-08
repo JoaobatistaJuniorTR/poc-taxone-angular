@@ -5,6 +5,8 @@
   <select
     [id]="id"
     [name]="name"
+    bfmField
+    [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
     [(ngModel)]="model"
     bentoSelect
     class="form-control"

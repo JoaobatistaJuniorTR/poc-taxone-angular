@@ -20,6 +20,8 @@ export class NumberInputComponent implements ControlValueAccessor {
 
   @Input() inputLabelText: string;
 
+  @Input() bfmLabel: string;
+
   @Input() width: number = 160;
 
   @Input('ngModel') model: any;
