@@ -125,6 +125,7 @@ export class InvoiceCoverComponent implements OnInit {
 
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
+      console.log(value);
       this.coverData = new TmpX07DoctoFiscal(value);
     });
   }
