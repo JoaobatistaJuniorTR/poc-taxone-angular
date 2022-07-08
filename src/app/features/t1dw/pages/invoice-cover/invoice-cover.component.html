@@ -14,7 +14,7 @@
     [validations]="validations"
   >
     <div class="form-row-space-between">
-      <div style="width: 100%">
+      <div class="form-group" style="width: 100%">
         <app-autocomplete
           id="cod-estab"
           name="cod-estab"
@@ -35,152 +35,162 @@
       </div>
     </div>
     <div class="form-row-space-between">
-      <app-date-picker
-        id="data-fiscal"
-        name="data-fiscal"
-        bfmField
-        bfmLabel="Data Fiscal"
-        inputLabelText="Data Fiscal"
-        required="true"
-        buttonLabel="Abrir calendário"
-        [(ngModel)]="coverData.id.dataFiscal"
-        [disabled]="isDisabled()"
-      ></app-date-picker>
-      <app-date-picker
-        id="data-emissao"
-        name="data-emissao"
-        bfmField
-        bfmLabel="Data de Emissão"
-        inputLabelText="Data de Emissão"
-        required="true"
-        buttonLabel="Abrir calendário"
-        [(ngModel)]="coverData.dataEmissao"
-        [disabled]="isDisabled()"
-      ></app-date-picker>
-      <app-number-input
-        id="hora-emissao"
-        name="hora-emissao"
-        inputLabelText="Hora Emissão"
-        bfmField
-        bfmLabel="Hora Emissão"
-        [(ngModel)]="coverData.horaEmissao"
-        [min]="0"
-        [max]="24"
-        [disabled]="isDisabled()"
-      ></app-number-input>
-      <app-date-picker
-        id="data-saida-rec"
-        name="data-saida-rec"
-        bfmField
-        bfmLabel="Data Entrada/Saida"
-        inputLabelText="Data Entrada/Saida"
-        required="true"
-        buttonLabel="Abrir calendário"
-        [(ngModel)]="coverData.dataSaidaRec"
-        [disabled]="isDisabled()"
-      ></app-date-picker>
-      <app-number-input
-        id="hora-saida-rec"
-        name="hora-saida-rec"
-        bfmField
-        bfmLabel="Hora Entrada/Saída"
-        inputLabelText="Hora Entrada/Saída"
-        [(ngModel)]="coverData.horaSaidaRec"
-        [min]="0"
-        [max]="24"
-        [disabled]="isDisabled()"
-      ></app-number-input>
-      <app-date-picker
-        id="dt-extemp"
-        name="dt-extemp"
-        bfmField
-        bfmLabel="Dt. Extemp"
-        inputLabelText="Dt. Extemp"
-        buttonLabel="Abrir calendário"
-        [(ngModel)]="coverData.datEscrExtemp"
-        [disabled]="isDisabled()"
-      ></app-date-picker>
+      <div class="form-group">
+        <app-date-picker
+          id="data-fiscal"
+          name="data-fiscal"
+          bfmField
+          bfmLabel="Data Fiscal"
+          inputLabelText="Data Fiscal"
+          required="true"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.id.dataFiscal"
+          [disabled]="isDisabled()"
+        ></app-date-picker>
+      </div>
+      <div class="form-group">
+        <app-date-picker
+          id="data-emissao"
+          name="data-emissao"
+          bfmField
+          bfmLabel="Data de Emissão"
+          inputLabelText="Data de Emissão"
+          required="true"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.dataEmissao"
+          [disabled]="isDisabled()"
+        ></app-date-picker>
+      </div>
+      <div class="form-group">
+        <app-number-input
+          id="hora-emissao"
+          name="hora-emissao"
+          inputLabelText="Hora Emissão"
+          bfmField
+          bfmLabel="Hora Emissão"
+          [(ngModel)]="coverData.horaEmissao"
+          [min]="0"
+          [max]="24"
+          [disabled]="isDisabled()"
+        ></app-number-input>
+      </div>
+      <div class="form-group">
+        <app-date-picker
+          id="data-saida-rec"
+          name="data-saida-rec"
+          bfmField
+          bfmLabel="Data Entrada/Saida"
+          inputLabelText="Data Entrada/Saida"
+          required="true"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.dataSaidaRec"
+          [disabled]="isDisabled()"
+        ></app-date-picker>
+      </div>
+      <div class="form-group">
+        <app-number-input
+          id="hora-saida-rec"
+          name="hora-saida-rec"
+          bfmField
+          bfmLabel="Hora Entrada/Saída"
+          inputLabelText="Hora Entrada/Saída"
+          [(ngModel)]="coverData.horaSaidaRec"
+          [min]="0"
+          [max]="24"
+          [disabled]="isDisabled()"
+        ></app-number-input>
+      </div>
+      <div class="form-group">
+        <app-date-picker
+          id="dt-extemp"
+          name="dt-extemp"
+          bfmField
+          bfmLabel="Dt. Extemp"
+          inputLabelText="Dt. Extemp"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.datEscrExtemp"
+          [disabled]="isDisabled()"
+        ></app-date-picker>
+      </div>
     </div>
     <div class="form-row-space-between">
-      <app-select
-        id="e-s"
-        name="e-s"
-        bfmField
-        bfmLabel="E/S"
-        inputLabelText="E/S"
-        [items]="movtoESItems"
-        [(ngModel)]="coverData.id.movtoES"
-        required="true"
-        [disabled]="isDisabled()"
-      ></app-select>
-      <app-select
-        id="norm-dev"
-        name="norm-dev"
-        bfmField
-        bfmLabel="N/D"
-        inputLabelText="N/D"
-        required="true"
-        [items]="normDevItems"
-        [(ngModel)]="coverData.id.normDev"
-        [disabled]="isDisabled()"
-      ></app-select>
-      <app-checkbox
-        id="ind-nf-venda-terceiros"
-        name="ind-nf-venda-terceiros"
-        bfmField
-        bfmLabel="Nota Fiscal de venda emitida por terceiro"
-        inputLabelText="Nota Fiscal de venda emitida por terceiro"
-        [(ngModel)]="coverData.indNfVendaTerceiros"
-        [disabled]="isDisabled()"
-      ></app-checkbox>
+      <div class="form-group">
+        <app-select
+          id="e-s"
+          name="e-s"
+          bfmField
+          bfmLabel="E/S"
+          inputLabelText="E/S"
+          [items]="movtoESItems"
+          [(ngModel)]="coverData.id.movtoES"
+          required="true"
+          [disabled]="isDisabled()"
+        ></app-select>
+      </div>
+      <div class="form-group">
+        <app-select
+          id="norm-dev"
+          name="norm-dev"
+          bfmField
+          bfmLabel="N/D"
+          inputLabelText="N/D"
+          required="true"
+          [items]="normDevItems"
+          [(ngModel)]="coverData.id.normDev"
+          [disabled]="isDisabled()"
+        ></app-select>
+      </div>
+      <div class="form-group">
+        <app-checkbox
+          id="ind-nf-venda-terceiros"
+          name="ind-nf-venda-terceiros"
+          bfmField
+          bfmLabel="Nota Fiscal de venda emitida por terceiro"
+          inputLabelText="Nota Fiscal de venda emitida por terceiro"
+          [(ngModel)]="coverData.indNfVendaTerceiros"
+          [disabled]="isDisabled()"
+        ></app-checkbox>
+      </div>
     </div>
-    <div class="form-flex" style="flex-wrap: nowrap">
-      <div class="form-flex" style="width: 360px; column-gap: 5px">
+    <div class="form-flex">
+      <div
+        class="form-flex"
+        style="width: 360px; column-gap: 5px; flex-wrap: nowrap"
+      >
         <div class="form-group">
-          <label for="num-docfis" class="bento-label-required">Número NF</label>
-          <input
-            id="num-docfis"
-            name="num-docfis"
-            bfmField
-            bfmLabel="Número NF"
-            class="form-control"
-            type="text"
+          <app-input-text
+            id="num-docFis"
+            name="num-docFis"
+            inputLabelText="Número NF"
             [(ngModel)]="coverData.id.numDocfis"
-            maxlength="12"
-            [disabled]="isDisabled()"
-            required="true"
-            style="width: 150px"
-          />
+            width="150px"
+            [required]="true"
+          >
+          </app-input-text>
         </div>
         <div class="form-group">
-          <label for="serie-docfis" class="bento-label">&nbsp;</label>
-          <input
+          <app-input-text
             id="serie-docfis"
             name="serie-docfis"
-            bfmField
-            bfmField="Série NF"
-            class="form-control"
-            type="text"
-            [disabled]="isDisabled()"
+            bfmLabel="Serie NF"
+            inputLabelText="&nbsp;"
             [(ngModel)]="coverData.id.serieDocfis"
-            maxlength="3"
-            style="width: 100px"
-          />
+            width="100px"
+            [maxlength]="3"
+            [required]="true"
+          >
+          </app-input-text>
         </div>
         <div class="form-group">
-          <label for="sub-serie-docfis" class="bento-label">&nbsp;</label>
-          <input
+          <app-input-text
             id="sub-serie-docfis"
             name="sub-serie-docfis"
-            bfmField
-            bfmField="Série NF"
-            class="form-control"
-            type="text"
-            [disabled]="isDisabled()"
+            inputLabelText="&nbsp;"
             [(ngModel)]="coverData.id.subSerieDocfis"
-            maxlength="2"
-            style="width: 100px"
-          />
+            width="100px"
+            [maxlength]="2"
+          >
+          </app-input-text>
         </div>
       </div>
       <div class="form-group" style="flex-grow: 1">
@@ -207,19 +217,15 @@
     </div>
     <div class="form-flex">
       <div class="form-group" style="width: 100%">
-        <label for="num_docfis_serv" class="bento-label"
-          >Número NF (60 posições)</label
-        >
-        <input
+        <app-input-text
           id="num_docfis_serv"
           name="num_docfis_serv"
-          bfmField
-          bfmField="Número NF (60 posições)"
-          class="form-control"
-          type="text"
+          inputLabelText="Número NF (60 posições)"
           [(ngModel)]="coverData.numDocfisServ"
-          maxlength="60"
-        />
+          width="100%"
+          [maxlength]="60"
+        >
+        </app-input-text>
       </div>
     </div>
     <div class="form-row-space-between">
@@ -249,49 +255,37 @@
         </div>
       </div>
       <div class="form-group" style="width: 15%">
-        <label for="cod-fis-jur" class="bento-label">&nbsp;</label>
-        <input
-          id="cod-fis-jur"
-          name="cod-fis-jur"
-          bfmField
-          bfmField="Código Fis/Jur"
-          required="true"
-          class="form-control"
-          type="text"
-          [disabled]="isDisabled()"
+        <app-input-text
+          id="cod_fis_jur"
+          name="cod_fis_jur"
+          bfmLabel="Código Fis/Jur"
+          inputLabelText="&nbsp;"
           [(ngModel)]="coverData.id.codFisJur"
-          maxlength="14"
-        />
+          [required]="true"
+          [maxlength]="14"
+        >
+        </app-input-text>
       </div>
       <div class="form-group" style="width: 48%">
-        <label for="razao-social-fis-jur" class="bento-label">&nbsp;</label>
-        <input
-          id="razao-social-fis-jur"
-          name="razao-social-fis-jur"
-          bfmField
-          bfmField="Razão Social Fis/Jur"
-          required="true"
-          class="form-control"
-          type="text"
-          [disabled]="isDisabled()"
+        <app-input-text
+          id="razao_social_fis_jur"
+          name="razao_social_fis_jur"
+          inputLabelText="&nbsp;"
           [(ngModel)]="coverData.razaoSocialFisJur"
-          maxlength="14"
-        />
+          [disabled]="true"
+        >
+        </app-input-text>
       </div>
       <div class="form-group" style="width: 20%">
-        <label for="fis-jur-cpf-cnpj" class="bento-label">CPF/CNPJ</label>
-        <input
-          id="fis-jur-cpf-cnpj"
-          name="fis-jur-cpf-cnpj"
-          bfmField
-          bfmField="CPF/CNPJ"
-          required="true"
-          class="form-control"
-          type="text"
-          [disabled]="isDisabled()"
+        <app-input-text
+          id="fis_jur_cpf_cnpj"
+          name="fis_jur_cpf_cnpj"
+          inputLabelText="CPF/CNPJ"
           [(ngModel)]="coverData.fisJurCpfCnpj"
-          maxlength="14"
-        />
+          [maxlength]="14"
+          [disabled]="true"
+        >
+        </app-input-text>
       </div>
     </div>
     <div class="form-row-space-between">
@@ -363,6 +357,17 @@
         inputLabelText="Sit. Cancelado"
         [(ngModel)]="coverData.situacao"
       ></app-checkbox>
+      <app-date-picker
+        id="dat-autentic"
+        name="dat-autentic"
+        bfmField
+        bfmLabel="Data Autent./Cancel"
+        inputLabelText="Data Autent./Cancel"
+        required="true"
+        buttonLabel="Abrir calendário"
+        [(ngModel)]="coverData.datAutentic"
+        [disabled]="isDisabled()"
+      ></app-date-picker>
     </div>
   </form>
 </div>

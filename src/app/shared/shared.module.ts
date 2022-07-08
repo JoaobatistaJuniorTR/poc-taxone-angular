@@ -23,6 +23,7 @@ import { NumberInputComponent } from './components/number-input/number-input.com
 import { SelectComponent } from './components/select/select.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FlexGridComponent } from './components/flex-grid/flex-grid.component';
+import { InputTextComponent } from './components/input-text/input-text.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FlexGridComponent } from './components/flex-grid/flex-grid.component';
     SelectComponent,
     CheckboxComponent,
     FlexGridComponent,
+    InputTextComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { FlexGridComponent } from './components/flex-grid/flex-grid.component';
     SelectComponent,
     CheckboxComponent,
     FlexGridComponent,
+    InputTextComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,

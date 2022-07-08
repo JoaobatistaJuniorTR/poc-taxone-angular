@@ -1,20 +1,18 @@
-<div class="form-group">
-  <bento-combobox
-    [id]="id"
-    [name]="name"
-    [inputLabelText]="inputLabelText"
-    [itemsObservable]="itemsObservable"
-    [options]="comboboxOptions"
-    [(ngModel)]="selectedItem"
-    (ngModelChange)="onModelChange($event)"
-    (search)="searchData($event)"
-    (endOfScroll)="onEndOfScroll($event)"
-    [disabled]="disabled"
-    (click)="onTouched()"
-  ></bento-combobox>
-  <span
-    [bentoBusyLoader]="isBusyLoader"
-    [size]="'sm'"
-    class="app-autocomplete-loader"
-  ></span>
-</div>
+<bento-combobox
+  [id]="id"
+  [name]="name"
+  [inputLabelText]="inputLabelText"
+  [itemsObservable]="itemsObservable"
+  [options]="comboboxOptions"
+  [(ngModel)]="selectedItem"
+  (ngModelChange)="onModelChange($event)"
+  (search)="searchData($event)"
+  (endOfScroll)="onEndOfScroll($event)"
+  [disabled]="disabled"
+  (click)="onTouched()"
+></bento-combobox>
+<span
+  [bentoBusyLoader]="isBusyLoader"
+  [size]="'sm'"
+  class="app-autocomplete-loader"
+></span>
