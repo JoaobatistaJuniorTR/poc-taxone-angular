@@ -48,9 +48,9 @@ export class FlexGridComponent implements OnInit {
 
   @Input() columnsToFilter: string[] = [];
 
-  @Input() doubleClickCallbackFunction: () => void;
+  @Input() doubleClick: () => void;
 
-  @Input() searchCallbackFunction: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
+  @Input() search: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
 
   @Input() startLoading: boolean = false;
 
@@ -95,7 +95,7 @@ export class FlexGridComponent implements OnInit {
 
   onGridInitialized() {
     this.flexGrid.hostElement.addEventListener('dblclick', () => {
-      this.doubleClickCallbackFunction();
+      this.doubleClick();
     });
   }
 
@@ -125,12 +125,12 @@ export class FlexGridComponent implements OnInit {
   };
 
   private loadData(page: number, size: number) {
-    if (!(this.searchCallbackFunction instanceof Function)) {
+    if (!(this.search instanceof Function)) {
       return;
     }
     this.isGridBusyLoader = true;
     const pagination: Pagination = { page, size };
-    this.searchCallbackFunction(this.tmpGridFilters, pagination)
+    this.search(this.tmpGridFilters, pagination)
       .then((result: any) => {
         this.data.sourceCollection = result.content;
         this.data.pageSize = result.size;

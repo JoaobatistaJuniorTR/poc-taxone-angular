@@ -83,8 +83,8 @@
     [toolbarDataItems]="toolbarData"
     [columnsToFilter]="columnsToFilter"
     [gridFilters]="gridFilters"
-    [searchCallbackFunction]="searchCallbackFunction"
-    [doubleClickCallbackFunction]="editInvoice"
-    (onSelectedItem)="onSelectedItem($event)"
+    [search]="onSearch"
+    [doubleClick]="editInvoice"
+    (selectedItem)="onSelectedItem($event)"
   ></app-flex-grid>
 </div>

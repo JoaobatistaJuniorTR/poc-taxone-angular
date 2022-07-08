@@ -9,6 +9,7 @@ import { EnumAlert } from 'src/app/shared/components/alert/alert-model';
 import { AlertService } from 'src/app/shared/components/alert/alert.service';
 import { HttpEvent } from '@angular/common/http';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { StateParams } from '../../model/state-params.model';
 import { EstabelecimentoService } from '../../services/estabelecimento.service';
 import { InvoiceService } from '../../services/invoice.service';
 import GridFilter from '../../model/grid-filter.model';
@@ -46,7 +47,8 @@ export class InvoicesListComponent implements OnInit {
     private datamartService: DatamartService,
     private tempTableService: TempTableService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {}
 
   validations = {
@@ -255,7 +257,7 @@ export class InvoicesListComponent implements OnInit {
     return gridFilters;
   }
 
-  searchCallbackFunction = (gridFilters: GridFilter[], pagination: Pagination) => {
+  onSearch = (gridFilters: GridFilter[], pagination: Pagination) => {
     return this.invoiceService.searchInvoices(gridFilters, pagination);
   };
 
@@ -297,8 +299,12 @@ export class InvoicesListComponent implements OnInit {
         username: 'TESTE',
       })
       .then((data: any) => {
-        const invoiceId: string = data.idDocto;
-        this.router.navigate(['edit', invoiceId], { relativeTo: this.route });
+        const stateParams: StateParams = {
+          operacao: 'edit',
+          invoiceId: data.idDocto,
+        };
+        this.storageService.setObject('stateParams', stateParams);
+        this.router.navigate(['edit'], { relativeTo: this.route });
       })
       .catch((error: any) => {
         const errorMessage =

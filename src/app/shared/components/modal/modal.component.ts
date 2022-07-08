@@ -27,7 +27,7 @@ export class ModalComponent {
 
   @Input() startLoading: boolean = false;
 
-  @Input() searchCallbackFunction: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
+  @Input() search: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
 
   @Output() closeSelectedItem: EventEmitter<any> = new EventEmitter<any>();
 
@@ -45,7 +45,7 @@ export class ModalComponent {
     this.selectedItem = item;
   };
 
-  onDoubleClickCallbackFunction = (): void => {
+  onDoubleClick = (): void => {
     this.closeSelectedItem.emit(this.selectedItem);
     this.modalRef.close();
   };

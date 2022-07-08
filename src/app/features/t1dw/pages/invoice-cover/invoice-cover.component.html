@@ -243,7 +243,7 @@
             size="xl"
             [startLoading]="true"
             [gridColumnsData]="pessoaFisJurModalGrid"
-            [searchCallbackFunction]="pessoaFisJurModalSearch"
+            [search]="pessoaFisJurModalSearch"
             (closeSelectedItem)="pessoaFisJurSelected($event)"
           ></app-modal>
           <div style="width: 100%">
@@ -291,12 +291,12 @@
         />
       </div>
       <div class="form-group" style="width: 15%">
-        <label for="razao-social-fis-jur" class="bento-label">CPF/CNPJ</label>
+        <label for="fis-jur-cpf-cnpj" class="bento-label">CPF/CNPJ</label>
         <input
-          id="razao-social-fis-jur"
-          name="razao-social-fis-jur"
+          id="fis-jur-cpf-cnpj"
+          name="fis-jur-cpf-cnpj"
           bfmField
-          bfmField="Razão Social Fis/Jur"
+          bfmField="CPF/CNPJ"
           required="true"
           class="form-control"
           type="text"

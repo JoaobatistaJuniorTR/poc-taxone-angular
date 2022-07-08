@@ -16,6 +16,7 @@ import { ModeloDocumentoService } from '../../services/modelo-documento.service'
 import { TributacaoInternaService } from '../../services/tributacao-interna.service';
 import GridFilter from '../../model/grid-filter.model';
 import { constants } from '../../constants/constants';
+import { StateParams } from '../../model/state-params.model';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -23,7 +24,7 @@ import { constants } from '../../constants/constants';
   styleUrls: ['./invoice-cover.component.sass'],
 })
 export class InvoiceCoverComponent implements OnInit {
-  private invoiceId: string;
+  private stateParams: StateParams;
 
   codEstab: string = '001AM';
 
@@ -101,18 +102,19 @@ export class InvoiceCoverComponent implements OnInit {
     private storage: StorageService,
     private modeloDocumentoService: ModeloDocumentoService,
     private tributacaoInternaService: TributacaoInternaService,
-    private pessoaService: PessoaService
+    private pessoaService: PessoaService,
+    private storageService: StorageService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
   }
 
   ngOnInit(): void {
-    this.invoiceId = this.route.parent?.snapshot.params['invoice-id'];
+    this.stateParams = this.storageService.getObject('stateParams');
     const moduleData: any = this.storage.getObject('moduleData');
     this.coverData.id.codEmpresa = moduleData.company.id;
-    if (this.invoiceId) {
-      this.findInvoiceById(this.invoiceId);
+    if (this.stateParams.invoiceId) {
+      this.findInvoiceById(this.stateParams.invoiceId);
     }
   }
 
