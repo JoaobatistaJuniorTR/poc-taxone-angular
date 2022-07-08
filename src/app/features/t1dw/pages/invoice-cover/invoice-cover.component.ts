@@ -72,6 +72,63 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '2', label: '2 - Devolução' },
   ];
 
+  modeloNfDmItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '01', label: '01 - Nota Fiscal' },
+    { value: '1B', label: '1B - Nota Fiscal Avulsa' },
+    { value: '02', label: '02 - Nota Fiscal de Venda a Consumidor' },
+    { value: '2D', label: '2D - Cupom Fiscal emitido por ECF' },
+    { value: '2E', label: '2E - Bilhete de Passagem emitido por ECF' },
+    { value: '3A', label: '3A - Nota Fiscal de Serviços - Modelo Simplificado (modelo 3-A)' },
+    { value: '3B', label: '3B - Nota Fiscal de Serviços - Modelo Avulso' },
+    { value: '03', label: '03 - Nota Fiscal de Serviços (modelo 3)' },
+    { value: '04', label: '04 - Nota Fiscal de Produtor' },
+    { value: '06', label: '06 - Nota Fiscal/Conta de Energia Elétrica' },
+    { value: '07', label: '07 - Nota Fiscal de Serviço de Transporte' },
+    { value: '08', label: '08 - Conhecimento de Transporte Rodoviário de Cargas' },
+    { value: '8B', label: '8B - Conhecimento de Transporte de Cargas Avulso' },
+    { value: '09', label: '09 - Conhecimento de Transporte Aquaviário de Cargas' },
+    { value: '10', label: '10 - Conhecimento Aéreo' },
+    { value: '11', label: '11 - Conhecimento de Transporte Ferroviário de Cargas' },
+    { value: '13', label: '13 - Bilhete de Passagem Rodoviário' },
+    { value: '14', label: '14 - Bilhete de Passagem Aquaviário' },
+    { value: '15', label: '15 - Bilhete de Passagem e Nota de Bagagem' },
+    { value: '16', label: '16 - Bilhete de Passagem Ferroviário' },
+    { value: '17', label: '17 - Despacho de Transporte' },
+    { value: '18', label: '18 - Resumo de Movimento Diário' },
+    { value: '20', label: '20 - Ordem de Coleta de Cargas' },
+    { value: '21', label: '21 - Nota Fiscal de Serviço de Comunicação' },
+    { value: '22', label: '22 - Nota Fiscal de Serviço de Telecomunicação' },
+    { value: '23', label: '23 - GNRE' },
+    { value: '24', label: '24 - Autorização de Carregamento e Transporte' },
+    { value: '25', label: '25 - Manifesto de Carga' },
+    { value: '26', label: '26 - Conhecimento de Transporte Multimodal de Cargas' },
+    { value: '27', label: '27 - Nota Fiscal de Serviço de Transporte Ferroviário' },
+    { value: '28', label: '28 - Nota Fiscal/Conta de Fornecimento de Gás Canalizada' },
+    { value: '29', label: '29 - Nota Fiscal/Conta de Fornecimento de Água Canalizada' },
+    { value: '30', label: '30 - Manifesto de Vôo' },
+    { value: '55', label: '55 - Nota Fiscal Eletrônica (modelo 55)' },
+    { value: '57', label: '57 - Conhecimento de Transporte Eletrônico' },
+    { value: '58', label: '58 - Manifesto Eletrônico de Documentos Fiscais - MDF-e' },
+    { value: '59', label: '59 - Cupom Fiscal Eletrônico SAT CF-e' },
+    { value: '60', label: '60 - Cupom Fiscal Eletrônico CF-e-ECF' },
+    { value: '63', label: '63 - Bilhete de Passagem Eletrônico (BP-e)' },
+    { value: '65', label: '65 - Nota Fiscal Eletrônica para Consumidor Final' },
+    { value: '66', label: '66 - Nota Fiscal de Energia Eletrica Eletronica - NF3e' },
+    { value: '67', label: '67 - Conhecimento de Transporte Eletrônico para Outros' },
+  ];
+
+  codClassDocFisItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '1', label: '1 - Mercadoria' },
+    { value: '2', label: '2 - Serviço' },
+    { value: '3', label: '3 - Mercadoria e Serviço' },
+    { value: '7', label: '7 - Notas Fiscais de Mercadoria não Escrituradas' },
+    { value: '8', label: '8 - Notas Fiscais de Serviço não Escrituradas' },
+    { value: '9', label: '9 - Outros Documentos não escriturados' },
+    { value: 'I', label: 'I - Documento Internacional/Invoice' },
+  ];
+
   defaultColumns: BentoComboboxColumn[] = [
     {
       name: 'codigo',
@@ -125,7 +182,6 @@ export class InvoiceCoverComponent implements OnInit {
 
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
-      console.log(value);
       this.coverData = new TmpX07DoctoFiscal(value);
     });
   }
