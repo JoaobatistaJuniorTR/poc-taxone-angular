@@ -19,6 +19,8 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export class DatePickerComponent implements ControlValueAccessor {
   private previousDataStructure: NgbDateStruct;
 
+  private previousModel: any = undefined;
+
   dateStructure: NgbDateStruct;
 
   @Input() id: string;
@@ -42,12 +44,17 @@ export class DatePickerComponent implements ControlValueAccessor {
     return this.localModel;
   }
 
-  set model(val: any) {
-    this.localModel = val;
-    if (val) {
-      this.dateStructure = this.parse(val);
+  set model(value: any) {
+    if (value !== this.previousModel) {
+      this.previousModel = value;
+      this.localModel = value;
+      if (value) {
+        this.dateStructure = this.parse(value);
+      } else {
+        this.dateStructure = { year: 0, month: 0, day: 0 };
+      }
+      this.modelChange.emit(this.localModel);
     }
-    this.modelChange.emit(this.localModel);
   }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
@@ -75,13 +82,13 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   onModelChange = (value: any) => {
-    this.onChange(value);
     if (value !== this.previousDataStructure) {
       this.previousDataStructure = { ...value };
       if (value && value.year > 999) {
-        this.localModel = this.format(value);
+        this.model = this.format(value);
+      } else {
+        this.model = undefined;
       }
-      this.modelChange.emit(this.localModel);
     }
   };
 
