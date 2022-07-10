@@ -302,7 +302,6 @@ export class InvoiceCoverComponent implements OnInit {
   naturalLegalIndicators = constants.NATURAL_LEGAL_INDICATOR;
 
   onChangeDataFiscal = (): void => {
-    console.log('Entrou 4839495');
     this.validateDataFiscalBasedOnFields();
   };
 
@@ -315,17 +314,19 @@ export class InvoiceCoverComponent implements OnInit {
         this.coverData.id.dataFiscal = this.coverData.datEscrExtemp;
       } else if (['1', '3', '7'].indexOf(this.coverData.codClassDocFis) > -1) {
         waitToClear = true;
-        this.prtDataFiscalService.isActive(this.coverData.id.codEmpresa, this.coverData.id.codEstab).then((result: any) => {
-          if (result.data) {
-            this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
-          } else {
-            this.coverData.id.dataFiscal = this.coverData.dataEmissao;
-          }
+        this.prtDataFiscalService
+          .isActive(this.coverData.id.codEmpresa, this.coverData.id.codEstab)
+          .then((result: boolean) => {
+            if (result) {
+              this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
+            } else {
+              this.coverData.id.dataFiscal = this.coverData.dataEmissao;
+            }
 
-          if (this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
-            this.clearAllFieldsRelatedToKey();
-          }
-        });
+            if (this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
+              this.clearAllFieldsRelatedToKey();
+            }
+          });
       } else {
         this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
       }
