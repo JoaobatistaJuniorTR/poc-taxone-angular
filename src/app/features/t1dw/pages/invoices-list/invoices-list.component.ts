@@ -300,7 +300,7 @@ export class InvoicesListComponent implements OnInit {
       })
       .then((data: any) => {
         const stateParams: StateParams = {
-          operacao: 'edit',
+          operation: 'new',
           invoiceId: data.idDocto,
         };
         this.storageService.setObject('stateParams', stateParams);

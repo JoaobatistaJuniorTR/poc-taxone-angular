@@ -1,4 +1,3 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
@@ -17,6 +16,9 @@ import { TributacaoInternaService } from '../../services/tributacao-interna.serv
 import GridFilter from '../../model/grid-filter.model';
 import { constants } from '../../constants/constants';
 import { StateParams } from '../../model/state-params.model';
+import { PrtDataFiscalService } from '../../services/prt-data-fiscal.service';
+import { InvoiceClassificationType } from '../../enum/invoice-classification.enum';
+import { PrtNumDocfisServService } from '../../services/prt-num-docfis-serv.service';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -31,6 +33,8 @@ export class InvoiceCoverComponent implements OnInit {
   coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
 
   isEstablishmentAlreadyDefined: boolean = false;
+
+  isNumDocfisServEnabled: boolean = false;
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -152,7 +156,6 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   constructor(
-    private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private estabelecimentoService: EstabelecimentoService,
     private tipoDocumentoService: TipoDocumentoService,
@@ -160,7 +163,9 @@ export class InvoiceCoverComponent implements OnInit {
     private modeloDocumentoService: ModeloDocumentoService,
     private tributacaoInternaService: TributacaoInternaService,
     private pessoaService: PessoaService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private prtDataFiscalService: PrtDataFiscalService,
+    private prtNumDocfisServService: PrtNumDocfisServService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -295,6 +300,92 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   naturalLegalIndicators = constants.NATURAL_LEGAL_INDICATOR;
+
+  onChangeDataFiscal = (): void => {
+    console.log('Entrou 4839495');
+    this.validateDataFiscalBasedOnFields();
+  };
+
+  private validateDataFiscalBasedOnFields = (): void => {
+    const oldDate = this.coverData.id.dataFiscal;
+    let waitToClear = false;
+
+    if (this.coverData.id.movtoES === '9') {
+      if (this.coverData.datEscrExtemp > this.coverData.dataEmissao) {
+        this.coverData.id.dataFiscal = this.coverData.datEscrExtemp;
+      } else if (['1', '3', '7'].indexOf(this.coverData.codClassDocFis) > -1) {
+        waitToClear = true;
+        this.prtDataFiscalService.isActive(this.coverData.id.codEmpresa, this.coverData.id.codEstab).then((result: any) => {
+          if (result.data) {
+            this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
+          } else {
+            this.coverData.id.dataFiscal = this.coverData.dataEmissao;
+          }
+
+          if (this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
+            this.clearAllFieldsRelatedToKey();
+          }
+        });
+      } else {
+        this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
+      }
+    } else {
+      this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
+    }
+
+    if (!waitToClear && this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
+      this.clearAllFieldsRelatedToKey();
+    }
+  };
+
+  private shouldClearFields = (oldDate: Date, newDate: Date): Boolean => {
+    return oldDate && oldDate.getTime() !== newDate.getTime();
+  };
+
+  private clearAllFieldsRelatedToKey = (): void => {
+    if (this.params.operation === 'new') {
+      this.coverData.id.indFisJur = undefined;
+      this.coverData.id.codFisJur = undefined;
+      this.coverData.razaoSocialFisJur = undefined;
+      this.coverData.fisJurCpfCnpj = undefined;
+      this.coverData.codConta = undefined;
+      this.coverData.dscConta = undefined;
+      this.coverData.codNaturezaOp = undefined;
+      this.coverData.inscEstadual = undefined;
+      this.coverData.codCfo = undefined;
+      this.coverData.codSituacaoA = undefined;
+      this.coverData.codSituacaoB = undefined;
+      this.coverData.id.codDocto = undefined;
+      this.coverData.codModelo = undefined;
+
+      this.shouldEnableNumDocfisServField();
+    }
+  };
+
+  private shouldEnableNumDocfisServField = (): void => {
+    if (this.isMixedInvoice() || this.isServiceInvoice()) {
+      this.prtNumDocfisServService
+        .isActiveByEstablishment(this.coverData.id.codEmpresa, this.coverData.id.codEstab, this.coverData.id.dataFiscal)
+        .then((isActive: any) => {
+          this.isNumDocfisServEnabled = isActive.data;
+        });
+    }
+  };
+
+  private isMixedInvoice = (): Boolean => {
+    return [InvoiceClassificationType.SERVICE_MERCHANDISE].indexOf(this.coverData.codClassDocFis) !== -1;
+  };
+
+  private isServiceInvoice = (): Boolean => {
+    return (
+      [
+        InvoiceClassificationType.SERVICE,
+        InvoiceClassificationType.SERVICE_UNBOOKED,
+        InvoiceClassificationType.OTHERS_UNBOOKED,
+        InvoiceClassificationType.INTERNATIONAL,
+      ].indexOf(this.coverData.codClassDocFis) !== -1
+    );
+  };
 
   onSubmit = () => {};
 }

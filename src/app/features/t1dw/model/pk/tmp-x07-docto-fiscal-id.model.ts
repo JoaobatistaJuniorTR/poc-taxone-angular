@@ -5,9 +5,9 @@ export default class TmpX07DoctoFiscalId {
   public dataFiscal: any;
   public movtoES: string;
   public normDev: string;
-  public codDocto: number;
-  public indFisJur: string;
-  public codFisJur: string;
+  public codDocto: number | undefined;
+  public indFisJur: string | undefined;
+  public codFisJur: string | undefined;
   public numDocfis: string;
   public serieDocfis: string;
   public subSerieDocfis: string;

@@ -20,8 +20,6 @@ export class NumberInputComponent implements ControlValueAccessor {
 
   @Input() inputLabelText: string;
 
-  @Input() bfmLabel: string;
-
   @Input() width: number = 160;
 
   @Input('ngModel') model: any;
@@ -32,7 +30,9 @@ export class NumberInputComponent implements ControlValueAccessor {
 
   @Input() max: number;
 
-  @Input() disabled: boolean = false;
+  @Input() disabled: boolean;
+
+  @Input() required: boolean;
 
   onTouched: Function;
 

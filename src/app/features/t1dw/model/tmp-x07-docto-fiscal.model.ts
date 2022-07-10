@@ -1,30 +1,31 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
+import { InvoiceClassificationType } from '../enum/invoice-classification.enum';
 import MerchandiseTotals from './merchandise-totals.model';
 import TmpX07DoctoFiscalId from './pk/tmp-x07-docto-fiscal-id.model';
 import ServiceTotals from './service-totals.model';
 
 export default class TmpX07DoctoFiscal {
   public id: TmpX07DoctoFiscalId;
-  public razaoSocialFisJur: string;
-  public fisJurCpfCnpj: string;
+  public razaoSocialFisJur: string | undefined;
+  public fisJurCpfCnpj: string | undefined;
   public totaisMercadoria: MerchandiseTotals;
   public totaisServico: ServiceTotals;
   public idDoctoFiscal: string;
   public identDocto: number;
   public identFisJur: number;
   public dataEmissao: Date;
-  public codClassDocFis: string;
+  public codClassDocFis: InvoiceClassificationType;
   public identModelo: number;
-  public codModelo: string;
+  public codModelo: string | undefined;
   public identCfo: number;
-  public codCfo: string;
+  public codCfo: string | undefined;
   public identNaturezaOp: number;
-  public codNaturezaOp: string;
+  public codNaturezaOp: string | undefined;
   public numDocfisRef: string;
   public serieDocfisRef: string;
   public subSerieDocfisRef: string;
   public numDecImpRef: string;
-  public dataSaidaRec: Date;
+  public dataSaidaRec: any;
   public inscEstadSubstit: string;
   public vlrProduto: string;
   public vlrTotNota: string;
@@ -39,7 +40,8 @@ export default class TmpX07DoctoFiscal {
   public codIndice: string;
   public vlrNotaConv: string;
   public identConta: number;
-  public codConta: string;
+  public codConta: string | undefined;
+  public dscConta: string | undefined;
   public indModeloCupom: string;
   public vlrContabCompl: string;
   public numControleDocto: string;
@@ -161,7 +163,7 @@ export default class TmpX07DoctoFiscal {
   public serieCtrDisp: string;
   public subSerieCtrDisp: string;
   public indSituacaoEsp: string;
-  public inscEstadual: string;
+  public inscEstadual: string | undefined;
   public codPagtoInss: string;
   public datOperacao: Date;
   public usuario: string;
@@ -224,9 +226,9 @@ export default class TmpX07DoctoFiscal {
   public identObservacao: number;
   public codObservacao: string;
   public identSituacaoA: number;
-  public codSituacaoA: string;
+  public codSituacaoA: string | undefined;
   public identSituacaoB: number;
-  public codSituacaoB: string;
+  public codSituacaoB: string | undefined;
   public numContReduc: string;
   public codMunicipioOrig: number;
   public codMunicipioDest: number;

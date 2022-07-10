@@ -1,0 +1,9 @@
+export enum InvoiceClassificationType {
+  MERCHANDISE = '1',
+  SERVICE = '2',
+  SERVICE_MERCHANDISE = '3',
+  MERCHANDISE_UNBOOKED = '7',
+  SERVICE_UNBOOKED = '8',
+  OTHERS_UNBOOKED = '9',
+  INTERNATIONAL = 'I',
+}

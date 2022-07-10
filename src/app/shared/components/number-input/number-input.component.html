@@ -3,13 +3,12 @@
   <bento-number-input
     [id]="id"
     [name]="name"
-    bfmField
-    [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
     [(ngModel)]="model"
     [disabled]="disabled"
     [min]="min"
     [max]="max"
     (ngModelChange)="onModelChange($event)"
     [style]="getStyle()"
+    [required]="required"
   ></bento-number-input>
 </div>

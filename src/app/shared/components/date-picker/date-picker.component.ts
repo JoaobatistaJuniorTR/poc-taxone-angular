@@ -25,7 +25,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input() name: string;
 
-  @Input('format-max-time') formatMaxDate: boolean = false;
+  @Input('format-time-max-range') formatTimeMaxRange: boolean = false;
 
   @Input() disabled: boolean;
 
@@ -100,7 +100,7 @@ export class DatePickerComponent implements ControlValueAccessor {
         tokens.push(`0${value.day}`);
       }
     }
-    if (this.formatMaxDate) {
+    if (this.formatTimeMaxRange) {
       return `${tokens.join('-')}T23:59:59`;
     }
     return `${tokens.join('-')}T00:00:00`;

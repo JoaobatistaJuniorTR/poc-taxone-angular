@@ -1,4 +1,4 @@
 export interface StateParams {
-  operacao: string;
+  operation: string;
   invoiceId: string;
 }
