@@ -27,13 +27,18 @@ export class ModalComponent {
 
   @Input() startLoading: boolean = false;
 
+  @Input() disabled: boolean = false;
+
   @Input() search: (gridFilters: GridFilter[], pagination: Pagination) => Promise<any>;
 
   @Output() closeSelectedItem: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private modalService: NgbModal) {}
 
-  open(content: any) {
+  open(content: any): void {
+    if (this.disabled) {
+      return;
+    }
     const modalConfig: NgbModalOptions = {
       ariaLabelledBy: 'modal-basic-title',
       size: this.size,

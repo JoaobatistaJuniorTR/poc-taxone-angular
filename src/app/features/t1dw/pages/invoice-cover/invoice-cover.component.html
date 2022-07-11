@@ -212,7 +212,7 @@
         </app-autocomplete>
       </div>
     </div>
-    <div class="form-flex">
+    <div class="form-flex" *ngIf="isServiceInvoice() || isMixedInvoice()">
       <div class="form-group" style="width: 100%">
         <app-input-text
           id="num_docfis_serv"
@@ -221,6 +221,7 @@
           [(ngModel)]="coverData.numDocfisServ"
           width="100%"
           [maxlength]="60"
+          [disabled]="isNumDocfisServEnabled"
         >
         </app-input-text>
       </div>
@@ -236,6 +237,11 @@
             [gridColumnsData]="pessoaFisJurModalGrid"
             [search]="pessoaFisJurModalSearch"
             (closeSelectedItem)="pessoaFisJurSelected($event)"
+            [disabled]="
+              params.operation !== 'new' ||
+              !coverData.id.codEstab ||
+              !coverData.id.dataFiscal
+            "
           ></app-modal>
           <div style="width: 100%">
             <app-select
@@ -246,7 +252,15 @@
               [required]="true"
               [items]="naturalLegalIndicators"
               [(ngModel)]="coverData.id.indFisJur"
-              [disabled]="isDisabled()"
+              [disabled]="
+                params.operation !== 'new' ||
+                !coverData.id.codEstab ||
+                !coverData.id.dataFiscal
+              "
+              (ngModelChange)="
+                coverData.id.codFisJur = undefined;
+                coverData.razaoSocialFisJur = undefined
+              "
             ></app-select>
           </div>
         </div>
@@ -260,6 +274,12 @@
           [(ngModel)]="coverData.id.codFisJur"
           [required]="true"
           [maxlength]="14"
+          (blur)="findFisJur()"
+          [disabled]="
+            params.operation !== 'new' ||
+            !coverData.id.codEstab ||
+            !coverData.id.dataFiscal
+          "
         >
         </app-input-text>
       </div>

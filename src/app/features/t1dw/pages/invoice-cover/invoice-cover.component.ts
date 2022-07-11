@@ -191,9 +191,15 @@ export class InvoiceCoverComponent implements OnInit {
       this.coverData = new TmpX07DoctoFiscal(value);
       if (this.coverData.id.codEstab) {
         this.isEstablishmentAlreadyDefined = true;
+        this.preloadModalData();
       }
     });
   }
+
+  private preloadModalData = (): void => {
+    this.shouldEnableNumDocfisServField();
+    this.findFisJur();
+  };
 
   loadEstabelecimentos = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
     if (unique) {
@@ -374,11 +380,11 @@ export class InvoiceCoverComponent implements OnInit {
     }
   };
 
-  private isMixedInvoice = (): Boolean => {
+  isMixedInvoice = (): Boolean => {
     return [InvoiceClassificationType.SERVICE_MERCHANDISE].indexOf(this.coverData.codClassDocFis) !== -1;
   };
 
-  private isServiceInvoice = (): Boolean => {
+  isServiceInvoice = (): Boolean => {
     return (
       [
         InvoiceClassificationType.SERVICE,
@@ -387,6 +393,24 @@ export class InvoiceCoverComponent implements OnInit {
         InvoiceClassificationType.INTERNATIONAL,
       ].indexOf(this.coverData.codClassDocFis) !== -1
     );
+  };
+
+  findFisJur = (): void => {
+    if (this.coverData.id.indFisJur && this.coverData.id.codFisJur) {
+      this.pessoaService
+        .findByIndicadorAndCodigo(
+          this.coverData.id.codEmpresa,
+          this.coverData.id.codEstab,
+          this.coverData.id.dataFiscal,
+          this.coverData.id.indFisJur,
+          this.coverData.id.codFisJur
+        )
+        .then((pessoa: any) => {
+          this.pessoaFisJurSelected(pessoa);
+        });
+    } else {
+      this.coverData.razaoSocialFisJur = '';
+    }
   };
 
   onSubmit = () => {};

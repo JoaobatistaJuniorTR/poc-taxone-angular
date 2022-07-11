@@ -13,6 +13,7 @@
   [disabled]="disabled"
   [required]="required"
   [style]="getStyle()"
+  (blur)="onBlur($event)"
 />
 <input
   *ngIf="required === false"
@@ -26,4 +27,5 @@
   [disabled]="disabled"
   [required]="required"
   [style]="getStyle()"
+  (blur)="onBlur($event)"
 />

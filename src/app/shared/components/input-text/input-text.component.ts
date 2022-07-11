@@ -34,6 +34,8 @@ export class InputTextComponent implements ControlValueAccessor {
 
   @Input() required: boolean = false;
 
+  @Output() blur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+
   onTouched: Function;
 
   onChange: Function = () => {};
@@ -60,5 +62,9 @@ export class InputTextComponent implements ControlValueAccessor {
       return `width: ${this.width}`;
     }
     return '';
+  };
+
+  onBlur = (event: FocusEvent): void => {
+    this.blur.emit(event);
   };
 }
