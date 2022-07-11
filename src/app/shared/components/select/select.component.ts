@@ -27,9 +27,9 @@ export class SelectComponent implements ControlValueAccessor {
 
   @Input() inputLabelText: string;
 
-  @Input() bfmLabel: string;
-
   @Input() disabled: boolean;
+
+  @Input() required: boolean;
 
   onTouched: Function;
 

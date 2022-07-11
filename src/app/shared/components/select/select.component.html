@@ -5,12 +5,11 @@
   <select
     [id]="id"
     [name]="name"
-    bfmField
-    [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
     [(ngModel)]="model"
     bentoSelect
     class="form-control"
     [disabled]="disabled"
+    [required]="required"
     (ngModelChange)="onModelChange($event)"
   >
     <option *ngFor="let item of items" [value]="item.value">

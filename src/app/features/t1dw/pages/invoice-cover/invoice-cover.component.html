@@ -95,6 +95,7 @@
           [(ngModel)]="coverData.horaSaidaRec"
           [min]="0"
           [max]="24"
+          [disabled]="params.operation !== 'new'"
         ></app-number-input>
       </div>
       <div class="form-group">
@@ -104,6 +105,7 @@
           inputLabelText="Dt. Extemp"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datEscrExtemp"
+          [disabled]="params.operation !== 'new'"
         ></app-date-picker>
       </div>
     </div>
@@ -112,10 +114,13 @@
         <app-select
           id="e-s"
           name="e-s"
+          bfmField
+          bfmLabel="E/S"
           inputLabelText="E/S"
           [items]="movtoESItems"
           [(ngModel)]="coverData.id.movtoES"
           [required]="true"
+          [disabled]="params.operation !== 'new'"
         ></app-select>
       </div>
       <div class="form-group">
@@ -123,9 +128,10 @@
           id="norm-dev"
           name="norm-dev"
           inputLabelText="N/D"
-          required="true"
+          [required]="true"
           [items]="normDevItems"
           [(ngModel)]="coverData.id.normDev"
+          [disabled]="params.operation !== 'new'"
         ></app-select>
       </div>
       <div class="form-group">
@@ -149,7 +155,9 @@
             inputLabelText="Número NF"
             [(ngModel)]="coverData.id.numDocfis"
             width="150px"
+            [maxlength]="12"
             [required]="true"
+            [disabled]="params.operation !== 'new'"
           >
           </app-input-text>
         </div>
@@ -228,7 +236,7 @@
               name="ind-fis-jur"
               bfmField
               bfmLabel="N/D"
-              required="true"
+              [required]="true"
               [items]="naturalLegalIndicators"
               [(ngModel)]="coverData.id.indFisJur"
               [disabled]="isDisabled()"

@@ -22,15 +22,13 @@ export class InputTextComponent implements ControlValueAccessor {
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
 
-  @Input('maxlength') maxLength: number;
+  @Input() maxLength: number;
 
   @Input() width?: string;
 
   @Input() disabled: boolean = false;
 
   @Input() inputLabelText: string;
-
-  @Input() bfmLabel: string;
 
   @Input() required: boolean = false;
 
