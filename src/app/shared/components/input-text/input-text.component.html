@@ -1,5 +1,21 @@
 <label for="{{ id }}" class="bento-label-required">{{ inputLabelText }}</label>
 <input
+  *ngIf="required === true"
+  [id]="id"
+  [name]="name"
+  bfmField
+  [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
+  class="form-control"
+  type="text"
+  [(ngModel)]="model"
+  (ngModelChange)="onModelChange($event)"
+  [maxlength]="maxLength"
+  [disabled]="disabled"
+  [required]="required"
+  [style]="getStyle()"
+/>
+<input
+  *ngIf="required === false"
   [id]="id"
   [name]="name"
   class="form-control"

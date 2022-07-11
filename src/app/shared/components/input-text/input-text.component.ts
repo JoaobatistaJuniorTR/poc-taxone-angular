@@ -30,6 +30,8 @@ export class InputTextComponent implements ControlValueAccessor {
 
   @Input() inputLabelText: string;
 
+  @Input() bfmLabel: string;
+
   @Input() required: boolean = false;
 
   onTouched: Function;
