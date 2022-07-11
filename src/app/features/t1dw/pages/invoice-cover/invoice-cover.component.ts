@@ -250,6 +250,7 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   loadTributacaoInterna = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    console.log(filter);
     if (unique) {
       return this.tributacaoInternaService.findByCodigo(filter);
     }
