@@ -75,8 +75,8 @@
       </div>
       <div class="form-group">
         <app-date-picker
-          id="data-saida-rec"
-          name="data-saida-rec"
+          id="data_saida_rec"
+          name="data_saida_rec"
           bfmField
           bfmLabel="Data Entrada/Saida"
           inputLabelText="Data Entrada/Saida"
@@ -89,8 +89,8 @@
       </div>
       <div class="form-group">
         <app-input-number
-          id="hora-saida-rec"
-          name="hora-saida-rec"
+          id="hora_saida_rec"
+          name="hora_saida_rec"
           bfmLabel="Hora E/S"
           inputLabelText="Hora Entrada/Saída"
           [(ngModel)]="coverData.horaSaidaRec"
@@ -102,8 +102,8 @@
       </div>
       <div class="form-group">
         <app-date-picker
-          id="dt-extemp"
-          name="dt-extemp"
+          id="dt_extemp"
+          name="dt_extemp"
           inputLabelText="Dt. Extemp"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datEscrExtemp"
@@ -115,8 +115,8 @@
     <div class="form-row-space-between">
       <div class="form-group">
         <app-select
-          id="e-s"
-          name="e-s"
+          id="e_s"
+          name="e_s"
           inputLabelText="E/S"
           [items]="movtoESItems"
           [(ngModel)]="coverData.id.movtoES"
@@ -126,8 +126,8 @@
       </div>
       <div class="form-group">
         <app-select
-          id="norm-dev"
-          name="norm-dev"
+          id="norm_dev"
+          name="norm_dev"
           inputLabelText="N/D"
           [required]="true"
           [items]="normDevItems"
@@ -137,8 +137,8 @@
       </div>
       <div class="form-group">
         <app-checkbox
-          id="ind-nf-venda-terceiros"
-          name="ind-nf-venda-terceiros"
+          id="ind_nf_venda_terceiros"
+          name="ind_nf_venda_terceiros"
           inputLabelText="Nota Fiscal de venda emitida por terceiro"
           [(ngModel)]="coverData.indNfVendaTerceiros"
         ></app-checkbox>
@@ -151,8 +151,8 @@
       >
         <div class="form-group">
           <app-input-text
-            id="num-docFis"
-            name="num-docFis"
+            id="num_docFis"
+            name="num_docFis"
             inputLabelText="Número NF"
             [(ngModel)]="coverData.id.numDocfis"
             width="150px"
@@ -164,8 +164,8 @@
         </div>
         <div class="form-group">
           <app-input-text
-            id="serie-docfis"
-            name="serie-docfis"
+            id="serie_docfis"
+            name="serie_docfis"
             bfmLabel="Serie NF"
             inputLabelText="&nbsp;"
             [(ngModel)]="coverData.id.serieDocfis"
@@ -177,8 +177,8 @@
         </div>
         <div class="form-group">
           <app-input-text
-            id="sub-serie-docfis"
-            name="sub-serie-docfis"
+            id="sub_serie_docfis"
+            name="sub_serie_docfis"
             inputLabelText="&nbsp;"
             [(ngModel)]="coverData.id.subSerieDocfis"
             width="100px"
@@ -190,8 +190,8 @@
       </div>
       <div class="form-group" style="flex-grow: 1">
         <app-autocomplete
-          id="cod-docto"
-          name="cod-docto"
+          id="cod_docto"
+          name="cod_docto"
           [required]="true"
           inputLabelText="Tipo de Documento"
           [(ngModel)]="coverData.id.codDocto"
@@ -245,8 +245,8 @@
           ></app-modal>
           <div style="width: 100%">
             <app-select
-              id="ind-fis-jur"
-              name="ind-fis-jur"
+              id="ind_fis_jur"
+              name="ind_fis_jur"
               bfmField
               bfmLabel="N/D"
               [required]="true"
@@ -308,8 +308,8 @@
     <div class="form-row-space-between">
       <div class="form-group" style="flex-grow: 0.75">
         <app-autocomplete
-          id="cod-modelo"
-          name="cod-modelo"
+          id="cod_modelo"
+          name="cod_modelo"
           [required]="true"
           inputLabelText="Modelo Doc."
           [(ngModel)]="coverData.codModelo"
@@ -327,8 +327,8 @@
       </div>
       <div class="form-group" style="flex-grow: 0.25">
         <app-autocomplete
-          id="cod-Trib-int"
-          name="cod-Trib-int"
+          id="cod_Trib_int"
+          name="cod_Trib_int"
           [required]="true"
           inputLabelText="Trib. Interna"
           [(ngModel)]="coverData.codTribInt"
@@ -351,7 +351,6 @@
         inputLabelText="Código Modelo NF"
         [items]="modeloNfDmItems"
         [(ngModel)]="coverData.codModeloCotepe"
-        [disabled]="isDisabled()"
       ></app-select>
     </div>
     <div class="form-flex">
