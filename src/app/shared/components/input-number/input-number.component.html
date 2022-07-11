@@ -1,0 +1,29 @@
+<div class="number-input-container">
+  <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
+  <bento-number-input
+    *ngIf="required === false"
+    [id]="id"
+    [name]="name"
+    [(ngModel)]="model"
+    [min]="min"
+    [max]="max"
+    (ngModelChange)="onModelChange($event)"
+    [style]="getStyle()"
+    [disabled]="disabled"
+    [required]="false"
+  ></bento-number-input>
+  <bento-number-input
+    *ngIf="required === true"
+    [id]="id"
+    [name]="name"
+    bfmField
+    [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
+    [(ngModel)]="model"
+    [min]="min"
+    [max]="max"
+    (ngModelChange)="onModelChange($event)"
+    [style]="getStyle()"
+    [disabled]="disabled"
+    [required]="true"
+  ></bento-number-input>
+</div>

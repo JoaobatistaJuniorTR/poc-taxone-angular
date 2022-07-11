@@ -19,7 +19,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ModalConfirmationComponent } from './components/modal-confirmation/modal-confirmation.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { NumberInputComponent } from './components/number-input/number-input.component';
+import { InputNumberComponent } from './components/input-number/input-number.component';
 import { SelectComponent } from './components/select/select.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FlexGridComponent } from './components/flex-grid/flex-grid.component';
@@ -33,7 +33,7 @@ import { InputTextComponent } from './components/input-text/input-text.component
     ModalConfirmationComponent,
     DatePickerComponent,
     AlertComponent,
-    NumberInputComponent,
+    InputNumberComponent,
     SelectComponent,
     CheckboxComponent,
     FlexGridComponent,
@@ -62,7 +62,7 @@ import { InputTextComponent } from './components/input-text/input-text.component
     ModalConfirmationComponent,
     DatePickerComponent,
     AlertComponent,
-    NumberInputComponent,
+    InputNumberComponent,
     SelectComponent,
     CheckboxComponent,
     FlexGridComponent,

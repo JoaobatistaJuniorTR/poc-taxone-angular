@@ -2,18 +2,18 @@ import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/cor
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-number-input',
-  templateUrl: './number-input.component.html',
-  styleUrls: ['./number-input.component.sass'],
+  selector: 'app-input-number',
+  templateUrl: './input-number.component.html',
+  styleUrls: ['./input-number.component.sass'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NumberInputComponent),
+      useExisting: forwardRef(() => InputNumberComponent),
       multi: true,
     },
   ],
 })
-export class NumberInputComponent implements ControlValueAccessor {
+export class InputNumberComponent implements ControlValueAccessor {
   @Input() id: string;
 
   @Input() name: string;
@@ -34,6 +34,8 @@ export class NumberInputComponent implements ControlValueAccessor {
 
   @Input() required: boolean;
 
+  @Input() bfmLabel: string;
+
   onTouched: Function;
 
   onChange: Function = () => {};
@@ -52,7 +54,6 @@ export class NumberInputComponent implements ControlValueAccessor {
   }
 
   onModelChange = (value: any) => {
-    console.log(value);
     this.modelChange.emit(value);
   };
 
