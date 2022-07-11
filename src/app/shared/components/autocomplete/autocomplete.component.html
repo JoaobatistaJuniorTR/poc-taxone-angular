@@ -1,4 +1,22 @@
 <bento-combobox
+  *ngIf="required === true"
+  [id]="id"
+  [name]="name"
+  bfmField
+  [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
+  [inputLabelText]="inputLabelText"
+  [itemsObservable]="itemsObservable"
+  [options]="comboboxOptions"
+  [(ngModel)]="selectedItem"
+  (ngModelChange)="onModelChange($event)"
+  (search)="searchData($event)"
+  (endOfScroll)="onEndOfScroll($event)"
+  [disabled]="disabled"
+  [required]="required"
+  (openChange)="onTouched()"
+></bento-combobox>
+<bento-combobox
+  *ngIf="required === false"
   [id]="id"
   [name]="name"
   [inputLabelText]="inputLabelText"
@@ -9,8 +27,8 @@
   (search)="searchData($event)"
   (endOfScroll)="onEndOfScroll($event)"
   [disabled]="disabled"
-  (click)="onTouched()"
   [required]="required"
+  (openChange)="onTouched()"
 ></bento-combobox>
 <span
   [bentoBusyLoader]="isBusyLoader"

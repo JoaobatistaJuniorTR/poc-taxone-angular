@@ -183,6 +183,7 @@
             [(ngModel)]="coverData.id.subSerieDocfis"
             width="100px"
             [maxlength]="2"
+            [disabled]="params.operation !== 'new'"
           >
           </app-input-text>
         </div>
@@ -202,6 +203,11 @@
           [minSearchCharacterCount]="2"
           [headerTranslation]="defaultHeaderTranslation"
           [searchCallback]="loadTipoDocumento"
+          [disabled]="
+            params.operation !== 'new' ||
+            !coverData.id.codEstab ||
+            !coverData.id.dataFiscal
+          "
         >
         </app-autocomplete>
       </div>

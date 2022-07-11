@@ -39,6 +39,8 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input() inputLabelText: string;
 
+  @Input() bfmLabel: string;
+
   @Input('model-field') modelField: string;
 
   @Input('label-field') labelField: string;
@@ -169,5 +171,9 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
     allOption[this.modelField] = 'Todos';
     allOption[this.labelField] = 'Todos';
     return allOption;
+  };
+
+  onOpenChange = (): void => {
+    this.onTouched();
   };
 }
