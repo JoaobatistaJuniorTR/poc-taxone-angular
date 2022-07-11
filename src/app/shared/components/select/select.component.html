@@ -1,7 +1,25 @@
-<div class="select-container">
+<div class="select-container" *ngIf="required === true">
   <label *ngIf="inputLabelText" for="{{ id }}" class="bento-label">{{
     inputLabelText
   }}</label>
+  <select
+    [id]="id"
+    [name]="name"
+    [(ngModel)]="model"
+    bentoSelect
+    bfmField
+    [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
+    class="form-control"
+    [disabled]="disabled"
+    [required]="required"
+    (ngModelChange)="onModelChange($event)"
+  >
+    <option *ngFor="let item of items" [value]="item.value">
+      {{ item.label }}
+    </option>
+  </select>
+</div>
+<div class="select-container input-group" *ngIf="required === false">
   <select
     [id]="id"
     [name]="name"
@@ -16,4 +34,12 @@
       {{ item.label }}
     </option>
   </select>
+  <ng-template
+    #comboRowTemplate
+    let-$data="data"
+    let-$options="options"
+    let-$index="index"
+  >
+    <span>{{ $data.row.description }}</span>
+  </ng-template>
 </div>

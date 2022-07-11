@@ -70,7 +70,7 @@
           [min]="0"
           [max]="24"
           [disabled]="params.operation !== 'new'"
-          [required]="true"
+          [required]="false"
         ></app-input-number>
       </div>
       <div class="form-group">
@@ -97,7 +97,7 @@
           [min]="0"
           [max]="24"
           [disabled]="params.operation !== 'new'"
-          [required]="true"
+          [required]="false"
         ></app-input-number>
       </div>
       <div class="form-group">
@@ -117,8 +117,6 @@
         <app-select
           id="e-s"
           name="e-s"
-          bfmField
-          bfmLabel="E/S"
           inputLabelText="E/S"
           [items]="movtoESItems"
           [(ngModel)]="coverData.id.movtoES"

@@ -67,7 +67,7 @@ export class InvoiceCoverComponent implements OnInit {
     },
     { value: '4', label: '4 - Doc. de entrada emitida pelo estabelecimento, outros motivos legais' },
     { value: '5', label: '5 - Doc. de entrada emitida pelo estabelecimento, globalizando conhecimentos de frete' },
-    { value: '6', label: '9 - Doc. de saída' },
+    { value: '9', label: '9 - Doc. de saída' },
   ];
 
   normDevItems: SelectModel[] = [
