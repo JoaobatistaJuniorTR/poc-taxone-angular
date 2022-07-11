@@ -346,11 +346,12 @@
     </div>
     <div class="form-row-space-between">
       <app-select
-        id="modelo-nf-dm"
-        name="modelo-nf-dm"
+        id="modelo_nf_dm"
+        name="modelo_nf_dm"
         inputLabelText="Código Modelo NF"
         [items]="modeloNfDmItems"
         [(ngModel)]="coverData.codModeloCotepe"
+        [required]="true"
       ></app-select>
     </div>
     <div class="form-flex">

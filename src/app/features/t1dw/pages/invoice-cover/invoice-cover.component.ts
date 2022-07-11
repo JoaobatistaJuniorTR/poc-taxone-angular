@@ -58,7 +58,7 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   movtoESItems: SelectModel[] = [
-    { value: '', label: 'Selecione uma opção' },
+    { value: '', label: 'Selecione um' },
     { value: '1', label: '1 - Doc. de entrada, documentos de terceiros' },
     { value: '2', label: '2 - Doc. de entrada emitida pelo estabelecimento, acolhendo notas de produtores agropecuarios' },
     {
@@ -71,7 +71,7 @@ export class InvoiceCoverComponent implements OnInit {
   ];
 
   normDevItems: SelectModel[] = [
-    { value: '', label: '' },
+    { value: '', label: 'Selecione um' },
     { value: '1', label: '1 - Normal' },
     { value: '2', label: '2 - Devolução' },
   ];
@@ -250,7 +250,6 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   loadTributacaoInterna = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
-    console.log(filter);
     if (unique) {
       return this.tributacaoInternaService.findByCodigo(filter);
     }
