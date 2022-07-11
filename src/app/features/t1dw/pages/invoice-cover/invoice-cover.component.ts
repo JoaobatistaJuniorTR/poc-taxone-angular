@@ -153,6 +153,7 @@ export class InvoiceCoverComponent implements OnInit {
 
   validations = {
     required: '{0} é obrigatório',
+    isNaN: '{0} é inválido',
   };
 
   constructor(

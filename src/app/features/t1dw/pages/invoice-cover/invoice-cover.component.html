@@ -65,7 +65,7 @@
         <app-input-number
           id="hora_emissao"
           name="hora_emissao"
-          inputLabelText="Hora"
+          inputLabelText="Hora Emissão"
           [(ngModel)]="coverData.horaEmissao"
           [min]="0"
           [max]="24"
@@ -91,6 +91,7 @@
         <app-input-number
           id="hora-saida-rec"
           name="hora-saida-rec"
+          bfmLabel="Hora E/S"
           inputLabelText="Hora Entrada/Saída"
           [(ngModel)]="coverData.horaSaidaRec"
           [min]="0"
