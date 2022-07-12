@@ -19,6 +19,7 @@ import { StateParams } from '../../model/state-params.model';
 import { PrtDataFiscalService } from '../../services/prt-data-fiscal.service';
 import { InvoiceClassificationType } from '../../enum/invoice-classification.enum';
 import { PrtNumDocfisServService } from '../../services/prt-num-docfis-serv.service';
+import { InscricaoEstadualService } from '../../services/inscricao-estadual.service';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -55,6 +56,17 @@ export class InvoiceCoverComponent implements OnInit {
     codEstab: 'Cód. Estabelecimento',
     razaoSocial: 'Razão Social',
     nomeFantasia: 'Nome Fantasia',
+  };
+
+  inscEstadualColumns: BentoComboboxColumn[] = [
+    {
+      name: 'inscEstadual',
+      width: '100%',
+    },
+  ];
+
+  inscEstadualHeaderTranslation: any = {
+    inscEstadual: 'Inscrição Estadual',
   };
 
   defaultColumns: BentoComboboxColumn[] = [
@@ -191,7 +203,8 @@ export class InvoiceCoverComponent implements OnInit {
     private pessoaService: PessoaService,
     private storageService: StorageService,
     private prtDataFiscalService: PrtDataFiscalService,
-    private prtNumDocfisServService: PrtNumDocfisServService
+    private prtNumDocfisServService: PrtNumDocfisServService,
+    private inscricaoEstadualService: InscricaoEstadualService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -440,6 +453,20 @@ export class InvoiceCoverComponent implements OnInit {
 
   onChangeCodClassDocFis = (): void => {
     this.onChangeDataFiscal();
+  };
+
+  loadInscricaoEstadual = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.inscricaoEstadualService.findByCodigo(this.coverData.id.codEmpresa, this.coverData.id.codEstab, filter);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.inscricaoEstadualService.autocomplete(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      pagination,
+      filter
+    );
   };
 
   onSubmit = () => {};

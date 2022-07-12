@@ -29,9 +29,9 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input() name: string;
 
-  @Input() disabled: boolean;
+  @Input() disabled: boolean = false;
 
-  @Input() required: boolean;
+  @Input() required: boolean = false;
 
   @Input('ngModel') model: any;
 

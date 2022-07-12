@@ -189,7 +189,7 @@
           </app-input-text>
         </div>
       </div>
-      <div class="form-group" style="flex-grow: 1">
+      <div class="form-group">
         <app-autocomplete
           id="cod_docto"
           name="cod_docto"
@@ -346,7 +346,7 @@
       </div>
     </div>
     <div class="form-row-space-between">
-      <div class="form-group" style="flex-grow: 1">
+      <div class="form-group">
         <app-select
           id="modelo_nf_dm"
           name="modelo_nf_dm"
@@ -476,6 +476,44 @@
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datDi"
         ></app-date-picker>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <app-input-text
+          id="num_fim_docto"
+          name="num_fim_docto"
+          inputLabelText="N Final (Resumo)"
+          [(ngModel)]="coverData.numFimDocto"
+          [maxlength]="12"
+        >
+        </app-input-text>
+      </div>
+      <div class="form-group">
+        <app-autocomplete
+          id="insc_estadual"
+          name="insc_estadual"
+          inputLabelText="Insc. Estadual"
+          model-field="inscEstadual"
+          label-field="inscEstadual"
+          [(ngModel)]="coverData.inscEstadual"
+          [columns]="inscEstadualColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="inscEstadualHeaderTranslation"
+          [searchCallback]="loadInscricaoEstadual"
+        >
+        </app-autocomplete>
+      </div>
+      <div class="form-group">
+        <app-input-text
+          id="cod_sistema_orig"
+          name="cod_sistema_orig"
+          inputLabelText="Cod. do Sistema de Origem"
+          [(ngModel)]="coverData.codSistemaOrig"
+          [maxlength]="14"
+        >
+        </app-input-text>
       </div>
     </div>
   </form>
