@@ -357,7 +357,7 @@
       </div>
     </div>
     <div class="form-row-space-between">
-      <div class="form-group" style="width: 30%">
+      <div class="form-group" style="max-width: 25%">
         <app-select
           id="cod_class_doc_fis"
           name="cod_class_doc_fis"
@@ -366,9 +366,10 @@
           [(ngModel)]="coverData.codClassDocFis"
           [disabled]="params.operation != 'new'"
           [required]="true"
+          (ngModelChange)="onChangeCodClassDocFis()"
         ></app-select>
       </div>
-      <div class="form-group" style="width: 12%">
+      <div class="form-group" style="max-width: 12%">
         <app-checkbox
           id="situacao"
           name="situacao"
@@ -376,19 +377,16 @@
           [(ngModel)]="coverData.situacao"
         ></app-checkbox>
       </div>
-      <div class="form-group" style="width: 15%">
+      <div class="form-group" style="max-width: 16%">
         <app-date-picker
           id="dat_autentic"
           name="dat_autentic"
-          bfmField
-          bfmLabel="Data Autent./Cancel"
           inputLabelText="Data Autent./Cancel"
-          [required]="true"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datAutentic"
         ></app-date-picker>
       </div>
-      <div class="form-group" style="width: 11%">
+      <div class="form-group" style="max-width: 11%">
         <app-checkbox
           id="contrib_final"
           name="contrib_final"
@@ -396,7 +394,7 @@
           [(ngModel)]="coverData.contribFinal"
         ></app-checkbox>
       </div>
-      <div class="form-group" style="width: 30%">
+      <div class="form-group" style="max-width: 34%">
         <app-select
           id="ind_transf_cred"
           name="ind_transf_cred"

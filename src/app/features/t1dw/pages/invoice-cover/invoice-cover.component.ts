@@ -425,5 +425,9 @@ export class InvoiceCoverComponent implements OnInit {
     }
   };
 
+  onChangeCodClassDocFis = (): void => {
+    this.onChangeDataFiscal();
+  };
+
   onSubmit = () => {};
 }
