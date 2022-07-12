@@ -60,8 +60,12 @@ export class InvoiceCoverComponent implements OnInit {
 
   inscEstadualColumns: BentoComboboxColumn[] = [
     {
+      name: '',
+      width: '0',
+    },
+    {
       name: 'inscEstadual',
-      width: '100%',
+      width: '350px',
     },
   ];
 

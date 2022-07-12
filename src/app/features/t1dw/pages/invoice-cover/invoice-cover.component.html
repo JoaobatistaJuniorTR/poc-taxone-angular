@@ -19,8 +19,6 @@
         <app-autocomplete
           id="cod_estab"
           name="cod_estab"
-          bfmField
-          bfmLabel="Estabelecimento"
           inputLabelText="Estabelecimento"
           model-field="codEstab"
           label-field="label"
@@ -193,7 +191,6 @@
         <app-autocomplete
           id="cod_docto"
           name="cod_docto"
-          [required]="true"
           inputLabelText="Tipo de Documento"
           [(ngModel)]="coverData.id.codDocto"
           [columns]="defaultColumns"
@@ -209,6 +206,7 @@
             !coverData.id.codEstab ||
             !coverData.id.dataFiscal
           "
+          [required]="true"
         >
         </app-autocomplete>
       </div>
@@ -311,7 +309,6 @@
         <app-autocomplete
           id="cod_modelo"
           name="cod_modelo"
-          [required]="true"
           inputLabelText="Modelo Doc."
           [(ngModel)]="coverData.codModelo"
           [columns]="defaultColumns"
@@ -322,7 +319,7 @@
           [minSearchCharacterCount]="2"
           [headerTranslation]="defaultHeaderTranslation"
           [searchCallback]="loadModeloDocumento"
-          [disabled]="isDisabled()"
+          [required]="true"
         >
         </app-autocomplete>
       </div>
@@ -330,7 +327,6 @@
         <app-autocomplete
           id="cod_Trib_int"
           name="cod_Trib_int"
-          [required]="true"
           inputLabelText="Trib. Interna"
           [(ngModel)]="coverData.codTribInt"
           [columns]="defaultColumns"
@@ -341,6 +337,7 @@
           [minSearchCharacterCount]="2"
           [headerTranslation]="defaultHeaderTranslation"
           [searchCallback]="loadTributacaoInterna"
+          [required]="true"
         >
         </app-autocomplete>
       </div>
@@ -502,6 +499,7 @@
           [debounceTime]="1000"
           [headerTranslation]="inscEstadualHeaderTranslation"
           [searchCallback]="loadInscricaoEstadual"
+          [required]="true"
         >
         </app-autocomplete>
       </div>
