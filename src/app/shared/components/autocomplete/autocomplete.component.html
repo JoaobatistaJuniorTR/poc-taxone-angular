@@ -13,7 +13,7 @@
   (endOfScroll)="onEndOfScroll($event)"
   [disabled]="disabled"
   [required]="required"
-  (openChange)="onTouched()"
+  (openChange)="onOpenChange()"
 ></bento-combobox>
 <bento-combobox
   *ngIf="required === false"
@@ -28,7 +28,7 @@
   (endOfScroll)="onEndOfScroll($event)"
   [disabled]="disabled"
   [required]="required"
-  (openChange)="onTouched()"
+  (openChange)="onOpenChange()"
 ></bento-combobox>
 <span
   [bentoBusyLoader]="isBusyLoader"

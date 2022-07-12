@@ -35,7 +35,9 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input() required: boolean;
 
-  @Input() buttonLabel?: string;
+  @Input() buttonLabel: string;
+
+  @Input() placeholder: string = '';
 
   private localModel: any;
 

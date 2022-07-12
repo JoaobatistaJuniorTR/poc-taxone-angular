@@ -133,6 +133,18 @@ export class InvoiceCoverComponent implements OnInit {
     { value: 'I', label: 'I - Documento Internacional/Invoice' },
   ];
 
+  indTransfCredItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '7', label: '7 - NF de Transf. Cred. Acum. ICMS de Estab. de Empresa Independente' },
+    { value: '6', label: '6 - NF de Transf. Cred. Acum. ICMS de Estab. da mesma Empresa' },
+    { value: '5', label: '5 - NF de Transf. Cred. Acum. ICMS por Fornec. Máquina, Aparelho, Equip. Industrial' },
+    { value: '0', label: '0 - NF que não seja de Transferência' },
+    { value: '1', label: '1 - NF de Transf. Cred. ICMS' },
+    { value: '2', label: '2 - NF de Transf. Cred. IPI' },
+    { value: '3', label: '3 - NF de Transf. Deb. ICMS' },
+    { value: '4', label: '4 - NF de Transf. Cred. Acum. ICMS por Fornec. Matéria-prima, Material Secundário e Emb.' },
+  ];
+
   defaultColumns: BentoComboboxColumn[] = [
     {
       name: 'codigo',

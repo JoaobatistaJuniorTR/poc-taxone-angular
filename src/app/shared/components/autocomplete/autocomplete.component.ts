@@ -174,6 +174,8 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   };
 
   onOpenChange = (): void => {
+    console.log('Entrou !!!!');
     this.onTouched();
+    this.loadData(0, this.blockSize, '', false);
   };
 }
