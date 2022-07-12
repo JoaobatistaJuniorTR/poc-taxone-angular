@@ -144,9 +144,9 @@
         ></app-checkbox>
       </div>
     </div>
-    <div class="form-flex">
+    <div class="form-row-flex">
       <div
-        class="form-flex"
+        class="form-row-flex"
         style="width: 360px; column-gap: 5px; flex-wrap: nowrap"
       >
         <div class="form-group">
@@ -213,7 +213,7 @@
         </app-autocomplete>
       </div>
     </div>
-    <div class="form-flex" *ngIf="isServiceInvoice() || isMixedInvoice()">
+    <div class="form-row-flex" *ngIf="isServiceInvoice() || isMixedInvoice()">
       <div class="form-group" style="width: 100%">
         <app-input-text
           id="num_docfis_serv"
@@ -228,7 +228,7 @@
       </div>
     </div>
     <div class="form-row-space-between">
-      <div class="form-flex" style="flex-direction: column; width: 15%">
+      <div class="form-row-flex" style="flex-direction: column; width: 15%">
         <label for="ind_fis_jur" class="bento-label-required">Fis/Jur</label>
         <div class="flex-row-compose form-group">
           <app-modal
@@ -404,7 +404,7 @@
         ></app-select>
       </div>
     </div>
-    <div class="form-flex">
+    <div class="form-row-flex">
       <div class="form-group">
         <app-select
           id="ind_nfe_deneg_inut"
@@ -422,6 +422,60 @@
           [items]="indNfContingenciaItems"
           [(ngModel)]="coverData.indNfContingencia"
         ></app-select>
+      </div>
+    </div>
+    <div class="form-row-flex">
+      <div class="form-group">
+        <app-input-text
+          id="num_docfis_ref"
+          name="num_docfis_ref"
+          inputLabelText="NF Referência"
+          [(ngModel)]="coverData.numDocfisRef"
+          width="150px"
+          [maxlength]="12"
+        >
+        </app-input-text>
+      </div>
+      <div class="form-group">
+        <app-input-text
+          id="serie_docfis_ref"
+          name="serie_docfis_ref"
+          inputLabelText="&nbsp;"
+          [(ngModel)]="coverData.serieDocfisRef"
+          width="100px"
+          [maxlength]="3"
+        >
+        </app-input-text>
+      </div>
+      <div class="form-group">
+        <app-input-text
+          id="sub_serie_docfis_ref"
+          name="sub_serie_docfis_ref"
+          inputLabelText="&nbsp;"
+          [(ngModel)]="coverData.subSerieDocfisRef"
+          width="100px"
+          [maxlength]="2"
+        >
+        </app-input-text>
+      </div>
+      <div class="form-group">
+        <app-input-text
+          id="num_dec_imp_ref"
+          name="num_dec_imp_ref"
+          inputLabelText="N Dec. Imp"
+          [(ngModel)]="coverData.numDecImpRef"
+          [maxlength]="12"
+        >
+        </app-input-text>
+      </div>
+      <div class="form-group">
+        <app-date-picker
+          id="dat_di"
+          name="dat_di"
+          inputLabelText="Dt. Imp/Dt. Doc. Ref"
+          buttonLabel="Abrir calendário"
+          [(ngModel)]="coverData.datDi"
+        ></app-date-picker>
       </div>
     </div>
   </form>
