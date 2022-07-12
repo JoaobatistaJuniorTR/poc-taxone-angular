@@ -123,7 +123,7 @@ export class InvoiceCoverComponent implements OnInit {
   ];
 
   codClassDocFisItems: SelectModel[] = [
-    { value: '', label: '' },
+    { value: '', label: 'Selecione um' },
     { value: '1', label: '1 - Mercadoria' },
     { value: '2', label: '2 - Serviço' },
     { value: '3', label: '3 - Mercadoria e Serviço' },
