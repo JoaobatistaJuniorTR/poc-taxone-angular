@@ -404,6 +404,26 @@
         ></app-select>
       </div>
     </div>
+    <div class="form-flex">
+      <div class="form-group">
+        <app-select
+          id="ind_nfe_deneg_inut"
+          name="ind_nfe_deneg_inut"
+          inputLabelText="NF Eletrônica denegada/inutilizada"
+          [items]="indNfeDenegInutItems"
+          [(ngModel)]="coverData.indNfeDenegInut"
+        ></app-select>
+      </div>
+      <div class="form-group">
+        <app-select
+          id="ind_nf_contingencia"
+          name="ind_nf_contingencia"
+          inputLabelText="NF emitida em contingência"
+          [items]="indNfContingenciaItems"
+          [(ngModel)]="coverData.indNfContingencia"
+        ></app-select>
+      </div>
+    </div>
   </form>
 </div>
 {{ coverData | json }}

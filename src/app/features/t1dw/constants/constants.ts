@@ -49,8 +49,9 @@ export const constants = {
   ],
 
   INVOICE_DENEGADA_INUTILIZADA: [
-    { key: 1, value: 'Denegada' },
-    { key: 2, value: 'Inutilizada' },
+    { value: '', label: '' },
+    { value: '1', label: 'Denegada' },
+    { value: '2', label: 'Inutilizada' },
   ],
 
   ADMIN_JUDIC_PROCESS_TYPES: [

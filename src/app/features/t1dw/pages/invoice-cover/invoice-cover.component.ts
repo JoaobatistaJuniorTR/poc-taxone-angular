@@ -57,6 +57,22 @@ export class InvoiceCoverComponent implements OnInit {
     nomeFantasia: 'Nome Fantasia',
   };
 
+  defaultColumns: BentoComboboxColumn[] = [
+    {
+      name: 'codigo',
+      width: '20%',
+    },
+    {
+      name: 'descricao',
+      width: '80%',
+    },
+  ];
+
+  defaultHeaderTranslation: any = {
+    codigo: 'Código',
+    descricao: 'Descrição',
+  };
+
   movtoESItems: SelectModel[] = [
     { value: '', label: 'Selecione um' },
     { value: '1', label: '1 - Doc. de entrada, documentos de terceiros' },
@@ -145,21 +161,18 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '4', label: '4 - NF de Transf. Cred. Acum. ICMS por Fornec. Matéria-prima, Material Secundário e Emb.' },
   ];
 
-  defaultColumns: BentoComboboxColumn[] = [
-    {
-      name: 'codigo',
-      width: '20%',
-    },
-    {
-      name: 'descricao',
-      width: '80%',
-    },
-  ];
+  indNfeDenegInutItems = constants.INVOICE_DENEGADA_INUTILIZADA;
 
-  defaultHeaderTranslation: any = {
-    codigo: 'Código',
-    descricao: 'Descrição',
-  };
+  indNfContingenciaItems: SelectModel[] = [
+    { value: '' || 'N', label: 'Não' },
+    { value: 'S', label: 'Emissão em Contingência' },
+    { value: '1', label: 'Emissão em Contingência com FS' },
+    { value: '2', label: 'Emissão em Contingência com SCAN' },
+    { value: '3', label: 'Emissão em Contingência com DPEC' },
+    { value: '4', label: 'Emissão em Contingência com FS-DA' },
+    { value: '5', label: 'Emissão em Contingência com SVC-NA' },
+    { value: '6', label: 'Emissão em Contingência com SVC-RS' },
+  ];
 
   @ViewChild('f') private form: NgForm;
 
