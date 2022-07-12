@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InvoiceCoverComponent } from './pages/invoice-cover/invoice-cover.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { InvoicesListComponent } from './pages/invoices-list/invoices-list.component';
 import { T1dwHomeComponent } from './t1dw-home/t1dw-home.component';
@@ -11,18 +10,12 @@ const routes: Routes = [
     component: T1dwHomeComponent,
   },
   {
-    path: 'invoice',
+    path: 'invoices',
     component: InvoicesListComponent,
     children: [
       {
-        path: 'edit',
+        path: 'invoice',
         component: InvoiceComponent,
-        children: [
-          {
-            path: 'cover',
-            component: InvoiceCoverComponent,
-          },
-        ],
       },
     ],
   },

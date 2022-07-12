@@ -27,7 +27,7 @@ export class T1dwHomeComponent implements OnInit {
             menu: [
               {
                 label: 'Documento Fiscal de Mercadoria e Serviço',
-                routerLink: { href: 't1dw/invoice' },
+                routerLink: { href: 't1dw/invoices' },
               },
             ],
           },

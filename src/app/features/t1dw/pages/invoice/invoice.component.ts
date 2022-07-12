@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invoice.component.sass'],
 })
 export class InvoiceComponent implements OnInit {
+  isHidden: boolean = false;
+
   invoiceId: string;
 
   treeData: any[];
@@ -16,14 +18,13 @@ export class InvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.treeData = this.createNavMenu();
     this.invoiceId = this.route.snapshot.params['invoice-id'];
-    this.router.navigate(['cover'], { relativeTo: this.route });
   }
 
   private createNavMenu = (): any => {
     return [
       {
         name: 'Capa da Nota Fiscal',
-        routePath: 'cover',
+        routePath: 'invoice',
         $bentoTreeItemOption: {
           selected: true,
         },

@@ -300,11 +300,12 @@ export class InvoicesListComponent implements OnInit {
       })
       .then((data: any) => {
         const stateParams: StateParams = {
-          operation: 'new',
+          operation: 'edit',
           invoiceId: data.idDocto,
         };
         this.storageService.setObject('stateParams', stateParams);
-        this.router.navigate(['edit'], { relativeTo: this.route });
+        console.log(this.route);
+        this.router.navigate(['invoice'], { relativeTo: this.route });
       })
       .catch((error: any) => {
         const errorMessage =

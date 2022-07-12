@@ -22,6 +22,10 @@
     ></bento-tree-view>
   </bento-splitter-group-left>
   <bento-splitter-group-main>
-    <router-outlet></router-outlet>
+    <app-invoice-cover *ngIf="!isHidden"></app-invoice-cover>
+    <router-outlet
+      (activate)="isHidden = true"
+      (deactivate)="isHidden = false"
+    ></router-outlet>
   </bento-splitter-group-main>
 </bento-splitter-group>
