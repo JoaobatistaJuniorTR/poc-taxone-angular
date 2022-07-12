@@ -514,6 +514,42 @@
         </app-input-text>
       </div>
     </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <app-autocomplete
+          id="compl_cfop"
+          name="compl_cfop"
+          inputLabelText="CFOP/Compl."
+          model-field="codigoCfo"
+          label-field="label"
+          [(ngModel)]="coverData.codCfo"
+          [columns]="codCfoColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="codCfoHeaderTranslation"
+          [searchCallback]="loadCFOP"
+          [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
+        >
+        </app-autocomplete>
+      </div>
+      <div class="form-group">
+        <app-autocomplete
+          id="cod_natureza_op"
+          name="cod_natureza_op"
+          inputLabelText="Natureza da Operação"
+          model-field="codigo"
+          label-field="label"
+          [(ngModel)]="coverData.codNaturezaOp"
+          [columns]="codNaturezaOpColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="codNaturezaOpHeaderTranslation"
+          [searchCallback]="loadNaturezaOperacoes"
+          [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
+        >
+        </app-autocomplete>
+      </div>
+    </div>
   </form>
 </div>
 {{ coverData | json }}

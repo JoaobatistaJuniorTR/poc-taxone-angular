@@ -3,6 +3,7 @@ import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { NaturezaOperacaoService } from '../../services/natureza-operacao.service';
 import { PessoaService } from '../../services/pessoa.service';
 import { SelectModel } from '../../../../shared/components/select/select-model';
 import { InvoiceService } from '../../services/invoice.service';
@@ -20,6 +21,7 @@ import { PrtDataFiscalService } from '../../services/prt-data-fiscal.service';
 import { InvoiceClassificationType } from '../../enum/invoice-classification.enum';
 import { PrtNumDocfisServService } from '../../services/prt-num-docfis-serv.service';
 import { InscricaoEstadualService } from '../../services/inscricao-estadual.service';
+import { CfopService } from '../../services/cfop.service';
 
 @Component({
   selector: 'app-invoice-cover',
@@ -71,6 +73,43 @@ export class InvoiceCoverComponent implements OnInit {
 
   inscEstadualHeaderTranslation: any = {
     inscEstadual: 'Inscrição Estadual',
+  };
+
+  codCfoColumns: BentoComboboxColumn[] = [
+    {
+      name: 'codigoCfo',
+      width: '100px',
+    },
+    {
+      name: 'descricao',
+      width: '350px',
+    },
+  ];
+
+  codCfoHeaderTranslation: any = {
+    codigoCfo: 'Código',
+    descricao: 'Descrição',
+  };
+
+  codNaturezaOpColumns: BentoComboboxColumn[] = [
+    {
+      name: 'codigo',
+      width: '100px',
+    },
+    {
+      name: 'descricao',
+      width: '350px',
+    },
+    {
+      name: 'validade',
+      width: '350px',
+    },
+  ];
+
+  codNaturezaOpHeaderTranslation: any = {
+    codigo: 'Código',
+    descricao: 'Descrição',
+    validade: 'Validade',
   };
 
   defaultColumns: BentoComboboxColumn[] = [
@@ -208,7 +247,9 @@ export class InvoiceCoverComponent implements OnInit {
     private storageService: StorageService,
     private prtDataFiscalService: PrtDataFiscalService,
     private prtNumDocfisServService: PrtNumDocfisServService,
-    private inscricaoEstadualService: InscricaoEstadualService
+    private inscricaoEstadualService: InscricaoEstadualService,
+    private cfopService: CfopService,
+    private naturezaOperacaoService: NaturezaOperacaoService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -470,6 +511,35 @@ export class InvoiceCoverComponent implements OnInit {
       this.coverData.id.codEstab,
       pagination,
       filter
+    );
+  };
+
+  loadCFOP = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.cfopService.findByCodigo(filter, this.coverData.id.dataFiscal);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.cfopService.autocomplete(filter, pagination);
+  };
+
+  loadNaturezaOperacoes = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.naturezaOperacaoService.findByCodigo(
+        this.coverData.id.codEmpresa,
+        this.coverData.id.codEstab,
+        this.coverData.id.dataFiscal,
+        filter
+      );
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.naturezaOperacaoService.autocomplete(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      filter,
+      pagination
     );
   };
 
