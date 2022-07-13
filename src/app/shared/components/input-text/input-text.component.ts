@@ -34,6 +34,10 @@ export class InputTextComponent implements ControlValueAccessor {
 
   @Input() required: boolean = false;
 
+  @Input() pattern: string = '';
+
+  @Input() textAlign: string = 'left';
+
   @Output() blur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
   onTouched: Function;
@@ -57,6 +61,22 @@ export class InputTextComponent implements ControlValueAccessor {
     this.modelChange.emit(value);
   }
 
+  onBlur = (event: FocusEvent): void => {
+    this.blur.emit(event);
+  };
+
+  onKeypress = (event: KeyboardEvent): boolean => {
+    if (this.pattern) {
+      const regex = new RegExp(`${this.pattern}`);
+      if (regex.test(event.key)) {
+        return true;
+      }
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  };
+
   getClass = (): string => {
     if (this.required && this.inputLabelText !== '\u00A0') {
       return 'bento-label-required';
@@ -66,12 +86,8 @@ export class InputTextComponent implements ControlValueAccessor {
 
   getStyle = (): string => {
     if (this.width) {
-      return `width: ${this.width}`;
+      return `width: ${this.width}; text-align: ${this.textAlign}`;
     }
-    return '';
-  };
-
-  onBlur = (event: FocusEvent): void => {
-    this.blur.emit(event);
+    return `text-align: ${this.textAlign}`;
   };
 }

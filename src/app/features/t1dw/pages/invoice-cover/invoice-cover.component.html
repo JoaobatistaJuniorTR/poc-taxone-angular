@@ -622,7 +622,30 @@
           name="num_cupom_final"
           inputLabelText="Nº Final"
           [(ngModel)]="coverData.numCupomFinal"
-          [required]="false"
+          [maxlength]="6"
+          textAlign="center"
+          pattern="[0-9]"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="num_maquina"
+          name="num_maquina"
+          inputLabelText="Nº Máq"
+          [(ngModel)]="coverData.numMaquina"
+          [maxlength]="6"
+          textAlign="center"
+          pattern="[0-9]"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="num_cont_reduc"
+          name="num_cont_reduc"
+          inputLabelText="Núm. Redução Z"
+          [(ngModel)]="coverData.numContReduc"
+          [maxlength]="12"
+          textAlign="center"
         ></t1dw-input-text>
       </div>
     </div>
