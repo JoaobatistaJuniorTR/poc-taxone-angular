@@ -3,6 +3,7 @@ import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { SituacaoTributariaService } from '../../services/situacao-tributaria.service';
 import { NaturezaOperacaoService } from '../../services/natureza-operacao.service';
 import { PessoaService } from '../../services/pessoa.service';
 import { SelectModel } from '../../../../shared/components/select/select-model';
@@ -249,7 +250,8 @@ export class InvoiceCoverComponent implements OnInit {
     private prtNumDocfisServService: PrtNumDocfisServService,
     private inscricaoEstadualService: InscricaoEstadualService,
     private cfopService: CfopService,
-    private naturezaOperacaoService: NaturezaOperacaoService
+    private naturezaOperacaoService: NaturezaOperacaoService,
+    private situacaoTributaria: SituacaoTributariaService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -535,6 +537,46 @@ export class InvoiceCoverComponent implements OnInit {
 
     const pagination: Pagination = { page, size };
     return this.naturezaOperacaoService.autocomplete(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      filter,
+      pagination
+    );
+  };
+
+  loadSituacaoTributariaA = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.situacaoTributaria.findSituacaoTributariaAByCodigo(
+        this.coverData.id.codEmpresa,
+        this.coverData.id.codEstab,
+        this.coverData.id.dataFiscal,
+        filter
+      );
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.situacaoTributaria.situacaoTributariaASuggestions(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      filter,
+      pagination
+    );
+  };
+
+  loadSituacaoTributariaB = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.situacaoTributaria.findSituacaoTributariaBByCodigo(
+        this.coverData.id.codEmpresa,
+        this.coverData.id.codEstab,
+        this.coverData.id.dataFiscal,
+        filter
+      );
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.situacaoTributaria.situacaoTributariaBSuggestions(
       this.coverData.id.codEmpresa,
       this.coverData.id.codEstab,
       this.coverData.id.dataFiscal,

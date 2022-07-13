@@ -57,6 +57,13 @@ export class InputTextComponent implements ControlValueAccessor {
     this.modelChange.emit(value);
   }
 
+  getClass = (): string => {
+    if (this.required && this.inputLabelText !== '\u00A0') {
+      return 'bento-label-required';
+    }
+    return 'bento-label';
+  };
+
   getStyle = (): string => {
     if (this.width) {
       return `width: ${this.width}`;

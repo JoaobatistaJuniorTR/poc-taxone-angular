@@ -1,5 +1,5 @@
 <div class="number-input-container">
-  <label for="{{ id }}" class="bento-label">{{ inputLabelText }}</label>
+  <label for="{{ id }}" [class]="getClass()">{{ inputLabelText }}</label>
   <bento-number-input
     *ngIf="required === false"
     [id]="id"

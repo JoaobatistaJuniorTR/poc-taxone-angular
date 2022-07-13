@@ -5,6 +5,7 @@
   bfmField
   [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
   [inputLabelText]="inputLabelText"
+  [inputLabelClass]="getClass()"
   [itemsObservable]="itemsObservable"
   [options]="comboboxOptions"
   [(ngModel)]="selectedItem"
@@ -20,6 +21,7 @@
   [id]="id"
   [name]="name"
   [inputLabelText]="inputLabelText"
+  [inputLabelClass]="'bento-label'"
   [itemsObservable]="itemsObservable"
   [options]="comboboxOptions"
   [(ngModel)]="selectedItem"

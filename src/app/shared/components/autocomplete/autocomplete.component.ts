@@ -27,7 +27,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input() id: string;
 
-  @Input() name: string;
+  @Input() name: string = '';
 
   @Input() disabled: boolean = false;
 
@@ -86,6 +86,13 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
     };
     this.preloadDataIfExists();
   }
+
+  getClass = (): string => {
+    if (this.required && this.inputLabelText !== '\u00A0') {
+      return 'bento-label-required';
+    }
+    return 'bento-label';
+  };
 
   writeValue(value: any): void {
     this.model = value;
@@ -174,7 +181,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   };
 
   onOpenChange = (): void => {
-    console.log('Entrou !!!!');
     this.onTouched();
     this.loadData(0, this.blockSize, '', false);
   };

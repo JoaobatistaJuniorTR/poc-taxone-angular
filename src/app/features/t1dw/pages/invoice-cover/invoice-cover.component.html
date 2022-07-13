@@ -45,6 +45,7 @@
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.id.dataFiscal"
           [disabled]="true"
+          [required]="true"
         ></app-date-picker>
       </div>
       <div class="form-group">
@@ -169,7 +170,6 @@
             [(ngModel)]="coverData.id.serieDocfis"
             width="100px"
             [maxlength]="3"
-            [required]="true"
             [disabled]="params.operation !== 'new'"
           >
           </app-input-text>
@@ -545,6 +545,42 @@
           [debounceTime]="1000"
           [headerTranslation]="codNaturezaOpHeaderTranslation"
           [searchCallback]="loadNaturezaOperacoes"
+          [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
+        >
+        </app-autocomplete>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <app-autocomplete
+          id="cod_situacao_a"
+          name="cod_situacao_a"
+          inputLabelText="Sit. Tributária A"
+          model-field="codigo"
+          label-field="label"
+          [(ngModel)]="coverData.codSituacaoA"
+          [columns]="defaultColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="defaultHeaderTranslation"
+          [searchCallback]="loadSituacaoTributariaA"
+          [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
+        >
+        </app-autocomplete>
+      </div>
+      <div class="form-group">
+        <app-autocomplete
+          id="cod_situacao_b"
+          name="cod_situacao_b"
+          inputLabelText="Sit. Tributária B"
+          model-field="codigo"
+          label-field="label"
+          [(ngModel)]="coverData.codSituacaoB"
+          [columns]="defaultColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="defaultHeaderTranslation"
+          [searchCallback]="loadSituacaoTributariaB"
           [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
         >
         </app-autocomplete>

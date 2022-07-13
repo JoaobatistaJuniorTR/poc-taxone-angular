@@ -1,7 +1,7 @@
 <div class="form-check">
   <bento-checkbox
     [id]="id"
-    [name]="name"
+    [name]="name ? name : id"
     [(ngModel)]="value"
     (ngModelChange)="onModelChange($event)"
     [disabled]="disabled"

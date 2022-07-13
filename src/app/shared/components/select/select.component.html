@@ -1,10 +1,10 @@
-<label *ngIf="inputLabelText" for="{{ id }}" class="bento-label">{{
+<label *ngIf="inputLabelText" for="{{ id }}" [class]="getClass()">{{
   inputLabelText
 }}</label>
 <select
   *ngIf="required === true"
   [id]="id"
-  [name]="name"
+  [name]="name ? name : id"
   [(ngModel)]="model"
   bentoSelect
   bfmField
@@ -21,7 +21,7 @@
 <select
   *ngIf="required === false"
   [id]="id"
-  [name]="name"
+  [name]="name ? name : id"
   [(ngModel)]="model"
   bentoSelect
   class="form-control"

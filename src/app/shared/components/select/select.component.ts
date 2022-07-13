@@ -37,6 +37,13 @@ export class SelectComponent implements ControlValueAccessor {
 
   onChange: Function = () => {};
 
+  getClass = (): string => {
+    if (this.required && this.inputLabelText !== '\u00A0') {
+      return 'bento-label-required';
+    }
+    return 'bento-label';
+  };
+
   writeValue(value: any): void {
     this.model = value;
     this.onChange(value);

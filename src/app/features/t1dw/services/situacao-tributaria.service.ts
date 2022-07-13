@@ -18,7 +18,7 @@ export class SituacaoTributariaService extends ServiceBase {
   public situacaoTributariaASuggestions = (
     codEmpresa: string,
     codEstab: string,
-    dataRef: any,
+    dataRef: Date,
     search: string,
     pagination: Pagination
   ): Promise<SituacaoTributaria[]> => {
@@ -27,7 +27,7 @@ export class SituacaoTributariaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: this.buildJsonDate(dataRef),
+        dataRef: dataRef.toJSON(),
         filter: search?.toLocaleLowerCase() === 'todos' ? '' : search || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
@@ -39,10 +39,10 @@ export class SituacaoTributariaService extends ServiceBase {
       .toPromise();
   };
 
-  public findByCodigo = (
+  public findSituacaoTributariaAByCodigo = (
     codEmpresa: string,
     codEstab: string,
-    dataRef: any,
+    dataRef: Date,
     codigo: string
   ): Promise<SituacaoTributaria> => {
     const httpOptions = {
@@ -50,11 +50,54 @@ export class SituacaoTributariaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: this.buildJsonDate(dataRef),
+        dataRef: dataRef.toJSON(),
       },
     };
     return this.http
       .get<SituacaoTributaria>(`${this.API_ENDPOINT}/situacoesTributariasA/${codigo}/maxValid`, httpOptions)
+      .toPromise();
+  };
+
+  public situacaoTributariaBSuggestions = (
+    codEmpresa: string,
+    codEstab: string,
+    dataRef: Date,
+    search: string,
+    pagination: Pagination
+  ): Promise<SituacaoTributaria[]> => {
+    const httpOptions = {
+      headers: this.httpHeaders,
+      params: {
+        codEmpresa,
+        codEstab,
+        dataRef: dataRef.toJSON(),
+        filter: search?.toLocaleLowerCase() === 'todos' ? '' : search || '',
+        page: pagination.page.toString(),
+        size: pagination.size.toString(),
+      },
+    };
+
+    return this.http
+      .get<SituacaoTributaria[]>(`${this.API_ENDPOINT}/situacoesTributariasB/suggestions/`, httpOptions)
+      .toPromise();
+  };
+
+  public findSituacaoTributariaBByCodigo = (
+    codEmpresa: string,
+    codEstab: string,
+    dataRef: Date,
+    codigo: string
+  ): Promise<SituacaoTributaria> => {
+    const httpOptions = {
+      headers: this.httpHeaders,
+      params: {
+        codEmpresa,
+        codEstab,
+        dataRef: dataRef.toJSON(),
+      },
+    };
+    return this.http
+      .get<SituacaoTributaria>(`${this.API_ENDPOINT}/situacoesTributariasB/${codigo}/maxValid`, httpOptions)
       .toPromise();
   };
 }
