@@ -3,6 +3,7 @@ import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { RegiaoService } from '../../services/regiao.service';
 import { SituacaoTributariaService } from '../../services/situacao-tributaria.service';
 import { NaturezaOperacaoService } from '../../services/natureza-operacao.service';
 import { PessoaService } from '../../services/pessoa.service';
@@ -111,6 +112,22 @@ export class InvoiceCoverComponent implements OnInit {
     codigo: 'Código',
     descricao: 'Descrição',
     validade: 'Validade',
+  };
+
+  codRegiaoColumns: BentoComboboxColumn[] = [
+    {
+      name: 'codRegiao',
+      width: '70px',
+    },
+    {
+      name: 'descricao',
+      width: '100%',
+    },
+  ];
+
+  codRegiaoHeaderTranslation: any = {
+    codRegiao: 'Código',
+    descricao: 'Descrição',
   };
 
   defaultColumns: BentoComboboxColumn[] = [
@@ -289,7 +306,8 @@ export class InvoiceCoverComponent implements OnInit {
     private inscricaoEstadualService: InscricaoEstadualService,
     private cfopService: CfopService,
     private naturezaOperacaoService: NaturezaOperacaoService,
-    private situacaoTributaria: SituacaoTributariaService
+    private situacaoTributaria: SituacaoTributariaService,
+    private regiaoService: RegiaoService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -621,6 +639,15 @@ export class InvoiceCoverComponent implements OnInit {
       filter,
       pagination
     );
+  };
+
+  loadRegiao = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.regiaoService.findByCodigo(filter, this.coverData.id.dataFiscal);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.regiaoService.autocomplete(filter, pagination);
   };
 
   onSubmit = () => {};

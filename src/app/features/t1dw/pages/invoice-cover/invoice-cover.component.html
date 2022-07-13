@@ -598,7 +598,7 @@
       </div>
     </div>
     <div class="form-row-space-between">
-      <div class="form-group">
+      <div class="form-group" style="max-width: 200px">
         <t1dw-select
           id="ind_nf_especial"
           name="ind_nf_especial"
@@ -607,7 +607,7 @@
           [(ngModel)]="coverData.indNfEspecial"
         ></t1dw-select>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="max-width: 250px">
         <t1dw-select
           id="ind_modelo_cupom"
           name="ind_modelo_cupom"
@@ -616,7 +616,7 @@
           [(ngModel)]="coverData.indModeloCupom"
         ></t1dw-select>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="max-width: 100px">
         <t1dw-input-text
           id="num_cupom_final"
           name="num_cupom_final"
@@ -627,7 +627,7 @@
           pattern="[0-9]"
         ></t1dw-input-text>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="max-width: 100px">
         <t1dw-input-text
           id="num_maquina"
           name="num_maquina"
@@ -638,7 +638,7 @@
           pattern="[0-9]"
         ></t1dw-input-text>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="max-width: 110px">
         <t1dw-input-text
           id="num_cont_reduc"
           name="num_cont_reduc"
@@ -647,6 +647,20 @@
           [maxlength]="12"
           textAlign="center"
         ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-autocomplete
+          id="cod_regiao"
+          name="cod_regiao"
+          inputLabelText="Região"
+          model-field="codRegiao"
+          label-field="label"
+          [(ngModel)]="coverData.codRegiao"
+          [columns]="codRegiaoColumns"
+          [headerTranslation]="codRegiaoHeaderTranslation"
+          [searchCallback]="loadRegiao"
+        >
+        </t1dw-autocomplete>
       </div>
     </div>
   </form>
