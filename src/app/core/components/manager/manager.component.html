@@ -8,14 +8,14 @@
               <label for="combobox-company">Empresa</label>
             </div>
             <div>
-              <app-combobox
+              <t1dw-combobox
                 [id]="'combobox-company'"
                 [items]="companyData$"
                 [(model)]="model.company"
                 (selectValue)="selectCompany($event)"
                 [isBusyLoader]="companyBusyLoader"
               >
-              </app-combobox>
+              </t1dw-combobox>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
               <label for="combobox-branch">Estabelecimento</label>
             </div>
             <div>
-              <app-combobox
+              <t1dw-combobox
                 [id]="'combobox-branch'"
                 [items]="branchData$"
                 [searchServerSide]="true"
@@ -38,7 +38,7 @@
                 (selectValue)="selectBranch($event)"
                 [isBusyLoader]="branchesBusyLoader"
               >
-              </app-combobox>
+              </t1dw-combobox>
             </div>
           </div>
         </div>
@@ -50,14 +50,14 @@
               <label for="combobox-group">Grupo</label>
             </div>
             <div>
-              <app-combobox
+              <t1dw-combobox
                 [id]="'combobox-group'"
                 [items]="groupData$"
                 [(model)]="model.group"
                 (selectValue)="selectGroup($event)"
                 [isBusyLoader]="groupsBusyLoader"
               >
-              </app-combobox>
+              </t1dw-combobox>
             </div>
           </div>
         </div>
@@ -69,14 +69,14 @@
               <label for="combobox-module">Módulo</label>
             </div>
             <div>
-              <app-combobox
+              <t1dw-combobox
                 [id]="'combobox-module'"
                 [items]="moduleData$"
                 [(model)]="model.module"
                 (selectValue)="selectModule($event)"
                 [isBusyLoader]="modulesBusyLoader"
               >
-              </app-combobox>
+              </t1dw-combobox>
             </div>
           </div>
         </div>
@@ -85,8 +85,8 @@
   </div>
 </div>
 
-<app-manager-bar-info
+<t1dw-manager-bar-info
   *ngIf="showManageBarInfoComponent"
   [modelManagerBarInfo]="model"
   (closeModule)="closeManagerBarInfo()"
-></app-manager-bar-info>
+></t1dw-manager-bar-info>

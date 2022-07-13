@@ -6,7 +6,7 @@ import { ManagerBarInfo } from '../manager.model';
 import { ManagerBarInfoService } from './manager-bar-info.service';
 
 @Component({
-  selector: 'app-manager-bar-info',
+  selector: 't1dw-manager-bar-info',
   templateUrl: './manager-bar-info.component.html',
   styleUrls: ['./manager-bar-info.component.sass'],
 })
@@ -17,11 +17,7 @@ export class ManagerBarInfoComponent implements OnInit {
 
   @Output() closeModule = new EventEmitter();
 
-  constructor(
-    private router: Router,
-    private service: ManagerBarInfoService,
-    private navBarService: NavBarService
-  ) {}
+  constructor(private router: Router, private service: ManagerBarInfoService, private navBarService: NavBarService) {}
 
   ngOnInit(): void {
     this.managerBarInfo = [];

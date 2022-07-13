@@ -5,7 +5,7 @@ import { BentoComboboxColumn, BentoComboboxOptions, BentoComboboxSearchEvent } f
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-autocomplete',
+  selector: 't1dw-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.sass'],
   providers: [

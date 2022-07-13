@@ -25,7 +25,7 @@ import { InscricaoEstadualService } from '../../services/inscricao-estadual.serv
 import { CfopService } from '../../services/cfop.service';
 
 @Component({
-  selector: 'app-invoice-cover',
+  selector: 't1dw-invoice-cover',
   templateUrl: './invoice-cover.component.html',
   styleUrls: ['./invoice-cover.component.sass'],
 })
@@ -228,6 +228,44 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '4', label: 'Emissão em Contingência com FS-DA' },
     { value: '5', label: 'Emissão em Contingência com SVC-NA' },
     { value: '6', label: 'Emissão em Contingência com SVC-RS' },
+  ];
+
+  indSituacaoEspItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '1', label: '1 - Nota Fiscal de Venda Globalizada de acordo com o Protocolo ICMS 52/2000 ( Cláusula Quarta)' },
+    { value: '2', label: '2 - Nota Fiscal de Acompanhamento de ECF' },
+    { value: '3', label: '3 - NF não considerada no livro de apuração do ICMS - Crédito Presumido de ICMS - AM' },
+    { value: '4', label: '4 - NF de Sinistro' },
+    { value: '5', label: '5 - NF Complementar ou CT-e de Complemento de Valores (modelo: 57)' },
+    { value: '6', label: '6 - Nota Fiscal para cancelamento de cupons fiscais' },
+    { value: '7', label: '7 - NF de Ressarcimento de Substituição Tributária' },
+    { value: '8', label: '8 - NF de Remessa por Conta e Ordem' },
+    {
+      value: '9',
+      label:
+        // eslint-disable-next-line max-len
+        '9 - Nota Fiscal escriturada sem que o valor do ICMS destacado seja contabilizado nos livros de entrada (P1) e apuração (P9), conforme IN DRP 45/98 - RICMS/RS Livro II art. 153',
+    },
+    { value: 'A', label: 'A - NF de Venda Fora do Estabelecimento' },
+    { value: 'B', label: 'B - CT-e emitido em hipótese de anulação de débito (modelo: 57)' },
+    { value: 'C', label: 'C - CT-e substituto ao CT-e cancelado (modelo: 57)' },
+    { value: 'D', label: 'D - Operação de Compra/Venda para entrega Futura' },
+    { value: 'E', label: 'E - Nota Fiscal Eletrônica de Ajuste' },
+  ];
+
+  indNfEspecialItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: 'I', label: 'Incentivada dentro da Faixa' },
+    { value: 'F', label: 'Incentivada fora da Faixa' },
+    { value: 'N', label: 'Não Incentivada' },
+    { value: 'E', label: 'Inconsistente' },
+  ];
+
+  indModeloCupomItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '2B', label: 'Cupom Fiscal emitido p/ máq. registradora' },
+    { value: '2C', label: 'Cupom Fiscal PDV' },
+    { value: '2D', label: 'Cupom Fiscal ECF' },
   ];
 
   @ViewChild('f') private form: NgForm;

@@ -22,7 +22,7 @@ import { DatamartService } from '../../services/datamart.service';
 import { TempTableService } from '../../services/temp-table.service';
 
 @Component({
-  selector: 'app-invoices-list',
+  selector: 't1dw-invoices-list',
   templateUrl: './invoices-list.component.html',
   styleUrls: ['./invoices-list.component.sass'],
 })

@@ -2,7 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/cor
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-input-number',
+  selector: 't1dw-input-number',
   templateUrl: './input-number.component.html',
   styleUrls: ['./input-number.component.sass'],
   providers: [

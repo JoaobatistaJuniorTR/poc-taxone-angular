@@ -2,7 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/cor
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-input-text',
+  selector: 't1dw-input-text',
   templateUrl: './input-text.component.html',
   styleUrls: ['./input-text.component.sass'],
   providers: [

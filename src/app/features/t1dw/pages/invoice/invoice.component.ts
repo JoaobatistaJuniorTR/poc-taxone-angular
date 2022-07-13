@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-invoice',
+  selector: 't1dw-invoice',
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.sass'],
 })

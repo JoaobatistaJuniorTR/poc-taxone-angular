@@ -5,7 +5,7 @@ import { DatepickerConfig } from '@bento/bento-ng';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-date-picker',
+  selector: 't1dw-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.sass'],
   providers: [

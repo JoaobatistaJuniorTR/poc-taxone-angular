@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectModel } from './select-model';
 
 @Component({
-  selector: 'app-select',
+  selector: 't1dw-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.sass'],
   providers: [

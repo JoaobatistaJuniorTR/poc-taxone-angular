@@ -6,7 +6,7 @@ import { INavRightBar } from './nav-bar.interface';
 import { NavBarService } from './nav-bar.service';
 
 @Component({
-  selector: 'app-nav-bar',
+  selector: 't1dw-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.sass'],
 })

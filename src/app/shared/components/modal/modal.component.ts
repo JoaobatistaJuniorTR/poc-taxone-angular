@@ -6,7 +6,7 @@ import { Pagination } from 'src/app/features/t1dw/model/interface.model';
 import GridData from '../flex-grid/flex-grid.model';
 
 @Component({
-  selector: 'app-modal',
+  selector: 't1dw-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.sass'],
 })

@@ -6,14 +6,14 @@
     <h3 id="modal-scrollable-title">{{ title }}</h3>
   </div>
   <div class="modal-body">
-    <app-flex-grid
+    <t1dw-flex-grid
       [gridFilters]="gridFilters"
       [gridColumnsData]="gridColumnsData"
       [startLoading]="startLoading"
       [search]="search"
       [doubleClick]="onDoubleClick"
       (selectedItem)="onSelectedItem($event)"
-    ></app-flex-grid>
+    ></t1dw-flex-grid>
   </div>
   <div class="modal-footer">
     <button

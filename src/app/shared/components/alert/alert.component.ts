@@ -5,7 +5,7 @@ import { Alert } from './alert-model';
 import { AlertService } from './alert.service';
 
 @Component({
-  selector: 'app-alert',
+  selector: 't1dw-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.sass'],
 })

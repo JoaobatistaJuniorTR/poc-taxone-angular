@@ -4,7 +4,7 @@ import { BentoComboboxOptions, BentoComboboxSearchEvent } from '@bento/bento-ng'
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-combobox',
+  selector: 't1dw-combobox',
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.sass'],
 })

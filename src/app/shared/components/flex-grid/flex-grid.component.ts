@@ -11,7 +11,7 @@ import { GridFilterService } from '../../../features/t1dw/services/grid-filter.s
 import GridData from './flex-grid.model';
 
 @Component({
-  selector: 'app-flex-grid',
+  selector: 't1dw-flex-grid',
   templateUrl: './flex-grid.component.html',
   styleUrls: ['./flex-grid.component.sass'],
 })

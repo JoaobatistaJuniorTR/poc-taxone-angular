@@ -10,7 +10,7 @@ import { Branch, Company, Group, ManagerBarInfo, ManagerModel, Module } from './
 import { ManagerService } from './manager.service';
 
 @Component({
-  selector: 'app-manager',
+  selector: 't1dw-manager',
   templateUrl: './manager.component.html',
   styleUrls: ['./manager.component.sass'],
 })
@@ -182,11 +182,7 @@ export class ManagerComponent implements OnInit {
     const branch = this.model.branch?.value as Branch;
     const group = this.model.group?.value as Group;
     const module = this.model.module?.value as Module;
-    const configModule = await this.service.configModule(
-      company.id,
-      branch.codEstab,
-      module.codModLicParameter
-    );
+    const configModule = await this.service.configModule(company.id, branch.codEstab, module.codModLicParameter);
     this.storage.setObject('moduleData', { company, branch, group, module });
     this.storage.setItem(environment.storageIdKey, configModule.storageID);
   }

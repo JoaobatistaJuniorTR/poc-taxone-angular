@@ -3,7 +3,7 @@
   (deactivate)="isHidden = false"
 ></router-outlet>
 <div class="container" [hidden]="isHidden">
-  <app-alert></app-alert>
+  <t1dw-alert></t1dw-alert>
   <div class="row">
     <div class="col-md-12">
       <h1>Documentos Fiscais de Mercadoria e Serviço</h1>
@@ -20,7 +20,7 @@
   >
     <div class="form-row-flex">
       <div class="form-group" style="width: 350px; margin-right: 20px">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod-estab"
           name="codEstab"
           inputLabelText="Estabelecimento"
@@ -36,10 +36,10 @@
           [disabled]="estabDisabled"
           [required]="true"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
       <div class="form-group" style="width: 200px">
-        <app-date-picker
+        <t1dw-date-picker
           id="data-saida-rec-ini"
           name="dataSaidaRecIni"
           bfmField
@@ -48,10 +48,10 @@
           inputLabelText="Data de Saída / Recebimento"
           buttonLabel="Abrir calendário"
           [(ngModel)]="formFilters.dataSaidaRecIni"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
       <div class="form-group" style="width: 200px">
-        <app-date-picker
+        <t1dw-date-picker
           id="data-saida-rec-fim"
           name="dataSaidaRecFim"
           bfmField
@@ -60,7 +60,7 @@
           inputLabelText="&nbsp;"
           buttonLabel="Abrir calendário"
           [(ngModel)]="formFilters.dataSaidaRecFim"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
       <div class="form-group">
         <label class="bento-label">&nbsp;</label>
@@ -76,7 +76,7 @@
       </div>
     </div>
   </form>
-  <app-flex-grid
+  <t1dw-flex-grid
     [gridColumnsData]="gridColumnsData"
     [toolbarDataItems]="toolbarData"
     [columnsToFilter]="columnsToFilter"
@@ -84,5 +84,5 @@
     [search]="onSearch"
     [doubleClick]="editInvoice"
     (selectedItem)="onSelectedItem($event)"
-  ></app-flex-grid>
+  ></t1dw-flex-grid>
 </div>

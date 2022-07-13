@@ -16,7 +16,7 @@
   >
     <div class="form-row-space-between">
       <div class="form-group" style="width: 100%">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_estab"
           name="cod_estab"
           inputLabelText="Estabelecimento"
@@ -33,12 +33,12 @@
           "
           [required]="true"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group">
-        <app-date-picker
+        <t1dw-date-picker
           id="data_fiscal"
           name="data_fiscal"
           inputLabelText="Data Fiscal"
@@ -46,10 +46,10 @@
           [(ngModel)]="coverData.id.dataFiscal"
           [disabled]="true"
           [required]="true"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
       <div class="form-group">
-        <app-date-picker
+        <t1dw-date-picker
           id="data_emissao"
           name="data_emissao"
           bfmLabel="Data de Emissão"
@@ -58,10 +58,10 @@
           [(ngModel)]="coverData.dataEmissao"
           [disabled]="params.operation !== 'new'"
           [required]="true"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
       <div class="form-group">
-        <app-input-number
+        <t1dw-input-number
           id="hora_emissao"
           name="hora_emissao"
           inputLabelText="Hora Emissão"
@@ -70,10 +70,10 @@
           [max]="24"
           [disabled]="params.operation !== 'new'"
           [required]="false"
-        ></app-input-number>
+        ></t1dw-input-number>
       </div>
       <div class="form-group">
-        <app-date-picker
+        <t1dw-date-picker
           id="data_saida_rec"
           name="data_saida_rec"
           bfmField
@@ -84,10 +84,10 @@
           [(ngModel)]="coverData.dataSaidaRec"
           [disabled]="params.operation !== 'new'"
           (ngModelChange)="onChangeDataFiscal()"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
       <div class="form-group">
-        <app-input-number
+        <t1dw-input-number
           id="hora_saida_rec"
           name="hora_saida_rec"
           bfmLabel="Hora E/S"
@@ -97,10 +97,10 @@
           [max]="24"
           [disabled]="params.operation !== 'new'"
           [required]="false"
-        ></app-input-number>
+        ></t1dw-input-number>
       </div>
       <div class="form-group">
-        <app-date-picker
+        <t1dw-date-picker
           id="dt_extemp"
           name="dt_extemp"
           inputLabelText="Dt. Extemp"
@@ -108,12 +108,12 @@
           [(ngModel)]="coverData.datEscrExtemp"
           [disabled]="params.operation !== 'new'"
           [required]="false"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group">
-        <app-select
+        <t1dw-select
           id="e_s"
           name="e_s"
           inputLabelText="E/S"
@@ -121,10 +121,10 @@
           [(ngModel)]="coverData.id.movtoES"
           [required]="true"
           [disabled]="params.operation !== 'new'"
-        ></app-select>
+        ></t1dw-select>
       </div>
       <div class="form-group">
-        <app-select
+        <t1dw-select
           id="norm_dev"
           name="norm_dev"
           inputLabelText="N/D"
@@ -132,15 +132,15 @@
           [items]="normDevItems"
           [(ngModel)]="coverData.id.normDev"
           [disabled]="params.operation !== 'new'"
-        ></app-select>
+        ></t1dw-select>
       </div>
       <div class="form-group">
-        <app-checkbox
+        <t1dw-checkbox
           id="ind_nf_venda_terceiros"
           name="ind_nf_venda_terceiros"
           inputLabelText="Nota Fiscal de venda emitida por terceiro"
           [(ngModel)]="coverData.indNfVendaTerceiros"
-        ></app-checkbox>
+        ></t1dw-checkbox>
       </div>
     </div>
     <div class="form-row-flex">
@@ -149,7 +149,7 @@
         style="width: 360px; column-gap: 5px; flex-wrap: nowrap"
       >
         <div class="form-group">
-          <app-input-text
+          <t1dw-input-text
             id="num_docFis"
             name="num_docFis"
             inputLabelText="Número NF"
@@ -159,10 +159,10 @@
             [required]="true"
             [disabled]="params.operation !== 'new'"
           >
-          </app-input-text>
+          </t1dw-input-text>
         </div>
         <div class="form-group">
-          <app-input-text
+          <t1dw-input-text
             id="serie_docfis"
             name="serie_docfis"
             bfmLabel="Serie NF"
@@ -172,10 +172,10 @@
             [maxlength]="3"
             [disabled]="params.operation !== 'new'"
           >
-          </app-input-text>
+          </t1dw-input-text>
         </div>
         <div class="form-group">
-          <app-input-text
+          <t1dw-input-text
             id="sub_serie_docfis"
             name="sub_serie_docfis"
             inputLabelText="&nbsp;"
@@ -184,11 +184,11 @@
             [maxlength]="2"
             [disabled]="params.operation !== 'new'"
           >
-          </app-input-text>
+          </t1dw-input-text>
         </div>
       </div>
       <div class="form-group">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_docto"
           name="cod_docto"
           inputLabelText="Tipo de Documento"
@@ -208,12 +208,12 @@
           "
           [required]="true"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
     </div>
     <div class="form-row-flex" *ngIf="isServiceInvoice() || isMixedInvoice()">
       <div class="form-group" style="width: 100%">
-        <app-input-text
+        <t1dw-input-text
           id="num_docfis_serv"
           name="num_docfis_serv"
           inputLabelText="Número NF (60 posições)"
@@ -222,14 +222,14 @@
           [maxlength]="60"
           [disabled]="isNumDocfisServEnabled"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-row-flex" style="flex-direction: column; width: 15%">
         <label for="ind_fis_jur" class="bento-label-required">Fis/Jur</label>
         <div class="flex-row-compose form-group">
-          <app-modal
+          <t1dw-modal
             title="Pessoa Física / Jurídica"
             size="xl"
             [startLoading]="true"
@@ -241,9 +241,9 @@
               !coverData.id.codEstab ||
               !coverData.id.dataFiscal
             "
-          ></app-modal>
+          ></t1dw-modal>
           <div class="form-group" style="width: 100%">
-            <app-select
+            <t1dw-select
               id="ind_fis_jur"
               name="ind_fis_jur"
               bfmField
@@ -260,12 +260,12 @@
                 coverData.id.codFisJur = undefined;
                 coverData.razaoSocialFisJur = undefined
               "
-            ></app-select>
+            ></t1dw-select>
           </div>
         </div>
       </div>
       <div class="form-group" style="width: 15%">
-        <app-input-text
+        <t1dw-input-text
           id="cod_fis_jur"
           name="cod_fis_jur"
           bfmLabel="Código Fis/Jur"
@@ -280,20 +280,20 @@
             !coverData.id.dataFiscal
           "
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group" style="width: 48%">
-        <app-input-text
+        <t1dw-input-text
           id="razao_social_fis_jur"
           name="razao_social_fis_jur"
           inputLabelText="&nbsp;"
           [(ngModel)]="coverData.razaoSocialFisJur"
           [disabled]="true"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group" style="width: 20%">
-        <app-input-text
+        <t1dw-input-text
           id="fis_jur_cpf_cnpj"
           name="fis_jur_cpf_cnpj"
           inputLabelText="CPF/CNPJ"
@@ -301,12 +301,12 @@
           [maxlength]="14"
           [disabled]="true"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group" style="flex-grow: 0.75">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_modelo"
           name="cod_modelo"
           inputLabelText="Modelo Doc."
@@ -321,10 +321,10 @@
           [searchCallback]="loadModeloDocumento"
           [required]="true"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
       <div class="form-group" style="flex-grow: 0.25">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_Trib_int"
           name="cod_Trib_int"
           inputLabelText="Trib. Interna"
@@ -339,23 +339,23 @@
           [searchCallback]="loadTributacaoInterna"
           [required]="true"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group">
-        <app-select
+        <t1dw-select
           id="modelo_nf_dm"
           name="modelo_nf_dm"
           inputLabelText="Código Modelo NF"
           [items]="modeloNfDmItems"
           [(ngModel)]="coverData.codModeloCotepe"
-        ></app-select>
+        ></t1dw-select>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group" style="max-width: 250px">
-        <app-select
+        <t1dw-select
           id="cod_class_doc_fis"
           name="cod_class_doc_fis"
           inputLabelText="Clas. Doc. Fiscal"
@@ -364,66 +364,66 @@
           [disabled]="params.operation != 'new'"
           [required]="true"
           (ngModelChange)="onChangeCodClassDocFis()"
-        ></app-select>
+        ></t1dw-select>
       </div>
       <div class="form-group">
-        <app-checkbox
+        <t1dw-checkbox
           id="situacao"
           name="situacao"
           inputLabelText="Sit. Cancelado"
           [(ngModel)]="coverData.situacao"
-        ></app-checkbox>
+        ></t1dw-checkbox>
       </div>
       <div class="form-group">
-        <app-date-picker
+        <t1dw-date-picker
           id="dat_autentic"
           name="dat_autentic"
           inputLabelText="Data Autent./Cancel"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datAutentic"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
       <div class="form-group">
-        <app-checkbox
+        <t1dw-checkbox
           id="contrib_final"
           name="contrib_final"
           inputLabelText="Contrib. (S/N)"
           [(ngModel)]="coverData.contribFinal"
-        ></app-checkbox>
+        ></t1dw-checkbox>
       </div>
       <div class="form-group" style="max-width: 400px">
-        <app-select
+        <t1dw-select
           id="ind_transf_cred"
           name="ind_transf_cred"
           inputLabelText="NF Transferência"
           [items]="indTransfCredItems"
           [(ngModel)]="coverData.indTransfCred"
-        ></app-select>
+        ></t1dw-select>
       </div>
     </div>
     <div class="form-row-flex">
       <div class="form-group">
-        <app-select
+        <t1dw-select
           id="ind_nfe_deneg_inut"
           name="ind_nfe_deneg_inut"
           inputLabelText="NF Eletrônica denegada/inutilizada"
           [items]="indNfeDenegInutItems"
           [(ngModel)]="coverData.indNfeDenegInut"
-        ></app-select>
+        ></t1dw-select>
       </div>
       <div class="form-group">
-        <app-select
+        <t1dw-select
           id="ind_nf_contingencia"
           name="ind_nf_contingencia"
           inputLabelText="NF emitida em contingência"
           [items]="indNfContingenciaItems"
           [(ngModel)]="coverData.indNfContingencia"
-        ></app-select>
+        ></t1dw-select>
       </div>
     </div>
     <div class="form-row-flex">
       <div class="form-group">
-        <app-input-text
+        <t1dw-input-text
           id="num_docfis_ref"
           name="num_docfis_ref"
           inputLabelText="NF Referência"
@@ -431,10 +431,10 @@
           width="150px"
           [maxlength]="12"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group">
-        <app-input-text
+        <t1dw-input-text
           id="serie_docfis_ref"
           name="serie_docfis_ref"
           inputLabelText="&nbsp;"
@@ -442,10 +442,10 @@
           width="100px"
           [maxlength]="3"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group">
-        <app-input-text
+        <t1dw-input-text
           id="sub_serie_docfis_ref"
           name="sub_serie_docfis_ref"
           inputLabelText="&nbsp;"
@@ -453,41 +453,41 @@
           width="100px"
           [maxlength]="2"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group">
-        <app-input-text
+        <t1dw-input-text
           id="num_dec_imp_ref"
           name="num_dec_imp_ref"
           inputLabelText="N Dec. Imp"
           [(ngModel)]="coverData.numDecImpRef"
           [maxlength]="12"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group">
-        <app-date-picker
+        <t1dw-date-picker
           id="dat_di"
           name="dat_di"
           inputLabelText="Dt. Imp/Dt. Doc. Ref"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datDi"
-        ></app-date-picker>
+        ></t1dw-date-picker>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group">
-        <app-input-text
+        <t1dw-input-text
           id="num_fim_docto"
           name="num_fim_docto"
           inputLabelText="N Final (Resumo)"
           [(ngModel)]="coverData.numFimDocto"
           [maxlength]="12"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
       <div class="form-group">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="insc_estadual"
           name="insc_estadual"
           inputLabelText="Insc. Estadual"
@@ -501,22 +501,22 @@
           [searchCallback]="loadInscricaoEstadual"
           [required]="true"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
       <div class="form-group">
-        <app-input-text
+        <t1dw-input-text
           id="cod_sistema_orig"
           name="cod_sistema_orig"
           inputLabelText="Cod. do Sistema de Origem"
           [(ngModel)]="coverData.codSistemaOrig"
           [maxlength]="14"
         >
-        </app-input-text>
+        </t1dw-input-text>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="compl_cfop"
           name="compl_cfop"
           inputLabelText="CFOP/Compl."
@@ -530,10 +530,10 @@
           [searchCallback]="loadCFOP"
           [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
       <div class="form-group">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_natureza_op"
           name="cod_natureza_op"
           inputLabelText="Natureza da Operação"
@@ -547,12 +547,12 @@
           [searchCallback]="loadNaturezaOperacoes"
           [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
     </div>
     <div class="form-row-space-between">
       <div class="form-group">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_situacao_a"
           name="cod_situacao_a"
           inputLabelText="Sit. Tributária A"
@@ -566,10 +566,10 @@
           [searchCallback]="loadSituacaoTributariaA"
           [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
       </div>
       <div class="form-group">
-        <app-autocomplete
+        <t1dw-autocomplete
           id="cod_situacao_b"
           name="cod_situacao_b"
           inputLabelText="Sit. Tributária B"
@@ -583,7 +583,47 @@
           [searchCallback]="loadSituacaoTributariaB"
           [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
         >
-        </app-autocomplete>
+        </t1dw-autocomplete>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-select
+          id="ind_situacao_esp"
+          name="ind_situacao_esp"
+          inputLabelText="Situação Especial"
+          [items]="indSituacaoEspItems"
+          [(ngModel)]="coverData.indSituacaoEsp"
+        ></t1dw-select>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-select
+          id="ind_nf_especial"
+          name="ind_nf_especial"
+          inputLabelText="NF Incentivada"
+          [items]="indNfEspecialItems"
+          [(ngModel)]="coverData.indNfEspecial"
+        ></t1dw-select>
+      </div>
+      <div class="form-group">
+        <t1dw-select
+          id="ind_modelo_cupom"
+          name="ind_modelo_cupom"
+          inputLabelText="Mod. Cupom"
+          [items]="indModeloCupomItems"
+          [(ngModel)]="coverData.indModeloCupom"
+        ></t1dw-select>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="num_cupom_final"
+          name="num_cupom_final"
+          inputLabelText="Nº Final"
+          [(ngModel)]="coverData.numCupomFinal"
+          [required]="false"
+        ></t1dw-input-text>
       </div>
     </div>
   </form>

@@ -2,7 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/cor
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-checkbox',
+  selector: 't1dw-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.sass'],
   providers: [
