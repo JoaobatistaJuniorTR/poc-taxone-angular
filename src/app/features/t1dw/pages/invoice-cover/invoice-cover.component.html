@@ -663,6 +663,35 @@
         </t1dw-autocomplete>
       </div>
     </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-input-text
+          id="insc_estad_substit"
+          name="insc_estad_substit"
+          inputLabelText="Insc. Substituta"
+          [(ngModel)]="coverData.inscEstadSubstit"
+          [maxlength]="14"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="vlr_tot_nota"
+          name="vlr_tot_nota"
+          inputLabelText="Vlr. Total da Nota"
+          [(ngModel)]="coverData.vlrTotNota"
+          [formatToNumber]="true"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="vlr_produto"
+          name="vlr_produto"
+          inputLabelText="Vlr. Produto"
+          [(ngModel)]="coverData.vlrProduto"
+          [formatToNumber]="true"
+        ></t1dw-input-text>
+      </div>
+    </div>
   </form>
 </div>
 {{ coverData | json }}
