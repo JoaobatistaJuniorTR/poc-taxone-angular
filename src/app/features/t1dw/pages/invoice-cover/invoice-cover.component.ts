@@ -3,6 +3,7 @@ import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { CanalDistribuicaoService } from '../../services/canal-distribuicao.service';
 import { ContaService } from '../../services/conta.service';
 import { RegiaoService } from '../../services/regiao.service';
 import { SituacaoTributariaService } from '../../services/situacao-tributaria.service';
@@ -41,6 +42,38 @@ export class InvoiceCoverComponent implements OnInit {
   isEstablishmentAlreadyDefined: boolean = false;
 
   isNumDocfisServEnabled: boolean = false;
+
+  constructor(
+    private invoiceService: InvoiceService,
+    private estabelecimentoService: EstabelecimentoService,
+    private tipoDocumentoService: TipoDocumentoService,
+    private storage: StorageService,
+    private modeloDocumentoService: ModeloDocumentoService,
+    private tributacaoInternaService: TributacaoInternaService,
+    private pessoaService: PessoaService,
+    private storageService: StorageService,
+    private prtDataFiscalService: PrtDataFiscalService,
+    private prtNumDocfisServService: PrtNumDocfisServService,
+    private inscricaoEstadualService: InscricaoEstadualService,
+    private cfopService: CfopService,
+    private naturezaOperacaoService: NaturezaOperacaoService,
+    private situacaoTributaria: SituacaoTributariaService,
+    private regiaoService: RegiaoService,
+    private contaService: ContaService,
+    private canalDistribuicaoService: CanalDistribuicaoService
+  ) {
+    this.coverData = new TmpX07DoctoFiscal();
+    this.coverData.id = new TmpX07DoctoFiscalId();
+  }
+
+  ngOnInit(): void {
+    this.params = this.storageService.getObject('stateParams');
+    const moduleData: any = this.storage.getObject('moduleData');
+    this.coverData.id.codEmpresa = moduleData.company.id;
+    if (this.params.invoiceId) {
+      this.findInvoiceById(this.params.invoiceId);
+    }
+  }
 
   estabColumns: BentoComboboxColumn[] = [
     {
@@ -292,37 +325,6 @@ export class InvoiceCoverComponent implements OnInit {
     required: '{0} é obrigatório',
     isNaN: '{0} é inválido',
   };
-
-  constructor(
-    private invoiceService: InvoiceService,
-    private estabelecimentoService: EstabelecimentoService,
-    private tipoDocumentoService: TipoDocumentoService,
-    private storage: StorageService,
-    private modeloDocumentoService: ModeloDocumentoService,
-    private tributacaoInternaService: TributacaoInternaService,
-    private pessoaService: PessoaService,
-    private storageService: StorageService,
-    private prtDataFiscalService: PrtDataFiscalService,
-    private prtNumDocfisServService: PrtNumDocfisServService,
-    private inscricaoEstadualService: InscricaoEstadualService,
-    private cfopService: CfopService,
-    private naturezaOperacaoService: NaturezaOperacaoService,
-    private situacaoTributaria: SituacaoTributariaService,
-    private regiaoService: RegiaoService,
-    private contaService: ContaService
-  ) {
-    this.coverData = new TmpX07DoctoFiscal();
-    this.coverData.id = new TmpX07DoctoFiscalId();
-  }
-
-  ngOnInit(): void {
-    this.params = this.storageService.getObject('stateParams');
-    const moduleData: any = this.storage.getObject('moduleData');
-    this.coverData.id.codEmpresa = moduleData.company.id;
-    if (this.params.invoiceId) {
-      this.findInvoiceById(this.params.invoiceId);
-    }
-  }
 
   // eslint-disable-next-line class-methods-use-this
   isDisabled() {
@@ -713,6 +715,15 @@ export class InvoiceCoverComponent implements OnInit {
     } else {
       this.coverData.dscConta = '';
     }
+  };
+
+  loadCanaisDistribuicao = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.canalDistribuicaoService.findByCodigo(filter);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.canalDistribuicaoService.autocomplete(filter, pagination);
   };
 
   onSubmit = () => {};

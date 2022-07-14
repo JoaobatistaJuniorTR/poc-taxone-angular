@@ -755,6 +755,24 @@
         ></t1dw-input-text>
       </div>
     </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-autocomplete
+          id="cod_canal_distrib"
+          name="cod_canal_distrib"
+          inputLabelText="Canal Dist. / Obra"
+          model-field="codigo"
+          label-field="label"
+          [(ngModel)]="coverData.codCanalDistrib"
+          [columns]="defaultColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="defaultHeaderTranslation"
+          [searchCallback]="loadCanaisDistribuicao"
+        >
+        </t1dw-autocomplete>
+      </div>
+    </div>
   </form>
 </div>
 {{ coverData | json }}
