@@ -17,6 +17,7 @@ export class InscricaoEstadualService extends ServiceBase {
 
   autocomplete(codEmpresa: string, codEstab: string, pagination: Pagination, filter?: string): Promise<any[]> {
     const httpOptions = {
+      headers: this.httpHeaders,
       params: {
         codEmpresa,
         codEstab,
@@ -36,6 +37,7 @@ export class InscricaoEstadualService extends ServiceBase {
 
   public findByCodigo(codEmpresa: string, codEstab: string, codigo: string): Promise<any> {
     const httpOptions = {
+      headers: this.httpHeaders,
       params: {
         codEmpresa,
         codEstab,

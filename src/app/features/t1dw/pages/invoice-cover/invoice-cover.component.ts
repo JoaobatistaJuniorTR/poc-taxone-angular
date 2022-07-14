@@ -1,8 +1,10 @@
+import { MunicipioService } from './../../services/municipio.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
 import { CanalDistribuicaoService } from '../../services/canal-distribuicao.service';
 import { ContaService } from '../../services/conta.service';
 import { RegiaoService } from '../../services/regiao.service';
@@ -26,7 +28,6 @@ import { InvoiceClassificationType } from '../../enum/invoice-classification.enu
 import { PrtNumDocfisServService } from '../../services/prt-num-docfis-serv.service';
 import { InscricaoEstadualService } from '../../services/inscricao-estadual.service';
 import { CfopService } from '../../services/cfop.service';
-import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
 
 @Component({
   selector: 't1dw-invoice-cover',
@@ -61,7 +62,8 @@ export class InvoiceCoverComponent implements OnInit {
     private situacaoTributaria: SituacaoTributariaService,
     private regiaoService: RegiaoService,
     private contaService: ContaService,
-    private canalDistribuicaoService: CanalDistribuicaoService
+    private canalDistribuicaoService: CanalDistribuicaoService,
+    private municipioService: MunicipioService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -741,6 +743,26 @@ export class InvoiceCoverComponent implements OnInit {
     { id: 'ind_fat_a_prazo', value: '2', label: 'A Prazo' },
     { id: 'ind_fat_sem_pgt', value: '3', label: 'Sem Pagamento' },
   ];
+
+  brazilianStates = constants.BRAZILIAN_STATES;
+
+  loadMunicipioOrigem = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.municipioService.findByCodigo(this.coverData.codUfOrigDest, filter);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.municipioService.autocomplete(this.coverData.codUfOrigDest, filter, pagination);
+  };
+
+  loadMunicipioDestino = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
+    if (unique) {
+      return this.municipioService.findByCodigo(this.coverData.codUfOrigDest, filter);
+    }
+
+    const pagination: Pagination = { page, size };
+    return this.municipioService.autocomplete(this.coverData.codUfDestino, filter, pagination);
+  };
 
   onSubmit = () => {};
 }

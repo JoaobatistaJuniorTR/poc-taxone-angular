@@ -834,6 +834,62 @@
         ></t1dw-radio-group>
       </div>
     </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-select
+          id="cod_uf_orig_dest"
+          name="cod_uf_orig_dest"
+          inputLabelText="UF Origem"
+          [items]="brazilianStates"
+          [(ngModel)]="coverData.codUfOrigDest"
+        ></t1dw-select>
+      </div>
+      <div class="form-group" style="flex-grow: 5">
+        <t1dw-autocomplete
+          id="cod_municipio_orig"
+          name="cod_municipio_orig"
+          inputLabelText="Município Origem"
+          model-field="codigo"
+          label-field="label"
+          [(ngModel)]="coverData.codMunicipioOrig"
+          [columns]="defaultColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="defaultHeaderTranslation"
+          [searchCallback]="loadMunicipioOrigem"
+          [disabled]="!coverData.codUfOrigDest"
+        >
+        </t1dw-autocomplete>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-select
+          id="cod_uf_destino"
+          name="cod_uf_destino"
+          inputLabelText="UF Destino"
+          [items]="brazilianStates"
+          [(ngModel)]="coverData.codUfDestino"
+        ></t1dw-select>
+      </div>
+      <div class="form-group" style="flex-grow: 5">
+        <t1dw-autocomplete
+          id="cod_municipio_dest"
+          name="cod_municipio_dest"
+          inputLabelText="Município Destino"
+          model-field="codigo"
+          label-field="label"
+          [(ngModel)]="coverData.codMunicipioDest"
+          [columns]="defaultColumns"
+          [blockSize]="25"
+          [debounceTime]="1000"
+          [headerTranslation]="defaultHeaderTranslation"
+          [searchCallback]="loadMunicipioDestino"
+          [disabled]="!coverData.codUfDestino"
+        >
+        </t1dw-autocomplete>
+      </div>
+    </div>
   </form>
 </div>
 {{ coverData | json }}
