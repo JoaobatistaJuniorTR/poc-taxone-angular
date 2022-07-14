@@ -45,7 +45,6 @@
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.id.dataFiscal"
           [disabled]="true"
-          [required]="true"
         ></t1dw-date-picker>
       </div>
       <div class="form-group">
@@ -888,6 +887,168 @@
           [disabled]="!coverData.codUfDestino"
         >
         </t1dw-autocomplete>
+      </div>
+    </div>
+    <div class="form-row-flex">
+      <div class="form-group">
+        <t1dw-input-text
+          id="comprov_exp"
+          name="comprov_exp"
+          inputLabelText="Compr. Exportação"
+          [(ngModel)]="coverData.comprovExp"
+          [maxlength]="15"
+        ></t1dw-input-text>
+      </div>
+    </div>
+    <div *ngIf="isMerchandiseInvoice() || isMixedInvoice()">
+      <div class="form-row-flex">
+        <h3>Somatória dos Itens de Mercadoria</h3>
+      </div>
+      <hr class="no-margin-t" />
+      <div class="form-row-space-between">
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_total_mercadoria"
+            name="vlr_total_mercadoria"
+            inputLabelText="Valor Total"
+            [(ngModel)]="coverData.totaisMercadoria.vlrTotal"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_base_icms_mercadoria"
+            name="vlr_base_icms_mercadoria"
+            inputLabelText="ICMS Base"
+            [(ngModel)]="coverData.totaisMercadoria.vlrBaseIcms"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_icms_mercadoria"
+            name="vlr_icms_mercadoria"
+            inputLabelText="Valor ICMS"
+            [(ngModel)]="coverData.totaisMercadoria.vlrIcms"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+      </div>
+      <div class="form-row-space-between">
+        <div class="form-group">
+          <t1dw-input-text
+            id="qtd_itens_mercadoria"
+            name="qtd_itens_mercadoria"
+            inputLabelText="Qtde. Itens"
+            [(ngModel)]="coverData.totaisMercadoria.qtdItens"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_base_ipi_mercadoria"
+            name="vlr_base_ipi_mercadoria"
+            inputLabelText="IPI Base"
+            [(ngModel)]="coverData.totaisMercadoria.vlrBaseIpi"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_ipi_mercadoria"
+            name="vlr_ipi_mercadoria"
+            inputLabelText="Valor IPI"
+            [(ngModel)]="coverData.totaisMercadoria.vlrIpi"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isServiceInvoice() || isMixedInvoice()">
+      <div class="form-row-flex">
+        <h3>Somatória dos Itens de Serviço</h3>
+      </div>
+      <hr class="no-margin-t" />
+      <div class="form-row-space-between">
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_total_servico"
+            name="vlr_total_servico"
+            inputLabelText="Valor Total"
+            [(ngModel)]="coverData.totaisServico.vlrTotal"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_base_icms_servico"
+            name="vlr_base_icms_servico"
+            inputLabelText="ICMS Base"
+            [(ngModel)]="coverData.totaisServico.vlrBaseIcms"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="vlr_icms_servico"
+            name="vlr_icms_servico"
+            inputLabelText="Valor ICMS"
+            [(ngModel)]="coverData.totaisServico.vlrIcms"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+        <div class="form-group">
+          <t1dw-input-text
+            id="qtd_itens_servico"
+            name="qtd_itens_servico"
+            inputLabelText="Qtde. Itens"
+            [(ngModel)]="coverData.totaisServico.qtdItens"
+            [formatToNumber]="true"
+            [disabled]="true"
+          ></t1dw-input-text>
+        </div>
+      </div>
+    </div>
+    <div class="form-row-flex">
+      <h3>Histórico de Alterações</h3>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-input-text
+          id="num_processo"
+          name="num_processo"
+          inputLabelText="Nº Processo"
+          [(ngModel)]="coverData.numProcesso"
+          [disabled]="true"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group" style="flex-grow: 5">
+        <t1dw-input-text
+          id="usuario_alteracao"
+          name="usuario_alteracao"
+          inputLabelText="Usuário Alteração"
+          [(ngModel)]="coverData.usuario"
+          [maxlength]="50"
+          [disabled]="true"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-date-picker
+          id="dat_operacao"
+          name="dat_operacao"
+          inputLabelText="Dt. Operação"
+          [(ngModel)]="coverData.datOperacao"
+          [disabled]="true"
+        ></t1dw-date-picker>
       </div>
     </div>
   </form>

@@ -1,10 +1,10 @@
-import { MunicipioService } from './../../services/municipio.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
+import { MunicipioService } from '../../services/municipio.service';
 import { CanalDistribuicaoService } from '../../services/canal-distribuicao.service';
 import { ContaService } from '../../services/conta.service';
 import { RegiaoService } from '../../services/regiao.service';
@@ -762,6 +762,14 @@ export class InvoiceCoverComponent implements OnInit {
 
     const pagination: Pagination = { page, size };
     return this.municipioService.autocomplete(this.coverData.codUfDestino, filter, pagination);
+  };
+
+  isMerchandiseInvoice = (): boolean => {
+    return (
+      [InvoiceClassificationType.MERCHANDISE, InvoiceClassificationType.MERCHANDISE_UNBOOKED].indexOf(
+        this.coverData.codClassDocFis
+      ) !== -1
+    );
   };
 
   onSubmit = () => {};

@@ -38,6 +38,10 @@ export class InputTextComponent implements OnInit, ControlValueAccessor {
 
   @Input('formatToNumber') isFormatToNumber: boolean = false;
 
+  @Input() integerPlaces: number = 13;
+
+  @Input() decimalPlaces: number = 2;
+
   @Input() textAlign: string = 'left';
 
   @Output() blur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
@@ -50,7 +54,8 @@ export class InputTextComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     if (this.isFormatToNumber) {
-      this.inputRegex = /^[0-9]{1,13}|[0-9]{1,13}[.]?[0-9]{1,2}?$/;
+      const numberRegexStr: string = `^[0-9]{1,${this.integerPlaces}}$|^[0-9]{1,${this.integerPlaces}}[[.][0-9]{0,2}]?$`;
+      this.inputRegex = new RegExp(numberRegexStr);
       this.textAlign = 'right';
     } else if (this.pattern) {
       this.inputRegex = new RegExp(this.pattern);
