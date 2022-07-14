@@ -1,0 +1,16 @@
+<label for="{{ id }}" [class]="getClass()" *ngIf="inputLabelText">{{
+  inputLabelText
+}}</label>
+<fieldset>
+  <div [(ngModel)]="model" ngbRadioGroup class="btn-group btn-group-toggle">
+    <label
+      *ngFor="let item of radioItems"
+      for="{{ item.id }}"
+      ngbButtonLabel
+      class="btn btn-outline-primary btn-toggle"
+    >
+      <input [id]="item.id" ngbButton type="radio" [value]="item.value" />
+      {{ item.label }}
+    </label>
+  </div>
+</fieldset>

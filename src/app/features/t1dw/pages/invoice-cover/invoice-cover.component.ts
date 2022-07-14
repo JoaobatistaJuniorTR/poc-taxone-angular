@@ -26,6 +26,7 @@ import { InvoiceClassificationType } from '../../enum/invoice-classification.enu
 import { PrtNumDocfisServService } from '../../services/prt-num-docfis-serv.service';
 import { InscricaoEstadualService } from '../../services/inscricao-estadual.service';
 import { CfopService } from '../../services/cfop.service';
+import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
 
 @Component({
   selector: 't1dw-invoice-cover',
@@ -733,6 +734,12 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '3', label: 'Transporte Próprio por Conta do Remetente' },
     { value: '4', label: 'Transporte Próprio por Conta do Destinatário' },
     { value: '0', label: 'Outros' },
+  ];
+
+  indFaturaRadioItems: RadioItem[] = [
+    { id: 'ind_fat_a_vista', value: '1', label: 'A Vista' },
+    { id: 'ind_fat_a_prazo', value: '2', label: 'A Prazo' },
+    { id: 'ind_fat_sem_pgt', value: '3', label: 'Sem Pagamento' },
   ];
 
   onSubmit = () => {};

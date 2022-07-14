@@ -5,7 +5,7 @@ import { Pagination } from '../model/interface.model';
 import { ServiceBase } from './services-base';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CanalDistribuicaoService extends ServiceBase {
   private readonly API_ENDPOINT;

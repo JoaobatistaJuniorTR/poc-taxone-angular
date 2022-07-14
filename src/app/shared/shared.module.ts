@@ -24,6 +24,8 @@ import { SelectComponent } from './components/select/select.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FlexGridComponent } from './components/flex-grid/flex-grid.component';
 import { InputTextComponent } from './components/input-text/input-text.component';
+import { InputTextAreaComponent } from './components/input-text-area/input-text-area.component';
+import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { InputTextComponent } from './components/input-text/input-text.component
     CheckboxComponent,
     FlexGridComponent,
     InputTextComponent,
+    InputTextAreaComponent,
+    RadioGroupComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +71,8 @@ import { InputTextComponent } from './components/input-text/input-text.component
     CheckboxComponent,
     FlexGridComponent,
     InputTextComponent,
+    InputTextAreaComponent,
+    RadioGroupComponent,
     BentoModule,
     NgbModule,
     BentoD3Module,

@@ -791,6 +791,49 @@
         ></t1dw-input-text>
       </div>
     </div>
+    <div class="form-row-flex">
+      <div class="form-group">
+        <t1dw-input-text
+          id="vlr_desc_condic"
+          name="vlr_desc_condic"
+          inputLabelText="Vlr. Desconto Condic."
+          [(ngModel)]="coverData.vlrDescCondic"
+          [formatToNumber]="true"
+        ></t1dw-input-text>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="vlr_abat_ntributado"
+          name="vlr_abat_ntributado"
+          inputLabelText="Valor abatimento não tributado"
+          [(ngModel)]="coverData.vlrAbatNtributado"
+          [formatToNumber]="true"
+        ></t1dw-input-text>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-input-text-area
+          id="obs_inf_adic_nf"
+          name="obs_inf_adic_nf"
+          inputLabelText="Obs. da Nota Fiscal"
+          [(ngModel)]="coverData.obsInfAdicNf"
+          [maxlength]="250"
+          [rows]="3"
+        ></t1dw-input-text-area>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div class="form-group">
+        <t1dw-radio-group
+          id="ind_fatura"
+          name="ind_fatura"
+          inputLabelText="Tipo de Faturamento"
+          [(ngModel)]="coverData.indFatura"
+          [radioItems]="indFaturaRadioItems"
+        ></t1dw-radio-group>
+      </div>
+    </div>
   </form>
 </div>
 {{ coverData | json }}
