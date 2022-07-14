@@ -3,6 +3,7 @@ import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
+import { ContaService } from '../../services/conta.service';
 import { RegiaoService } from '../../services/regiao.service';
 import { SituacaoTributariaService } from '../../services/situacao-tributaria.service';
 import { NaturezaOperacaoService } from '../../services/natureza-operacao.service';
@@ -307,7 +308,8 @@ export class InvoiceCoverComponent implements OnInit {
     private cfopService: CfopService,
     private naturezaOperacaoService: NaturezaOperacaoService,
     private situacaoTributaria: SituacaoTributariaService,
-    private regiaoService: RegiaoService
+    private regiaoService: RegiaoService,
+    private contaService: ContaService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -332,14 +334,15 @@ export class InvoiceCoverComponent implements OnInit {
       this.coverData = new TmpX07DoctoFiscal(value);
       if (this.coverData.id.codEstab) {
         this.isEstablishmentAlreadyDefined = true;
-        this.preloadModalData();
       }
+      this.preloadModalData();
     });
   }
 
   private preloadModalData = (): void => {
     this.shouldEnableNumDocfisServField();
     this.findFisJur();
+    this.findConta();
   };
 
   loadEstabelecimentos = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {
@@ -432,10 +435,10 @@ export class InvoiceCoverComponent implements OnInit {
 
   pessoaFisJurModalSearch = (gridFilters: GridFilter[], pagination: Pagination): Promise<any> => {
     return this.pessoaService.search(
-      gridFilters,
       this.coverData.id.codEmpresa,
       this.coverData.id.codEstab,
       this.coverData.id.dataFiscal,
+      gridFilters,
       pagination
     );
   };
@@ -648,6 +651,68 @@ export class InvoiceCoverComponent implements OnInit {
 
     const pagination: Pagination = { page, size };
     return this.regiaoService.autocomplete(filter, pagination);
+  };
+
+  contaModalGrid: GridData[] = [
+    {
+      header: 'Indicador',
+      binding: 'indConta',
+    },
+    {
+      header: 'Código',
+      binding: 'codConta',
+    },
+    {
+      header: 'Descrição',
+      binding: 'descricao',
+      width: 300,
+    },
+    {
+      header: 'Conta Reduz.',
+      binding: 'codContaReduz',
+    },
+    {
+      header: 'Ind. Natureza',
+      binding: 'indNatureza',
+    },
+    {
+      header: 'Dt. Validade',
+      binding: 'validadeConta',
+      format: 'dd/MM/yyyy',
+    },
+  ];
+
+  contaModalSearch = (gridFilters: GridFilter[], pagination: Pagination): Promise<any> => {
+    return this.contaService.search(
+      this.coverData.id.codEmpresa,
+      this.coverData.id.codEstab,
+      this.coverData.id.dataFiscal,
+      gridFilters,
+      pagination
+    );
+  };
+
+  contaSelected = (item: any): void => {
+    this.coverData.codConta = item.codConta;
+    this.coverData.dscConta = item.descricao;
+  };
+
+  findConta = (): void => {
+    if (this.coverData.codConta) {
+      this.contaService
+        .findByCodigo(
+          this.coverData.id.codEmpresa,
+          this.coverData.id.codEstab,
+          this.coverData.id.dataFiscal,
+          this.coverData.codConta
+        )
+        .then((conta: any) => {
+          this.coverData.codConta = conta.data.codConta;
+          this.coverData.dscConta = conta.data.descricao;
+        });
+    } else {
+      this.coverData.dscConta = '';
+    }
   };
 
   onSubmit = () => {};

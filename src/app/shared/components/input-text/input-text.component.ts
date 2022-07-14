@@ -75,6 +75,8 @@ export class InputTextComponent implements OnInit, ControlValueAccessor {
   }
 
   onBlur = (event: FocusEvent): void => {
+    this.blur.emit(event);
+
     if (!this.isFormatToNumber) {
       return;
     }
@@ -86,7 +88,6 @@ export class InputTextComponent implements OnInit, ControlValueAccessor {
     if ((value && decimalPlaces <= 2) || value === '0') {
       this.model = Number(value).toFixed(2);
     }
-    this.blur.emit(event);
   };
 
   private countDecimalPlaces = (value: string): number => {

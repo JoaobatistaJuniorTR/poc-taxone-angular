@@ -1,4 +1,6 @@
-<label for="{{ id }}" [class]="getClass()">{{ inputLabelText }}</label>
+<label for="{{ id }}" [class]="getClass()" *ngIf="inputLabelText">{{
+  inputLabelText
+}}</label>
 <input
   *ngIf="required === true"
   [id]="id"

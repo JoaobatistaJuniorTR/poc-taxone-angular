@@ -3,6 +3,6 @@ export default interface GridData {
   binding: string;
   dataType?: string;
   format?: string;
-  width?: string;
+  width?: number;
   align?: string;
 }

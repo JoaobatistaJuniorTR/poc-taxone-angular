@@ -232,7 +232,6 @@
           <t1dw-modal
             title="Pessoa Física / Jurídica"
             size="xl"
-            [startLoading]="true"
             [gridColumnsData]="pessoaFisJurModalGrid"
             [search]="pessoaFisJurModalSearch"
             (closeSelectedItem)="pessoaFisJurSelected($event)"
@@ -718,6 +717,41 @@
           inputLabelText="Vlr. Seguro"
           [(ngModel)]="coverData.vlrSeguro"
           [formatToNumber]="true"
+        ></t1dw-input-text>
+      </div>
+    </div>
+    <div class="form-row-space-between">
+      <div
+        class="form-row-flex"
+        style="flex-direction: column; max-width: 385.5px"
+      >
+        <label for="ind_fis_jur" class="bento-label">Conta</label>
+        <div class="flex-row-compose form-group">
+          <t1dw-modal
+            title="conta"
+            size="xl"
+            [gridColumnsData]="contaModalGrid"
+            [search]="contaModalSearch"
+            (closeSelectedItem)="contaSelected($event)"
+          ></t1dw-modal>
+          <div class="form-group">
+            <t1dw-input-text
+              id="cod_conta"
+              name="cod_conta"
+              [(ngModel)]="coverData.codConta"
+              [disabled]="!coverData.id.codEstab || !coverData.id.dataFiscal"
+              (blur)="findConta()"
+            ></t1dw-input-text>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <t1dw-input-text
+          id="dsc_conta"
+          name="dsc_conta"
+          inputLabelText="&nbsp;"
+          [(ngModel)]="coverData.dscConta"
+          [disabled]="true"
         ></t1dw-input-text>
       </div>
     </div>

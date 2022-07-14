@@ -25,7 +25,7 @@ export class ModalComponent {
 
   @Input() gridColumnsData: GridData[];
 
-  @Input() startLoading: boolean = false;
+  @Input() startLoading: boolean = true;
 
   @Input() disabled: boolean = false;
 

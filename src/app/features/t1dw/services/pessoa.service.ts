@@ -17,10 +17,10 @@ export class PessoaService extends ServiceBase {
   }
 
   public search = (
-    gridFilters: GridFilter[],
     codEmpresa: string,
     codEstab: string,
     dataRef: any,
+    gridFilters: GridFilter[],
     pagination: Pagination
   ): Promise<Pessoa[]> => {
     const httpOptions = {
