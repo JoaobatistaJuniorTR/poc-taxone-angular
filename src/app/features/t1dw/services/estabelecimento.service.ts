@@ -14,7 +14,7 @@ export class EstabelecimentoService {
   autocomplete(codEmpresa: string, pagination: Pagination, search?: string): Promise<any> {
     const httpOptions = {
       params: {
-        filter: search?.toLocaleLowerCase() === 'todos' ? '' : search || '',
+        filter: search?.toLocaleLowerCase() || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
       },

@@ -18,7 +18,17 @@ export class InputTextAreaComponent implements OnInit, ControlValueAccessor {
 
   @Input() name: string;
 
-  @Input('ngModel') model: any;
+  private model$: any;
+
+  @Input('ngModel')
+  get model() {
+    return this.model$;
+  }
+
+  set model(value: any) {
+    this.model$ = value;
+    this.modelChange.emit(value);
+  }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
 
@@ -65,10 +75,6 @@ export class InputTextAreaComponent implements OnInit, ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  onModelChange(value: any) {
-    this.modelChange.emit(value);
   }
 
   onBlur = (event: FocusEvent): void => {

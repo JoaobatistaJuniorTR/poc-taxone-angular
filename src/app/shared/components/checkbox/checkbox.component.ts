@@ -29,6 +29,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   set model(val: string) {
     this.model$ = val;
     this.value = this.model$ === 'S';
+    this.modelChange.emit(this.model$);
   }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
@@ -54,7 +55,6 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   onModelChange(value: any) {
-    this.model$ = value ? 'S' : 'N';
-    this.modelChange.emit(this.model$);
+    this.model = value ? 'S' : 'N';
   }
 }

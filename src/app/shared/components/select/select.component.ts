@@ -21,7 +21,16 @@ export class SelectComponent implements ControlValueAccessor {
 
   @Input() items: SelectModel[] = [];
 
-  @Input('ngModel') model: any;
+  private model$: any;
+
+  @Input('ngModel') get model() {
+    return this.model$;
+  }
+
+  set model(value: any) {
+    this.model$ = value;
+    this.modelChange.emit(value);
+  }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
 
@@ -54,9 +63,5 @@ export class SelectComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  onModelChange(value: any) {
-    this.modelChange.emit(value);
   }
 }

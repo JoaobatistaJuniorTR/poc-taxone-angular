@@ -33,7 +33,16 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input() required: boolean = false;
 
-  @Input('ngModel') model: any;
+  private model$: any;
+
+  @Input('ngModel') get model() {
+    return this.model$;
+  }
+
+  set model(value: any) {
+    this.model$ = value;
+    this.modelChange.emit(this.model);
+  }
 
   @Output('ngModelChange') modelChange = new EventEmitter<any>();
 
@@ -96,6 +105,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any): void {
     this.model = value;
+    this.onChange(value);
     this.preloadDataIfExists();
   }
 
@@ -121,13 +131,11 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   onModelChange = (item: any) => {
     if (item) {
-      this.model = item[this.modelField];
+      this.model$ = item[this.modelField];
     } else {
       this.selectedItem = undefined;
-      this.model = '';
+      this.model$ = '';
     }
-    this.onChange(this.model);
-    this.modelChange.emit(this.model);
   };
 
   searchData = async (event: BentoComboboxSearchEvent) => {
@@ -165,7 +173,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   private shouldPrependAllOption = (unique: boolean, page: number, search: string): Boolean => {
-    return !unique && this.showAllOption && page === 0 && search.toLocaleLowerCase() === 'todos';
+    return !unique && this.showAllOption && page === 0 && !search;
   };
 
   private prependAllOption = (list: any[]): any[] => {

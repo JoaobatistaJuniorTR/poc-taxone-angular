@@ -12,7 +12,6 @@
   class="form-control"
   [disabled]="disabled"
   [required]="required"
-  (ngModelChange)="onModelChange($event)"
 >
   <option *ngFor="let item of items" [value]="item.value">
     {{ item.label }}
@@ -27,7 +26,6 @@
   class="form-control"
   [disabled]="disabled"
   [required]="required"
-  (ngModelChange)="onModelChange($event)"
 >
   <option *ngFor="let item of items" [value]="item.value">
     {{ item.label }}
