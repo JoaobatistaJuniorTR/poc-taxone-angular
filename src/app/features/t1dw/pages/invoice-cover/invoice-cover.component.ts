@@ -726,5 +726,14 @@ export class InvoiceCoverComponent implements OnInit {
     return this.canalDistribuicaoService.autocomplete(filter, pagination);
   };
 
+  indTpFreteItems: SelectModel[] = [
+    { value: '', label: '' },
+    { value: '1', label: 'Frete por Conta Emitente (CIF)' },
+    { value: '2', label: 'Frete por Conta Destinatário (FOB)' },
+    { value: '3', label: 'Transporte Próprio por Conta do Remetente' },
+    { value: '4', label: 'Transporte Próprio por Conta do Destinatário' },
+    { value: '0', label: 'Outros' },
+  ];
+
   onSubmit = () => {};
 }
