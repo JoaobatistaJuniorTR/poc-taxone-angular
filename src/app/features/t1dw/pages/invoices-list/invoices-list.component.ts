@@ -37,7 +37,7 @@ export class InvoicesListComponent implements OnInit {
 
   private selectedItem: any = undefined;
 
-  resetErrors: boolean;
+  resetErrors: boolean = false;
 
   constructor(
     private storage: StorageService,

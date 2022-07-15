@@ -1,18 +1,12 @@
+<t1dw-alert></t1dw-alert>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <h3>Informações Gerais</h3>
     </div>
   </div>
-  {{ params | json }}
   <hr class="no-margin-t" />
-  <form
-    bfmForm
-    (ngSubmit)="onSubmit()"
-    [resetErrors]="resetErrors"
-    #f="ngForm"
-    [validations]="validations"
-  >
+  <form bfmForm #f="ngForm" [validations]="validations">
     <div class="form-row-space-between">
       <div class="form-group" style="width: 100%">
         <t1dw-autocomplete
@@ -28,7 +22,7 @@
           [headerTranslation]="estabHeaderTranslation"
           [searchCallback]="loadEstabelecimentos"
           [disabled]="
-            params.operation !== 'new' || isEstablishmentAlreadyDefined
+            stateParams.operation !== 'new' || isEstablishmentAlreadyDefined
           "
           [required]="true"
         >
@@ -55,7 +49,7 @@
           inputLabelText="Data de Emissão"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.dataEmissao"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
           [required]="true"
         ></t1dw-date-picker>
       </div>
@@ -67,7 +61,7 @@
           [(ngModel)]="coverData.horaEmissao"
           [min]="0"
           [max]="24"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
           [required]="false"
         ></t1dw-input-number>
       </div>
@@ -81,7 +75,7 @@
           [required]="true"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.dataSaidaRec"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
           (ngModelChange)="onChangeDataFiscal()"
         ></t1dw-date-picker>
       </div>
@@ -94,7 +88,7 @@
           [(ngModel)]="coverData.horaSaidaRec"
           [min]="0"
           [max]="24"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
           [required]="false"
         ></t1dw-input-number>
       </div>
@@ -105,7 +99,7 @@
           inputLabelText="Dt. Extemp"
           buttonLabel="Abrir calendário"
           [(ngModel)]="coverData.datEscrExtemp"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
           [required]="false"
         ></t1dw-date-picker>
       </div>
@@ -119,7 +113,7 @@
           [items]="movtoESItems"
           [(ngModel)]="coverData.id.movtoES"
           [required]="true"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
         ></t1dw-select>
       </div>
       <div class="form-group">
@@ -130,7 +124,7 @@
           [required]="true"
           [items]="normDevItems"
           [(ngModel)]="coverData.id.normDev"
-          [disabled]="params.operation !== 'new'"
+          [disabled]="stateParams.operation !== 'new'"
         ></t1dw-select>
       </div>
       <div class="form-group">
@@ -156,7 +150,7 @@
             width="150px"
             [maxlength]="12"
             [required]="true"
-            [disabled]="params.operation !== 'new'"
+            [disabled]="stateParams.operation !== 'new'"
           >
           </t1dw-input-text>
         </div>
@@ -169,7 +163,7 @@
             [(ngModel)]="coverData.id.serieDocfis"
             width="100px"
             [maxlength]="3"
-            [disabled]="params.operation !== 'new'"
+            [disabled]="stateParams.operation !== 'new'"
           >
           </t1dw-input-text>
         </div>
@@ -181,7 +175,7 @@
             [(ngModel)]="coverData.id.subSerieDocfis"
             width="100px"
             [maxlength]="2"
-            [disabled]="params.operation !== 'new'"
+            [disabled]="stateParams.operation !== 'new'"
           >
           </t1dw-input-text>
         </div>
@@ -201,7 +195,7 @@
           [headerTranslation]="defaultHeaderTranslation"
           [searchCallback]="loadTipoDocumento"
           [disabled]="
-            params.operation !== 'new' ||
+            stateParams.operation !== 'new' ||
             !coverData.id.codEstab ||
             !coverData.id.dataFiscal
           "
@@ -235,7 +229,7 @@
             [search]="pessoaFisJurModalSearch"
             (closeSelectedItem)="pessoaFisJurSelected($event)"
             [disabled]="
-              params.operation !== 'new' ||
+              stateParams.operation !== 'new' ||
               !coverData.id.codEstab ||
               !coverData.id.dataFiscal
             "
@@ -250,7 +244,7 @@
               [items]="naturalLegalIndicators"
               [(ngModel)]="coverData.id.indFisJur"
               [disabled]="
-                params.operation !== 'new' ||
+                stateParams.operation !== 'new' ||
                 !coverData.id.codEstab ||
                 !coverData.id.dataFiscal
               "
@@ -273,7 +267,7 @@
           [maxlength]="14"
           (blur)="findFisJur()"
           [disabled]="
-            params.operation !== 'new' ||
+            stateParams.operation !== 'new' ||
             !coverData.id.codEstab ||
             !coverData.id.dataFiscal
           "
@@ -357,7 +351,7 @@
           inputLabelText="Clas. Doc. Fiscal"
           [items]="codClassDocFisItems"
           [(ngModel)]="coverData.codClassDocFis"
-          [disabled]="params.operation != 'new'"
+          [disabled]="stateParams.operation != 'new'"
           [required]="true"
           (ngModelChange)="onChangeCodClassDocFis()"
         ></t1dw-select>
@@ -1051,13 +1045,13 @@
     <bento-sticky-footer>
       <div style="width: 100%; text-align: right">
         <input
-          bento-fm-submit
           class="btn btn-default"
-          type="submit"
+          type="button"
           value="Salvar"
+          [disabled]="f.invalid"
+          (click)="saveInvoice()"
         />
       </div>
     </bento-sticky-footer>
   </form>
 </div>
-{{ coverData | json }}

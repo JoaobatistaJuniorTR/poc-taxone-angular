@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
+import { AlertService } from '../../../../shared/components/alert/alert.service';
 import { MunicipioService } from '../../services/municipio.service';
 import { CanalDistribuicaoService } from '../../services/canal-distribuicao.service';
 import { ContaService } from '../../services/conta.service';
@@ -35,9 +36,7 @@ import { CfopService } from '../../services/cfop.service';
   styleUrls: ['./invoice-cover.component.sass'],
 })
 export class InvoiceCoverComponent implements OnInit {
-  params: StateParams;
-
-  resetErrors: boolean;
+  stateParams: StateParams;
 
   coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
 
@@ -63,7 +62,8 @@ export class InvoiceCoverComponent implements OnInit {
     private regiaoService: RegiaoService,
     private contaService: ContaService,
     private canalDistribuicaoService: CanalDistribuicaoService,
-    private municipioService: MunicipioService
+    private municipioService: MunicipioService,
+    private alertService: AlertService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -72,11 +72,11 @@ export class InvoiceCoverComponent implements OnInit {
   @ViewChild('f') private form: NgForm;
 
   ngOnInit(): void {
-    this.params = this.storageService.getObject('stateParams');
+    this.stateParams = this.storageService.getObject('stateParams');
     const moduleData: any = this.storage.getObject('moduleData');
     this.coverData.id.codEmpresa = moduleData.company.id;
-    if (this.params.invoiceId) {
-      this.findInvoiceById(this.params.invoiceId);
+    if (this.stateParams.invoiceId) {
+      this.findInvoiceById(this.stateParams.invoiceId);
     }
   }
 
@@ -501,7 +501,7 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   private clearAllFieldsRelatedToKey = (): void => {
-    if (this.params.operation === 'new') {
+    if (this.stateParams.operation === 'new') {
       this.coverData.id.indFisJur = undefined;
       this.coverData.id.codFisJur = undefined;
       this.coverData.razaoSocialFisJur = undefined;
@@ -773,11 +773,11 @@ export class InvoiceCoverComponent implements OnInit {
     );
   };
 
-  onSubmit = () => {
-    if (this.form.invalid) {
-      console.log(this.form);
-    } else {
-      console.log(this.form);
-    }
+  saveInvoice = () => {
+    this.invoiceService.updateInvoice(this.stateParams.invoiceId, this.coverData).then((invoice: TmpX07DoctoFiscal) => {
+      this.stateParams.invoiceId = invoice.idDoctoFiscal;
+      this.storage.setObject('stateParams', this.stateParams);
+      this.alertService.success('Nota criada com sucesso!');
+    });
   };
 }
