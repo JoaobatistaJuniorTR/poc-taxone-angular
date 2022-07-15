@@ -69,6 +69,8 @@ export class InvoiceCoverComponent implements OnInit {
     this.coverData.id = new TmpX07DoctoFiscalId();
   }
 
+  @ViewChild('f') private form: NgForm;
+
   ngOnInit(): void {
     this.params = this.storageService.getObject('stateParams');
     const moduleData: any = this.storage.getObject('moduleData');
@@ -321,8 +323,6 @@ export class InvoiceCoverComponent implements OnInit {
     { value: '2C', label: 'Cupom Fiscal PDV' },
     { value: '2D', label: 'Cupom Fiscal ECF' },
   ];
-
-  @ViewChild('f') private form: NgForm;
 
   validations = {
     required: '{0} é obrigatório',
@@ -713,8 +713,8 @@ export class InvoiceCoverComponent implements OnInit {
           this.coverData.codConta
         )
         .then((conta: any) => {
-          this.coverData.codConta = conta.data.codConta;
-          this.coverData.dscConta = conta.data.descricao;
+          this.coverData.codConta = conta.codConta;
+          this.coverData.dscConta = conta.descricao;
         });
     } else {
       this.coverData.dscConta = '';
@@ -773,5 +773,11 @@ export class InvoiceCoverComponent implements OnInit {
     );
   };
 
-  onSubmit = () => {};
+  onSubmit = () => {
+    if (this.form.invalid) {
+      console.log(this.form);
+    } else {
+      console.log(this.form);
+    }
+  };
 }

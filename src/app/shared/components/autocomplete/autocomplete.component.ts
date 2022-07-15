@@ -131,10 +131,10 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   onModelChange = (item: any) => {
     if (item) {
-      this.model$ = item[this.modelField];
+      this.model = item[this.modelField];
     } else {
       this.selectedItem = undefined;
-      this.model$ = '';
+      this.model = '';
     }
   };
 

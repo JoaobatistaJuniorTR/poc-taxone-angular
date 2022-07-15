@@ -18,7 +18,7 @@ export class ModeloDocumentoService extends ServiceBase {
   public autocomplete = (
     codEmpresa: string,
     codEstab: string,
-    dataRef: any,
+    dataRef: Date,
     search: string,
     pagination: Pagination
   ): Promise<ModeloDocumento[]> => {
@@ -27,8 +27,8 @@ export class ModeloDocumentoService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: this.buildJsonDate(dataRef),
-        filter: search?.toLocaleLowerCase() === 'todos' ? '' : search || '',
+        dataRef: dataRef.toJSON(),
+        filter: search || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
       },

@@ -1,12 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioItem } from './radio-group.model';
 
 @Component({
   selector: 't1dw-radio-group',
   templateUrl: './radio-group.component.html',
   styleUrls: ['./radio-group.component.sass'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RadioGroupComponent),
+      multi: true,
+    },
+  ],
 })
-export class RadioGroupComponent {
+export class RadioGroupComponent implements ControlValueAccessor {
   @Input() id: string;
 
   @Input() name: string;
@@ -30,6 +38,22 @@ export class RadioGroupComponent {
   @Input() radioItems: RadioItem[] = [];
 
   @Input() required: boolean;
+
+  onTouched: Function;
+
+  onChange: Function = () => {};
+
+  writeValue(value: any): void {
+    this.model = value;
+    this.onChange(value);
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
 
   getClass = (): string => {
     if (this.required && this.inputLabelText !== '\u00A0') {
