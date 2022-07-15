@@ -36,6 +36,8 @@ import { CfopService } from '../../services/cfop.service';
   styleUrls: ['./invoice-cover.component.sass'],
 })
 export class InvoiceCoverComponent implements OnInit {
+  isBusyLoaderBusy: boolean = false;
+
   stateParams: StateParams;
 
   coverData: TmpX07DoctoFiscal = new TmpX07DoctoFiscal();
@@ -774,10 +776,16 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   saveInvoice = () => {
-    this.invoiceService.updateInvoice(this.stateParams.invoiceId, this.coverData).then((invoice: TmpX07DoctoFiscal) => {
-      this.stateParams.invoiceId = invoice.idDoctoFiscal;
-      this.storage.setObject('stateParams', this.stateParams);
-      this.alertService.success('Nota criada com sucesso!');
-    });
+    this.isBusyLoaderBusy = true;
+    this.invoiceService
+      .updateInvoice(this.stateParams.invoiceId, this.coverData)
+      .then((invoice: TmpX07DoctoFiscal) => {
+        this.stateParams.invoiceId = invoice.idDoctoFiscal;
+        this.storage.setObject('stateParams', this.stateParams);
+        this.alertService.success('Nota criada com sucesso!');
+      })
+      .finally(() => {
+        this.isBusyLoaderBusy = false;
+      });
   };
 }

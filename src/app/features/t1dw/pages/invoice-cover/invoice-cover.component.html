@@ -1043,14 +1043,15 @@
       </div>
     </div>
     <bento-sticky-footer>
-      <div style="width: 100%; text-align: right">
-        <input
-          class="btn btn-default"
-          type="button"
-          value="Salvar"
+      <div style="width: 100%; text-align: right; padding-bottom: 5px">
+        <button
+          class="btn btn-default button-width-150"
           [disabled]="f.invalid"
           (click)="saveInvoice()"
-        />
+          [bentoBusyLoader]="isBusyLoaderBusy"
+        >
+          Salvar
+        </button>
       </div>
     </bento-sticky-footer>
   </form>
