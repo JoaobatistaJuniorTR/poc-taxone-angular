@@ -348,6 +348,7 @@ export class InvoiceCoverComponent implements OnInit {
     this.shouldEnableNumDocfisServField();
     this.findFisJur();
     this.findConta();
+    this.onChangeCodClassDocFis();
   };
 
   loadEstabelecimentos = (page: number, size: number, filter: string, unique: boolean): Promise<any> => {

@@ -221,6 +221,10 @@ export class InvoicesListComponent implements OnInit {
     const dateFim = new Date(this.formFilters.dataSaidaRecFim);
     dateFim.setHours(23, 59, 59);
 
+    if (!this.validade(dateIni, dateFim)) {
+      return;
+    }
+
     if (dateIni.getTime() > dateFim.getTime()) {
       this.alertService.warn('A data inicial não pode ser maior que a data final!', {
         type: EnumAlert.ERROR,
@@ -229,6 +233,27 @@ export class InvoicesListComponent implements OnInit {
       this.gridFilters = this.buildBasicFilters();
     }
   }
+
+  private validade = (dateIni: Date, dateFim: Date): boolean => {
+    if (dateIni.getTime() > dateFim.getTime()) {
+      this.alertService.warn('A data inicial não pode ser maior que a data final!');
+      return false;
+    }
+
+    if (this.formFilters.codEstab === 'Todos' && this.numDaysBetween(dateIni, dateFim) >= 32) {
+      this.alertService.warn(
+        'Caso Todos os Estabelecimentos estejam selecionados, o período máximo para a busca é limitado a 31 dias.'
+      );
+      return false;
+    }
+
+    return true;
+  };
+
+  private numDaysBetween = (d1: Date, d2: Date): Number => {
+    const diff = Math.abs(d1.getTime() - d2.getTime());
+    return diff / (1000 * 60 * 60 * 24);
+  };
 
   private buildBasicFilters(): GridFilter[] {
     const gridFilters: GridFilter[] = [];
