@@ -1,3 +1,4 @@
+import { LonestarService } from './../../../../core/services/lonestar.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
@@ -65,7 +66,8 @@ export class InvoiceCoverComponent implements OnInit {
     private contaService: ContaService,
     private canalDistribuicaoService: CanalDistribuicaoService,
     private municipioService: MunicipioService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private lonestarService: LonestarService
   ) {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
@@ -77,8 +79,12 @@ export class InvoiceCoverComponent implements OnInit {
     this.stateParams = this.storageService.getObject('stateParams');
     const moduleData: any = this.storage.getObject('moduleData');
     this.coverData.id.codEmpresa = moduleData.company.id;
-    if (this.stateParams.invoiceId) {
+    if (this.stateParams.operation === 'new') {
+      this.prepareNewInvoice();
+    } else if (this.stateParams.operation === 'edit') {
       this.findInvoiceById(this.stateParams.invoiceId);
+    } else {
+      throw new Error(`Invalid value: ${this.stateParams.operation}`);
     }
   }
 
@@ -336,6 +342,28 @@ export class InvoiceCoverComponent implements OnInit {
     return false;
   }
 
+  private prepareNewInvoice = (): void => {
+    const moduleData: any = this.storage.getObject('moduleData');
+    const codEmpresa: string = moduleData.company.id;
+    const { codEstab } = moduleData.branch;
+    const username: string = 'TESTE';
+
+    if (codEstab) {
+      this.isEstablishmentAlreadyDefined = true;
+    }
+
+    setTimeout(() => {
+      this.coverData = new TmpX07DoctoFiscal({
+        id: new TmpX07DoctoFiscalId({
+          codEmpresa,
+          codEstab,
+          username,
+          dataFiscal: new Date(),
+        }),
+      });
+    }, 100);
+  };
+
   private findInvoiceById(invoiceId: string) {
     this.invoiceService.getInvoiceById(invoiceId).then((value: any) => {
       this.coverData = new TmpX07DoctoFiscal(value);
@@ -464,28 +492,24 @@ export class InvoiceCoverComponent implements OnInit {
     this.validateDataFiscalBasedOnFields();
   };
 
-  private validateDataFiscalBasedOnFields = (): void => {
-    const oldDate = this.coverData.id.dataFiscal;
-    let waitToClear = false;
-
+  private async validateDataFiscalBasedOnFields() {
+    const oldDate: any = this.coverData.id.dataFiscal;
     if (this.coverData.id.movtoES === '9') {
       if (this.coverData.datEscrExtemp > this.coverData.dataEmissao) {
         this.coverData.id.dataFiscal = this.coverData.datEscrExtemp;
       } else if (['1', '3', '7'].indexOf(this.coverData.codClassDocFis) > -1) {
-        waitToClear = true;
-        this.prtDataFiscalService
-          .isActive(this.coverData.id.codEmpresa, this.coverData.id.codEstab)
-          .then((result: boolean) => {
-            if (result) {
-              this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
-            } else {
-              this.coverData.id.dataFiscal = this.coverData.dataEmissao;
-            }
-
-            if (this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
-              this.clearAllFieldsRelatedToKey();
-            }
-          });
+        const isActive: boolean = await this.prtDataFiscalService.isActive(
+          this.coverData.id.codEmpresa,
+          this.coverData.id.codEstab
+        );
+        if (isActive) {
+          this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
+        } else {
+          this.coverData.id.dataFiscal = this.coverData.dataEmissao;
+        }
+        if (this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
+          this.clearAllFieldsRelatedToKey();
+        }
       } else {
         this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
       }
@@ -493,13 +517,13 @@ export class InvoiceCoverComponent implements OnInit {
       this.coverData.id.dataFiscal = this.coverData.dataSaidaRec;
     }
 
-    if (!waitToClear && this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
+    if (this.shouldClearFields(oldDate, this.coverData.id.dataFiscal)) {
       this.clearAllFieldsRelatedToKey();
     }
-  };
+  }
 
-  private shouldClearFields = (oldDate: Date, newDate: Date): Boolean => {
-    return oldDate && oldDate.getTime() !== newDate.getTime();
+  private shouldClearFields = (oldDate: any, newDate: any): Boolean => {
+    return oldDate && new Date(oldDate).getTime() !== new Date(newDate).getTime();
   };
 
   private clearAllFieldsRelatedToKey = (): void => {
@@ -776,16 +800,42 @@ export class InvoiceCoverComponent implements OnInit {
   };
 
   saveInvoice = () => {
-    this.isBusyLoaderBusy = true;
-    this.invoiceService
-      .updateInvoice(this.stateParams.invoiceId, this.coverData)
-      .then((invoice: TmpX07DoctoFiscal) => {
-        this.stateParams.invoiceId = invoice.idDoctoFiscal;
-        this.storage.setObject('stateParams', this.stateParams);
-        this.alertService.success('Nota criada com sucesso!');
-      })
-      .finally(() => {
-        this.isBusyLoaderBusy = false;
-      });
+    if (this.stateParams.operation === 'new') {
+      this.isBusyLoaderBusy = true;
+      this.prepareNewInvoiceToBeSaved();
+      this.invoiceService
+        .saveInvoice(this.coverData)
+        .then((invoice: TmpX07DoctoFiscal) => {
+          this.stateParams.invoiceId = invoice.idDoctoFiscal;
+          this.storage.setObject('stateParams', this.stateParams);
+          this.alertService.success('Nota criada com sucesso!');
+        })
+        .finally(() => {
+          this.isBusyLoaderBusy = false;
+        });
+    } else {
+      this.isBusyLoaderBusy = true;
+      this.invoiceService
+        .updateInvoice(this.stateParams.invoiceId, this.coverData)
+        .then((invoice: TmpX07DoctoFiscal) => {
+          this.stateParams.invoiceId = invoice.idDoctoFiscal;
+          this.storage.setObject('stateParams', this.stateParams);
+          this.alertService.success('Nota criada com sucesso!');
+        })
+        .finally(() => {
+          this.isBusyLoaderBusy = false;
+        });
+    }
   };
+
+  private prepareNewInvoiceToBeSaved = () => {
+    this.coverData.idDoctoFiscal = this.coverData.id.numDocfis.concat(
+      '.',
+      this.coverData.id.serieDocfis,
+      '.',
+      this.coverData.id.subSerieDocfis,
+      this.lonestarService.getLonestarUserName()
+    );
+  }
+
 }

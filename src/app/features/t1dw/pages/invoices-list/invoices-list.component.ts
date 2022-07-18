@@ -85,7 +85,9 @@ export class InvoicesListComponent implements OnInit {
     {
       label: 'Adicionar',
       icon: 'bento-icon-add',
-      action: () => {},
+      action: () => {
+        this.addInvoice();
+      },
     },
     {
       label: 'Editar',
@@ -329,7 +331,6 @@ export class InvoicesListComponent implements OnInit {
           invoiceId: data.idDocto,
         };
         this.storageService.setObject('stateParams', stateParams);
-        console.log(this.route);
         this.router.navigate(['invoice'], { relativeTo: this.route });
       })
       .catch((error: any) => {
@@ -338,4 +339,13 @@ export class InvoicesListComponent implements OnInit {
         this.alertService.error(`Erro ao abrir a nota fiscal selecionada: ${errorMessage}`);
       });
   }
+
+  addInvoice = (): void => {
+    const stateParams: StateParams = {
+      operation: 'new',
+      invoiceId: '',
+    };
+    this.storageService.setObject('stateParams', stateParams);
+    this.router.navigate(['invoice'], { relativeTo: this.route });
+  };
 }
