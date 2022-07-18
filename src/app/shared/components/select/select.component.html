@@ -10,14 +10,15 @@
       bentoSelect
       bfmField
       [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
-      class="form-control"
+      class="input-control"
       [disabled]="disabled"
       [required]="required"
+      [errorContainer]="errorContainer"
     >
       <option *ngFor="let item of items" [value]="item.value">
         {{ item.label }}
       </option>
     </select>
   </div>
-  <div>mensagem de erro</div>
+  <bfm-error-container #errorContainer></bfm-error-container>
 </div>
