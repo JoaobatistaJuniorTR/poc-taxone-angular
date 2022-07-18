@@ -1,10 +1,10 @@
-import { LonestarService } from './../../../../core/services/lonestar.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
+import { LonestarService } from '../../../../core/services/lonestar.service';
 import { AlertService } from '../../../../shared/components/alert/alert.service';
 import { MunicipioService } from '../../services/municipio.service';
 import { CanalDistribuicaoService } from '../../services/canal-distribuicao.service';
@@ -836,6 +836,5 @@ export class InvoiceCoverComponent implements OnInit {
       this.coverData.id.subSerieDocfis,
       this.lonestarService.getLonestarUserName()
     );
-  }
-
+  };
 }
