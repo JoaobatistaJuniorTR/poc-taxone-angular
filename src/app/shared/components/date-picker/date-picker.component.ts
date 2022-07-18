@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatepickerConfig } from '@bento/bento-ng';
@@ -21,7 +20,7 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   private previousModel: any = undefined;
 
-  dateStructure: NgbDateStruct;
+  dateStructure: any;
 
   @Input() id: string;
 
@@ -90,17 +89,6 @@ export class DatePickerComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onModelChange = (value: any) => {
-    if (value !== this.previousDataStructure) {
-      this.previousDataStructure = { ...value };
-      if (value && value.year > 999) {
-        this.model = this.format(value);
-      } else {
-        this.model = undefined;
-      }
-    }
-  };
-
   private format = (value: NgbDateStruct): string => {
     const tokens: string[] = [];
     if (value.year) {
@@ -130,5 +118,14 @@ export class DatePickerComponent implements ControlValueAccessor {
     }
     date = new Date();
     return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
+  };
+
+  onBlur = (): void => {
+    if (this.dateStructure && this.dateStructure.year > 999) {
+      this.model = this.format(this.dateStructure);
+    } else {
+      this.model = '';
+      this.dateStructure = null;
+    }
   };
 }

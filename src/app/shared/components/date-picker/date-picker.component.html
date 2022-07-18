@@ -8,7 +8,6 @@
       [firstDayOfWeek]="7"
       ngbDatepicker
       [(ngModel)]="dateStructure"
-      (ngModelChange)="onModelChange($event)"
       [bentoDatepickerConfig]="dateConfig"
       #datePicker="ngbDatepicker"
       (click)="onTouched(); datePickerButton.click()"
@@ -16,6 +15,7 @@
       [disabled]="disabled"
       [required]="required"
       [placeholder]="placeholder"
+      (blur)="onBlur()"
     />
     <button
       #datePickerButton
