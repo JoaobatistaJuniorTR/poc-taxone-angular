@@ -1,9 +1,11 @@
 <div class="data-picker-container">
-  <label for="{{ id }}" [class]="getClass()">{{ inputLabelText }}</label>
+  <div *ngIf="inputLabelText">
+    <label for="{{ id }}" [class]="getClass()">{{ inputLabelText }}</label>
+  </div>
   <div class="bento-datepicker" style="display: flex; flex-wrap: nowrap">
     <input
       [id]="id"
-      [name]="name ? name : id"
+      [name]="name"
       class="form-control bento-datepicker data-picker-input"
       [firstDayOfWeek]="7"
       ngbDatepicker
@@ -15,6 +17,7 @@
       [disabled]="disabled"
       [required]="required"
       [placeholder]="placeholder"
+      (ngModelChange)="onModelChange($event)"
       (blur)="onBlur()"
     />
     <button

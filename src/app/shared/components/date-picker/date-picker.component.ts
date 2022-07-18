@@ -52,7 +52,7 @@ export class DatePickerComponent implements ControlValueAccessor {
       if (value) {
         this.dateStructure = this.parse(value);
       } else {
-        this.dateStructure = { year: 0, month: 0, day: 0 };
+        this.dateStructure = undefined;
       }
       this.modelChange.emit(this.localModel);
     }
@@ -120,11 +120,20 @@ export class DatePickerComponent implements ControlValueAccessor {
     return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
   };
 
+  onModelChange = (value: any) => {
+    if (value !== this.previousDataStructure) {
+      this.previousDataStructure = { ...value };
+      if (value && value.year > 999) {
+        this.model = this.format(value);
+      }
+    }
+  };
+
   onBlur = (): void => {
     if (this.dateStructure && this.dateStructure.year > 999) {
       this.model = this.format(this.dateStructure);
     } else {
-      this.model = '';
+      this.model = undefined;
       this.dateStructure = null;
     }
   };

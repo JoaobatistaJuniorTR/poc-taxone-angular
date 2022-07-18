@@ -1,33 +1,23 @@
-<label *ngIf="inputLabelText" for="{{ id }}" [class]="getClass()">{{
-  inputLabelText
-}}</label>
-<select
-  *ngIf="required === true"
-  [id]="id"
-  [name]="name ? name : id"
-  [(ngModel)]="model"
-  bentoSelect
-  bfmField
-  [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
-  class="form-control"
-  [disabled]="disabled"
-  [required]="required"
->
-  <option *ngFor="let item of items" [value]="item.value">
-    {{ item.label }}
-  </option>
-</select>
-<select
-  *ngIf="required === false"
-  [id]="id"
-  [name]="name ? name : id"
-  [(ngModel)]="model"
-  bentoSelect
-  class="form-control"
-  [disabled]="disabled"
-  [required]="required"
->
-  <option *ngFor="let item of items" [value]="item.value">
-    {{ item.label }}
-  </option>
-</select>
+<div class="select-container">
+  <div *ngIf="inputLabelText">
+    <label for="{{ id }}" [class]="getClass()">{{ inputLabelText }}</label>
+  </div>
+  <div>
+    <select
+      [id]="id"
+      [name]="name ? name : id"
+      [(ngModel)]="model"
+      bentoSelect
+      bfmField
+      [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
+      class="form-control"
+      [disabled]="disabled"
+      [required]="required"
+    >
+      <option *ngFor="let item of items" [value]="item.value">
+        {{ item.label }}
+      </option>
+    </select>
+  </div>
+  <div>mensagem de erro</div>
+</div>

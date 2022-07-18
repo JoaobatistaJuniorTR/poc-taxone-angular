@@ -2,25 +2,10 @@
   inputLabelText
 }}</label>
 <input
-  *ngIf="required === true"
   [id]="id"
   [name]="name ? name : id"
   bfmField
   [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
-  class="form-control"
-  type="text"
-  [(ngModel)]="model"
-  [maxlength]="maxLength"
-  [disabled]="disabled"
-  [required]="required"
-  [style]="getStyle()"
-  (blur)="onBlur($event)"
-  (keypress)="onKeypress($event)"
-/>
-<input
-  *ngIf="required === false"
-  [id]="id"
-  [name]="name ? name : id"
   class="form-control"
   type="text"
   [(ngModel)]="model"
