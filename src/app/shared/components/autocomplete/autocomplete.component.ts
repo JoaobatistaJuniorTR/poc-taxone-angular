@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BentoComboboxColumn, BentoComboboxOptions, BentoComboboxSearchEvent } from '@bento/bento-ng';
 import { BehaviorSubject } from 'rxjs';
@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs';
     },
   ],
 })
-export class AutocompleteComponent implements OnInit, ControlValueAccessor {
+export class AutocompleteComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   isBusyLoader = false;
 
   comboboxOptions: BentoComboboxOptions;
@@ -72,7 +72,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Output() endOfScroll: EventEmitter<any>;
 
-  constructor() {
+  constructor(private elementRef: ElementRef) {
     this.itemsObservable = new BehaviorSubject<any>([]);
   }
 
@@ -94,6 +94,16 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
       },
     };
     this.preloadDataIfExists();
+  }
+
+  ngAfterViewInit(): void {
+    const inputElement = this.elementRef.nativeElement.querySelector('[id$="-input"]');
+    inputElement.addEventListener('blur', (event: FocusEvent) => {
+      const target = event.target as HTMLInputElement;
+      if (!target.value) {
+        this.selectedItem = undefined;
+      }
+    });
   }
 
   getClass = (): string => {
