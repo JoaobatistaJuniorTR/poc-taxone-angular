@@ -27,10 +27,10 @@ export class CfopService extends ServiceBase {
     return this.http.get<any[]>(`${this.API_ENDPOINT}/suggestions`, httpOptions).toPromise();
   }
 
-  public findByCodigo(codigo: string, dataRef: Date): Promise<any> {
+  public findByCodigo(codigo: string, dataRef: any): Promise<any> {
     const httpOptions = {
       params: {
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
       },
     };
 

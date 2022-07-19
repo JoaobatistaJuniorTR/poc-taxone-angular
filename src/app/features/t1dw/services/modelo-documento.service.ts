@@ -9,10 +9,11 @@ import { ServiceBase } from './services-base';
   providedIn: 'root',
 })
 export class ModeloDocumentoService extends ServiceBase {
-  private readonly API_ENDPOINT = `${environment.contextT1dw}/modelosDocumento`;
+  private readonly API_ENDPOINT;
 
   constructor(private http: HttpClient) {
     super();
+    this.API_ENDPOINT = `${environment.contextT1dw}/modelosDocumento`;
   }
 
   public autocomplete = (

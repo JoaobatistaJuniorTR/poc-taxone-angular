@@ -11,7 +11,6 @@
       [gridColumnsData]="gridColumnsData"
       [startLoading]="startLoading"
       [search]="search"
-      [doubleClick]="onDoubleClick"
       (selectedItem)="onSelectedItem($event)"
     ></t1dw-flex-grid>
   </div>
@@ -24,7 +23,7 @@
       Selecionar
     </button>
     <button
-      [disabled]="!selectedItem"
+      [disabled]="isButtonDisabled"
       type="button"
       class="btn btn-outline-primary"
       (click)="c('Close click')"

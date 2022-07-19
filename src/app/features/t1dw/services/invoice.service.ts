@@ -10,11 +10,12 @@ import { ServiceBase } from './services-base';
   providedIn: 'root',
 })
 export class InvoiceService extends ServiceBase {
-  private readonly API_ENDPOINT = 'invoice';
+  private readonly API_ENDPOINT: string;
 
   private httpOptions: any;
   constructor(private http: HttpClient) {
     super();
+    this.API_ENDPOINT = `${environment.contextT1dw}/invoice`;
     this.httpOptions = {
       withCredentials: true,
       showBusyLoader: true,
@@ -26,31 +27,21 @@ export class InvoiceService extends ServiceBase {
   searchInvoices(filters: GridFilter[], pagination: Pagination): Promise<any> {
     this.httpOptions.params.page = pagination.page.toString();
     this.httpOptions.params.size = pagination.size.toString();
-    return this.http
-      .post<any>(`${environment.contextT1dw}/${this.API_ENDPOINT}/search`, filters, this.httpOptions)
-      .toPromise();
+    return this.http.post<any>(`${this.API_ENDPOINT}/search`, filters, this.httpOptions).toPromise();
   }
 
   getInvoiceById(invoiceId: string): Promise<any> {
     this.httpOptions.params = {};
-    return this.http
-      .get<TmpX07DoctoFiscal>(`${environment.contextT1dw}/${this.API_ENDPOINT}/${invoiceId}`, this.httpOptions)
-      .toPromise();
+    return this.http.get<TmpX07DoctoFiscal>(`${this.API_ENDPOINT}/${invoiceId}`, this.httpOptions).toPromise();
   }
 
   saveInvoice(invoice: TmpX07DoctoFiscal): Promise<any> {
-    return this.http
-      .post<any>(`${environment.contextT1dw}/${this.API_ENDPOINT}/save/`, invoice, this.httpOptions)
-      .toPromise();
+    return this.http.post<any>(`${this.API_ENDPOINT}/save/`, invoice, this.httpOptions).toPromise();
   }
 
   updateInvoice(invoiceId: string, invoice: TmpX07DoctoFiscal): Promise<any> {
     return this.http
-      .post<TmpX07DoctoFiscal>(
-        `${environment.contextT1dw}/${this.API_ENDPOINT}/update/${invoiceId}/`,
-        invoice,
-        this.httpOptions
-      )
+      .post<TmpX07DoctoFiscal>(`${this.API_ENDPOINT}/update/${invoiceId}/`, invoice, this.httpOptions)
       .toPromise();
   }
 }

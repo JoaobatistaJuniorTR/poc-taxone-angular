@@ -10,10 +10,11 @@ import { ServiceBase } from './services-base';
   providedIn: 'root',
 })
 export class PessoaService extends ServiceBase {
-  private readonly API_ENDPOINT = `${environment.contextT1dw}/pessoas`;
+  private readonly API_ENDPOINT;
 
   constructor(private http: HttpClient) {
     super();
+    this.API_ENDPOINT = `${environment.contextT1dw}/pessoas`;
   }
 
   public search = (
@@ -28,7 +29,7 @@ export class PessoaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: this.buildJsonDate(dataRef),
+        dataRef: new Date(dataRef).toJSON(),
         page: pagination.page.toString(),
         size: pagination.size.toString(),
       },
@@ -49,7 +50,7 @@ export class PessoaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: this.buildJsonDate(dataRef),
+        dataRef: new Date(dataRef).toJSON(),
       },
     };
 

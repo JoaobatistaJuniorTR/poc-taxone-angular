@@ -51,6 +51,13 @@ export class InvoicesListComponent implements OnInit {
     private storageService: StorageService
   ) {}
 
+  ngOnInit(): void {
+    this.loadInitialDates();
+    const moduleData: any = this.storage.getObject('moduleData');
+    this.formFilters.codEmpresa = moduleData.company.id;
+    this.formFilters.codEstab = moduleData.branch.codEstab ? moduleData.branch.codEstab : 'Todos';
+  }
+
   validations = {
     required: '{0} é obrigatório',
   };
@@ -175,13 +182,6 @@ export class InvoicesListComponent implements OnInit {
   formFilters: SearchInvoicesParams = new SearchInvoicesParams('', '', '', '');
 
   gridFilters: GridFilter[] = [];
-
-  ngOnInit(): void {
-    this.loadInitialDates();
-    const moduleData: any = this.storage.getObject('moduleData');
-    this.formFilters.codEmpresa = moduleData.company.id;
-    this.formFilters.codEstab = moduleData.branch.codEstab ? moduleData.branch.codEstab : 'Todos';
-  }
 
   applyFilter = () => {};
 

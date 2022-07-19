@@ -15,12 +15,12 @@ export class NaturezaOperacaoService extends ServiceBase {
     this.API_ENDPOINT = `${environment.contextT1dw}/naturezasOperacao`;
   }
 
-  autocomplete(codEmpresa: string, codEstab: string, dataRef: Date, filter: string, pagination: Pagination): Promise<any[]> {
+  autocomplete(codEmpresa: string, codEstab: string, dataRef: any, filter: string, pagination: Pagination): Promise<any[]> {
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
         filter: filter || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
@@ -30,12 +30,12 @@ export class NaturezaOperacaoService extends ServiceBase {
     return this.http.get<any[]>(`${this.API_ENDPOINT}/suggestions`, httpOptions).toPromise();
   }
 
-  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: Date, codigo: string): Promise<any> {
+  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: any, codigo: string): Promise<any> {
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
       },
     };
 

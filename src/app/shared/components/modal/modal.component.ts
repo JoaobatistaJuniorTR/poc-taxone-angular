@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 import GridFilter from 'src/app/features/t1dw/model/grid-filter.model';
 import { Pagination } from 'src/app/features/t1dw/model/interface.model';
@@ -13,9 +13,9 @@ import GridData from '../flex-grid/flex-grid.model';
 export class ModalComponent {
   isBusyLoader: boolean = false;
 
-  selectedItem: any;
+  isButtonDisabled: boolean = true;
 
-  private modalRef: NgbModalRef;
+  selectedItem: any = undefined;
 
   @Input() title: string;
 
@@ -43,16 +43,14 @@ export class ModalComponent {
       ariaLabelledBy: 'modal-basic-title',
       size: this.size,
     };
-    this.modalRef = this.modalService.open(content, modalConfig);
+    this.modalService.open(content, modalConfig);
   }
 
   onSelectedItem = (item: any): void => {
     this.selectedItem = item;
-  };
-
-  onDoubleClick = (): void => {
-    this.closeSelectedItem.emit(this.selectedItem);
-    this.modalRef.close();
+    setTimeout(() => {
+      this.isButtonDisabled = false;
+    }, 250);
   };
 
   selectClose = (): void => {

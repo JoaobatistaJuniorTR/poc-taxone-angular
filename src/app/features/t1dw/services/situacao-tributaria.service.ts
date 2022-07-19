@@ -18,7 +18,7 @@ export class SituacaoTributariaService extends ServiceBase {
   public situacaoTributariaASuggestions = (
     codEmpresa: string,
     codEstab: string,
-    dataRef: Date,
+    dataRef: any,
     search: string,
     pagination: Pagination
   ): Promise<SituacaoTributaria[]> => {
@@ -27,7 +27,7 @@ export class SituacaoTributariaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
         filter: search?.toLocaleLowerCase() === 'todos' ? '' : search || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
@@ -42,7 +42,7 @@ export class SituacaoTributariaService extends ServiceBase {
   public findSituacaoTributariaAByCodigo = (
     codEmpresa: string,
     codEstab: string,
-    dataRef: Date,
+    dataRef: any,
     codigo: string
   ): Promise<SituacaoTributaria> => {
     const httpOptions = {
@@ -50,7 +50,7 @@ export class SituacaoTributariaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
       },
     };
     return this.http

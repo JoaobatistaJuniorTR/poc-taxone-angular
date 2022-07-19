@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
-import { NgForm } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
@@ -72,8 +71,6 @@ export class InvoiceCoverComponent implements OnInit {
     this.coverData = new TmpX07DoctoFiscal();
     this.coverData.id = new TmpX07DoctoFiscalId();
   }
-
-  @ViewChild('f') private form: NgForm;
 
   ngOnInit(): void {
     this.stateParams = this.storageService.getObject('stateParams');
@@ -810,6 +807,9 @@ export class InvoiceCoverComponent implements OnInit {
           this.storage.setObject('stateParams', this.stateParams);
           this.alertService.success('Nota criada com sucesso!');
         })
+        .catch((error: any) => {
+          this.onSaveUpdateInvoiceError(error);
+        })
         .finally(() => {
           this.isBusyLoaderBusy = false;
         });
@@ -820,7 +820,10 @@ export class InvoiceCoverComponent implements OnInit {
         .then((invoice: TmpX07DoctoFiscal) => {
           this.stateParams.invoiceId = invoice.idDoctoFiscal;
           this.storage.setObject('stateParams', this.stateParams);
-          this.alertService.success('Nota criada com sucesso!');
+          this.alertService.success('Aba salva com sucesso');
+        })
+        .catch((error: any) => {
+          this.onSaveUpdateInvoiceError(error);
         })
         .finally(() => {
           this.isBusyLoaderBusy = false;
@@ -836,5 +839,10 @@ export class InvoiceCoverComponent implements OnInit {
       this.coverData.id.subSerieDocfis,
       this.lonestarService.getLonestarUserName()
     );
+  };
+
+  private onSaveUpdateInvoiceError = (error: any) => {
+    const errorMessage = typeof error.data === 'object' ? error.data.message : error.statusText;
+    this.alertService.error(`Erro ao salvar a nota fiscal: ${errorMessage}`);
   };
 }

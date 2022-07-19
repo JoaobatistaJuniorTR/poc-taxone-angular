@@ -33,7 +33,7 @@ export class ContaService extends ServiceBase {
   search(
     codEmpresa: string,
     codEstab: string,
-    dataRef: Date,
+    dataRef: any,
     gridFilters: GridFilter[],
     pagination: Pagination
   ): Promise<any[]> {
@@ -41,7 +41,7 @@ export class ContaService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
         page: pagination.page.toString(),
         size: pagination.size.toString(),
       },
@@ -50,12 +50,12 @@ export class ContaService extends ServiceBase {
     return this.http.post<any[]>(`${this.API_ENDPOINT}/search`, gridFilters, httpOptions).toPromise();
   }
 
-  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: Date, codigo: string): Promise<any> {
+  public findByCodigo(codEmpresa: string, codEstab: string, dataRef: any, codigo: string): Promise<any> {
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef.toJSON(),
+        dataRef: new Date(dataRef).toJSON(),
       },
     };
 

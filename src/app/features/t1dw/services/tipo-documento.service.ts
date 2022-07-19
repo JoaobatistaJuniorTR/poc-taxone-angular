@@ -21,17 +21,11 @@ export class TipoDocumentoService {
     pagination: Pagination,
     filter?: string
   ): Promise<TipoDocumento[]> {
-    let dataRef$: string;
-    if (dataRef instanceof Date) {
-      dataRef$ = dataRef.toJSON();
-    } else {
-      dataRef$ = dataRef;
-    }
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef$,
+        dataRef: new Date(dataRef).toJSON(),
         filter: filter || '',
         page: pagination.page.toString(),
         size: pagination.size.toString(),
@@ -42,17 +36,11 @@ export class TipoDocumentoService {
   }
 
   public findByCodigo(codEmpresa: string, codEstab: string, dataRef: any, codigo: string): Promise<TipoDocumento> {
-    let dataRef$: string;
-    if (dataRef instanceof Date) {
-      dataRef$ = dataRef.toJSON();
-    } else {
-      dataRef$ = dataRef;
-    }
     const httpOptions = {
       params: {
         codEmpresa,
         codEstab,
-        dataRef: dataRef$,
+        dataRef: new Date(dataRef).toJSON(),
       },
     };
 

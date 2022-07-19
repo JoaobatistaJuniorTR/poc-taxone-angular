@@ -20,7 +20,7 @@ export class PrtNumDocfisServService extends ServiceBase {
       params: {
         codEmpresa,
         codEstab,
-        dataFiscal,
+        dataFiscal: new Date(dataFiscal).toJSON(),
       },
     };
     return this.http.get<boolean>(`${this.API_ENDPOINT}/active/`, httpOptions).toPromise();
