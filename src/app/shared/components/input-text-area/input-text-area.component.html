@@ -2,26 +2,10 @@
   inputLabelText
 }}</label>
 <textarea
-  *ngIf="required === true"
   [id]="id"
   [name]="name"
   bfmField
   [bfmLabel]="bfmLabel ? bfmLabel : inputLabelText"
-  class="form-control"
-  type="text"
-  [(ngModel)]="model"
-  [maxlength]="maxLength"
-  [rows]="rows"
-  [disabled]="disabled"
-  [required]="required"
-  [style]="getStyle()"
-  (blur)="onBlur($event)"
-  (keypress)="onKeypress($event)"
-></textarea>
-<textarea
-  *ngIf="required === false"
-  [id]="id"
-  [name]="name"
   class="form-control"
   type="text"
   [(ngModel)]="model"
