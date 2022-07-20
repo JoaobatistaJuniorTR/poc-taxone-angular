@@ -28,7 +28,7 @@ export class InvoiceComponent implements OnInit, OnComponentDeactivate {
     return [
       {
         name: 'Capa da Nota Fiscal',
-        routePath: '',
+        routePath: '/t1dw/invoices/invoice',
         $bentoTreeItemOption: {
           selected: true,
         },
@@ -95,7 +95,6 @@ export class InvoiceComponent implements OnInit, OnComponentDeactivate {
   };
 
   canDeactivate = (): boolean | Observable<boolean> | Promise<boolean> | UrlTree => {
-    console.log(`Entrou aqui: ${this.formDirty}`);
     return !this.formDirty;
   };
 }
