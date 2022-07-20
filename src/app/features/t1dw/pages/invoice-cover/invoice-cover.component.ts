@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, DoCheck, Output, EventEmitter } from '@angular/core';
 import { BentoComboboxColumn } from '@bento/bento-ng';
 import { StorageService } from 'src/app/core/services/storage.service';
 import GridData from 'src/app/shared/components/flex-grid/flex-grid.model';
 import { RadioItem } from 'src/app/shared/components/radio-group/radio-group.model';
+import { NgForm } from '@angular/forms';
 import { LonestarService } from '../../../../core/services/lonestar.service';
 import { AlertService } from '../../../../shared/components/alert/alert.service';
 import { MunicipioService } from '../../services/municipio.service';
@@ -35,7 +36,7 @@ import { CfopService } from '../../services/cfop.service';
   templateUrl: './invoice-cover.component.html',
   styleUrls: ['./invoice-cover.component.sass'],
 })
-export class InvoiceCoverComponent implements OnInit {
+export class InvoiceCoverComponent implements OnInit, DoCheck {
   isBusyLoaderBusy: boolean = false;
 
   stateParams: StateParams;
@@ -45,6 +46,12 @@ export class InvoiceCoverComponent implements OnInit {
   isEstablishmentAlreadyDefined: boolean = false;
 
   isNumDocfisServEnabled: boolean = false;
+
+  private isSettedPrestine: boolean = false;
+
+  private previousDirty: boolean = false;
+
+  @Output() dirty: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private invoiceService: InvoiceService,
@@ -72,6 +79,8 @@ export class InvoiceCoverComponent implements OnInit {
     this.coverData.id = new TmpX07DoctoFiscalId();
   }
 
+  @ViewChild('f') private form: NgForm;
+
   ngOnInit(): void {
     this.stateParams = this.storageService.getObject('stateParams');
     const moduleData: any = this.storage.getObject('moduleData');
@@ -82,6 +91,20 @@ export class InvoiceCoverComponent implements OnInit {
       this.findInvoiceById(this.stateParams.invoiceId);
     } else {
       throw new Error(`Invalid value: ${this.stateParams.operation}`);
+    }
+
+    setTimeout(() => {
+      this.form.form.markAsPristine();
+      this.isSettedPrestine = true;
+    }, 120);
+  }
+
+  ngDoCheck(): void {
+    if (this.isSettedPrestine && this.form.dirty) {
+      if (this.previousDirty !== this.form.dirty) {
+        this.previousDirty = this.form.dirty;
+        this.dirty.emit(true);
+      }
     }
   }
 

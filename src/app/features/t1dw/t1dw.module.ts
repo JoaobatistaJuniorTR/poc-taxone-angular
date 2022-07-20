@@ -10,6 +10,7 @@ import { T1dwRoutingModule } from './t1dw-routing.module';
 import { InvoicesListComponent } from './pages/invoices-list/invoices-list.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { InvoiceCoverComponent } from './pages/invoice-cover/invoice-cover.component';
+import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 
 @NgModule({
   declarations: [T1dwHomeComponent, ExampleGridComponent, InvoicesListComponent, InvoiceComponent, InvoiceCoverComponent],
@@ -19,6 +20,7 @@ import { InvoiceCoverComponent } from './pages/invoice-cover/invoice-cover.compo
       provide: environment.contextProvider,
       useValue: environment.contextT1dw,
     },
+    CanDeactivateGuard,
   ],
   bootstrap: [T1dwHomeComponent],
 })

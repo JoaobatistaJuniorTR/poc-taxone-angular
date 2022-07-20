@@ -1,17 +1,21 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { OnComponentDeactivate } from '../../guard/can-deactivate.guard';
 
 @Component({
   selector: 't1dw-invoice',
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.sass'],
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceComponent implements OnInit, OnComponentDeactivate {
   isHidden: boolean = false;
 
   invoiceId: string;
 
   treeData: any[];
+
+  private formDirty: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -24,7 +28,7 @@ export class InvoiceComponent implements OnInit {
     return [
       {
         name: 'Capa da Nota Fiscal',
-        routePath: 'invoice',
+        routePath: '',
         $bentoTreeItemOption: {
           selected: true,
         },
@@ -85,4 +89,13 @@ export class InvoiceComponent implements OnInit {
       this.router.navigate(['cover'], { relativeTo: this.route });
     }
   }
+
+  onDirty = (value: boolean): void => {
+    this.formDirty = value;
+  };
+
+  canDeactivate = (): boolean | Observable<boolean> | Promise<boolean> | UrlTree => {
+    console.log(`Entrou aqui: ${this.formDirty}`);
+    return !this.formDirty;
+  };
 }

@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CanActivateT1dwRouteGuard implements CanActivate {
+export class CanActivateGuard implements CanActivate {
   constructor(private storage: StorageService) {}
 
   canActivate(

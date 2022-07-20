@@ -22,7 +22,10 @@
     ></bento-tree-view>
   </bento-splitter-group-left>
   <bento-splitter-group-main>
-    <t1dw-invoice-cover *ngIf="!isHidden"></t1dw-invoice-cover>
+    <t1dw-invoice-cover
+      *ngIf="!isHidden"
+      (dirty)="onDirty($event)"
+    ></t1dw-invoice-cover>
     <router-outlet
       (activate)="isHidden = true"
       (deactivate)="isHidden = false"
